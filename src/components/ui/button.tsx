@@ -1,3 +1,4 @@
+
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
@@ -18,17 +19,31 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
+        orange: "bg-cbrs-orange text-white hover:bg-cbrs-orange/90 transition-all hover:shadow-md",
+        green: "bg-cbrs-green text-white hover:bg-cbrs-green/90",
+        blue: "bg-cbrs-blue text-white hover:bg-cbrs-blue/90",
+        "orange-outline": "border-2 border-cbrs-orange text-cbrs-orange hover:bg-cbrs-orange/10",
+        "green-outline": "border-2 border-cbrs-green text-cbrs-green hover:bg-cbrs-orange/10",
+        "blue-outline": "border-2 border-cbrs-blue text-cbrs-blue hover:bg-cbrs-blue/10",
       },
       size: {
         default: "h-10 px-4 py-2",
-        sm: "h-9 rounded-md px-3",
-        lg: "h-11 rounded-md px-8",
+        sm: "h-9 rounded-md px-3 py-1 text-xs",
+        lg: "h-11 rounded-md px-8 py-3",
+        xl: "h-12 rounded-md px-10 py-4 text-base",
         icon: "h-10 w-10",
       },
+      animation: {
+        none: "",
+        pulse: "animate-pulse",
+        bounce: "hover:animate-bounce",
+        float: "animate-float",
+      }
     },
     defaultVariants: {
       variant: "default",
       size: "default",
+      animation: "none",
     },
   }
 )
@@ -40,11 +55,11 @@ export interface ButtonProps
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
+  ({ className, variant, size, animation, asChild = false, ...props }, ref) => {
     const Comp = asChild ? Slot : "button"
     return (
       <Comp
-        className={cn(buttonVariants({ variant, size, className }))}
+        className={cn(buttonVariants({ variant, size, animation, className }))}
         ref={ref}
         {...props}
       />
