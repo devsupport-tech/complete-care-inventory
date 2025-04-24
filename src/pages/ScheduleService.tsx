@@ -1,3 +1,4 @@
+
 import React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -36,8 +37,19 @@ const ScheduleService = () => {
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    // Redirect to Cal.com booking form
-    window.location.href = "https://schedule.cbrsgroup.com/admin/cbrs-booking-form";
+    // Construct URL with query parameters
+    const params = new URLSearchParams({
+      name: values.name,
+      email: values.email,
+      phone: values.phone,
+      service: values.service,
+      location: values.city,
+      notes: values.message || '',
+      insurance: values.isInsuranceClaim ? 'Yes' : 'No'
+    });
+
+    // Redirect to Cal.com booking form with parameters
+    window.location.href = `https://schedule.cbrsgroup.com/admin/cbrs-booking-form?${params.toString()}`;
   };
 
   return (
