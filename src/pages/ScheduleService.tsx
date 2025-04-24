@@ -1,4 +1,3 @@
-
 import React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -37,15 +36,8 @@ const ScheduleService = () => {
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log("Form submitted:", values);
-    
-    toast({
-      title: "Service Request Submitted",
-      description: "We'll contact you shortly to confirm your service request.",
-      variant: "default"
-    });
-
-    form.reset();
+    // Redirect to Cal.com booking form
+    window.location.href = "https://schedule.cbrsgroup.com/admin/cbrs-booking-form";
   };
 
   return (
