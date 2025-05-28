@@ -1,4 +1,3 @@
-
 import React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -13,6 +12,7 @@ import Header from "@/components/Header";
 import ContactInformation from "@/components/schedule/ContactInformation";
 import ServiceDetails from "@/components/schedule/ServiceDetails";
 import InsuranceInformation from "@/components/schedule/InsuranceInformation";
+import Chatbot from "@/components/Chatbot";
 
 const ScheduleService = () => {
   const { toast } = useToast();
@@ -93,6 +93,8 @@ const ScheduleService = () => {
           </Form>
         </div>
       </div>
+      
+      <Chatbot />
     </>
   );
 };
