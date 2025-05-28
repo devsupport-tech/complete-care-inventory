@@ -9,6 +9,8 @@ import Process from "@/components/Process"; // Add import for Process component
 import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import Chatbot from "@/components/Chatbot";
+
 
 const Index = () => {
   const location = useLocation();
@@ -88,6 +90,8 @@ const Index = () => {
       <Testimonials />
       <Contact />
       <Footer />
+      <Chatbot />
+
     </div>
   );
 };
