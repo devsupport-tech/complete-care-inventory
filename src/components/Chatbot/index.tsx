@@ -67,7 +67,7 @@ const Chatbot = () => {
 
       {/* Chatbox */}
       {isOpen && (
-        <div className="fixed bottom-24 right-6 w-80 bg-white border rounded-xl shadow-xl z-40 max-w-[calc(100vw-3rem)] sm:max-w-80">
+        <div className="fixed bottom-24 right-6 w-80 bg-white border rounded-xl shadow-xl z-40 max-w-[calc(100vw-3rem)] sm:max-w-80 overflow-hidden">
           <div className="flex flex-col h-[420px]">
             {/* Header */}
             <div className="flex-shrink-0 p-3 bg-[#1A2A3A] text-white font-semibold rounded-t-xl flex items-center justify-between">
@@ -105,10 +105,10 @@ const Chatbot = () => {
 
             {/* Input */}
             <div className="flex-shrink-0 p-3 border-t bg-white rounded-b-xl">
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 w-full">
                 <input
                   type="text"
-                  className="flex-1 text-sm px-3 py-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-[#1A2A3A]/20"
+                  className="flex-1 text-sm px-3 py-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-[#1A2A3A]/20 min-w-0"
                   placeholder="Type your message..."
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
@@ -118,7 +118,7 @@ const Chatbot = () => {
                 />
                 <Button 
                   onClick={handleSend} 
-                  className="rounded-full px-3 bg-[#1A2A3A] hover:bg-[#1A2A3A]/90 flex-shrink-0" 
+                  className="rounded-full w-8 h-8 bg-[#1A2A3A] hover:bg-[#1A2A3A]/90 flex-shrink-0 p-0" 
                   size="sm"
                 >
                   <Send className="w-4 h-4" />
