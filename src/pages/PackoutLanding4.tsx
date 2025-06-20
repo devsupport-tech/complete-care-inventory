@@ -2,7 +2,7 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
-import { ArrowRight, Phone, Clock, Shield, Users, CheckCircle } from "lucide-react";
+import { ArrowRight, Phone, Clock, Shield, Users, CheckCircle, Package, Award } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const PackoutLanding4 = () => {
@@ -10,7 +10,7 @@ const PackoutLanding4 = () => {
     <div className="min-h-screen w-full overflow-x-hidden bg-white">
       <Helmet>
         <title>Complete Packout Solutions | CBRS Group</title>
-        <meta name="description" content="Full-service packout and content management. From emergency response to final restoration - we handle everything so you don't have to." />
+        <meta name="description" content="Full-service packout and content storage. From emergency response to restoration coordination - we handle the storage while specialists handle restoration." />
       </Helmet>
       
       {/* Clean, Minimalist Hero */}
@@ -31,7 +31,7 @@ const PackoutLanding4 = () => {
               </h1>
               
               <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-                When property damage threatens your belongings, our comprehensive packout service provides complete protection from start to finish. We pack, store, restore, and return everything with professional care.
+                When property damage threatens your belongings, our comprehensive packout service provides complete protection from start to finish. We pack, store, and coordinate restoration with professional care.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 mb-12">
@@ -83,7 +83,7 @@ const PackoutLanding4 = () => {
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-[#1e3046] mb-4">Everything You Need in One Service</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Our comprehensive packout solution handles every aspect of content management, so you can focus on what matters most.
+              Our comprehensive packout solution handles every aspect of content management and storage, coordinating with restoration specialists when needed.
             </p>
           </div>
           
@@ -95,9 +95,9 @@ const PackoutLanding4 = () => {
                 desc: "Immediate response to prevent further damage to your belongings"
               },
               {
-                icon: <Users className="h-8 w-8" />,
-                title: "Professional Team",
-                desc: "Trained specialists who handle each item with expert care"
+                icon: <Package className="h-8 w-8" />,
+                title: "Professional Packing",
+                desc: "Expert packing and detailed inventory documentation"
               },
               {
                 icon: <Shield className="h-8 w-8" />,
@@ -105,9 +105,9 @@ const PackoutLanding4 = () => {
                 desc: "Climate-controlled facility with advanced security systems"
               },
               {
-                icon: <CheckCircle className="h-8 w-8" />,
-                title: "Complete Restoration",
-                desc: "Professional cleaning and repair using specialized techniques"
+                icon: <Award className="h-8 w-8" />,
+                title: "Restoration Coordination",
+                desc: "We coordinate with certified restoration specialists"
               }
             ].map((service, index) => (
               <div key={index} className="bg-gradient-to-br from-gray-50 to-white rounded-xl p-8 hover:shadow-lg transition-shadow">
@@ -136,8 +136,9 @@ const PackoutLanding4 = () => {
                 { step: "1", title: "Emergency Call", desc: "Call us 24/7 and we'll dispatch a team immediately", time: "Immediate" },
                 { step: "2", title: "Assessment", desc: "On-site evaluation and detailed documentation", time: "Day 1" },
                 { step: "3", title: "Pack & Transport", desc: "Professional packing and secure transport to our facility", time: "Day 1-2" },
-                { step: "4", title: "Storage & Restoration", desc: "Safe storage while we restore damaged items", time: "Ongoing" },
-                { step: "5", title: "Return", desc: "Complete return and placement when your property is ready", time: "Final Day" }
+                { step: "4", title: "Secure Storage", desc: "Climate-controlled storage with inventory tracking", time: "Ongoing" },
+                { step: "5", title: "Restoration Coordination", desc: "We coordinate with certified restoration specialists as needed", time: "As Needed" },
+                { step: "6", title: "Return & Placement", desc: "Complete return and placement when your property is ready", time: "Final Day" }
               ].map((item, index) => (
                 <div key={index} className={`relative flex items-center mb-12 ${index % 2 === 0 ? 'justify-start' : 'justify-end'}`}>
                   <div className={`bg-white rounded-xl shadow-lg p-6 max-w-md ${index % 2 === 0 ? 'mr-8' : 'ml-8'}`}>
@@ -160,12 +161,67 @@ const PackoutLanding4 = () => {
         </div>
       </section>
       
+      {/* Service Distinction */}
+      <section className="py-20 bg-blue-50">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-4xl font-bold text-center text-[#1e3046] mb-12">Understanding Our Services</h2>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <div className="bg-white rounded-xl p-8 shadow-lg">
+                <div className="flex items-center mb-6">
+                  <div className="bg-green-100 rounded-full p-3 mr-4">
+                    <Package className="h-8 w-8 text-green-600" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-green-600">Our Packout & Storage Service</h3>
+                </div>
+                <ul className="space-y-3">
+                  <li className="flex items-center">
+                    <CheckCircle className="h-5 w-5 text-green-600 mr-3 flex-shrink-0" />
+                    <span>Emergency response and damage assessment</span>
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="h-5 w-5 text-green-600 mr-3 flex-shrink-0" />
+                    <span>Professional packing with detailed inventory</span>
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="h-5 w-5 text-green-600 mr-3 flex-shrink-0" />
+                    <span>Secure climate-controlled storage facility</span>
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="h-5 w-5 text-green-600 mr-3 flex-shrink-0" />
+                    <span>Complete return and placement service</span>
+                  </li>
+                </ul>
+              </div>
+              
+              <div className="bg-orange-50 border-2 border-orange-200 rounded-xl p-8">
+                <div className="flex items-center mb-6">
+                  <div className="bg-orange-100 rounded-full p-3 mr-4">
+                    <Award className="h-8 w-8 text-orange-600" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-orange-600">Restoration Services</h3>
+                </div>
+                <p className="text-gray-700 mb-4">
+                  When your items need restoration (cleaning, repair, refinishing), we coordinate with certified restoration specialists who handle this specialized work.
+                </p>
+                <div className="bg-orange-100 rounded-lg p-4">
+                  <p className="text-sm text-orange-800 font-medium">
+                    Restoration services are provided by specialists and billed separately.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
       {/* Final CTA */}
       <section className="py-20 bg-[#1e3046] text-white">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-4xl font-bold mb-6">Protect Your Belongings Today</h2>
           <p className="text-xl mb-8 max-w-3xl mx-auto text-gray-300">
-            Don't let property damage become total loss. Our expert packout team is standing by to protect and restore your valuable belongings with professional care.
+            Don't let property damage become total loss. Our expert packout team is standing by to protect and preserve your valuable belongings with professional care and secure storage.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

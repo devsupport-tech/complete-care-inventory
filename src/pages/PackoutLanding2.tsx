@@ -10,7 +10,7 @@ const PackoutLanding2 = () => {
     <div className="min-h-screen w-full overflow-x-hidden bg-white">
       <Helmet>
         <title>Emergency Packout & Storage | CBRS Group</title>
-        <meta name="description" content="24/7 emergency packout services. Professional content management, secure storage, and restoration for water, fire, and storm damage." />
+        <meta name="description" content="24/7 emergency packout services. Professional content management, secure storage, and restoration coordination for water, fire, and storm damage." />
       </Helmet>
       
       {/* Split Hero Section */}
@@ -43,7 +43,7 @@ const PackoutLanding2 = () => {
                 <div className="bg-white/20 rounded-full p-2 mr-4">
                   <Award className="h-6 w-6" />
                 </div>
-                <span className="text-lg">Specialized Content Restoration</span>
+                <span className="text-lg">Restoration Service Coordination</span>
               </div>
             </div>
             
@@ -88,7 +88,7 @@ const PackoutLanding2 = () => {
             </div>
             <div>
               <div className="text-4xl font-bold text-cbrs-orange mb-2">95%</div>
-              <div className="text-gray-600">Items Successfully Restored</div>
+              <div className="text-gray-600">Items Safely Stored</div>
             </div>
             <div>
               <div className="text-4xl font-bold text-cbrs-orange mb-2">100%</div>
@@ -101,16 +101,16 @@ const PackoutLanding2 = () => {
       {/* Services Grid */}
       <section className="py-20">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center text-[#1e3046] mb-16">What We Pack & Restore</h2>
+          <h2 className="text-4xl font-bold text-center text-[#1e3046] mb-16">What We Pack & Store</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { title: "Furniture & Upholstery", desc: "Professional cleaning and restoration of all furniture types", icon: "🪑" },
-              { title: "Electronics & Appliances", desc: "Specialized handling of sensitive electronic equipment", icon: "📺" },
-              { title: "Documents & Photos", desc: "Careful preservation and restoration of important papers", icon: "📄" },
-              { title: "Clothing & Textiles", desc: "Expert cleaning and deodorization of fabrics", icon: "👔" },
-              { title: "Art & Collectibles", desc: "Museum-quality care for valuable and delicate items", icon: "🎨" },
-              { title: "Kitchen Items", desc: "Thorough cleaning and sanitization of cookware and dishes", icon: "🍽️" }
+              { title: "Furniture & Upholstery", desc: "Professional packing and secure storage of all furniture types", icon: "🪑" },
+              { title: "Electronics & Appliances", desc: "Specialized handling and climate-controlled storage", icon: "📺" },
+              { title: "Documents & Photos", desc: "Careful preservation and archival storage", icon: "📄" },
+              { title: "Clothing & Textiles", desc: "Proper packing and humidity-controlled storage", icon: "👔" },
+              { title: "Art & Collectibles", desc: "Museum-quality packing and security storage", icon: "🎨" },
+              { title: "Kitchen Items", desc: "Sanitized packing and organized storage", icon: "🍽️" }
             ].map((service, index) => (
               <div key={index} className="bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition-shadow">
                 <div className="text-4xl mb-4">{service.icon}</div>
@@ -118,6 +118,15 @@ const PackoutLanding2 = () => {
                 <p className="text-gray-600">{service.desc}</p>
               </div>
             ))}
+          </div>
+          
+          <div className="text-center mt-12">
+            <p className="text-lg text-gray-600 mb-4">
+              Need restoration services? We coordinate with trusted restoration specialists.
+            </p>
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 inline-block">
+              <p className="text-blue-800 font-medium">Restoration services are coordinated separately and may involve additional specialists.</p>
+            </div>
           </div>
         </div>
       </section>
@@ -127,7 +136,7 @@ const PackoutLanding2 = () => {
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-4xl font-bold mb-6">Don't Wait - Damage Gets Worse Over Time</h2>
           <p className="text-xl mb-8 max-w-3xl mx-auto">
-            The longer your belongings sit in damaged conditions, the harder they become to restore. Our emergency packout services prevent further damage and maximize recovery potential.
+            The longer your belongings sit in damaged conditions, the harder they become to restore. Our emergency packout services prevent further damage and preserve restoration potential.
           </p>
           <Link to="/schedule?service=packout-management">
             <Button size="xl" className="bg-cbrs-orange hover:bg-cbrs-orange/90">

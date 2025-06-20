@@ -27,7 +27,7 @@ const PackoutLanding1 = () => {
             <span className="text-cbrs-orange">Packout Services</span>
           </h1>
           <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
-            When disaster strikes, we safely pack, store, and restore your belongings with meticulous care and professional expertise.
+            When disaster strikes, we safely pack, store, and coordinate restoration of your belongings with meticulous care and professional expertise.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
@@ -70,12 +70,13 @@ const PackoutLanding1 = () => {
         <div className="container mx-auto px-4">
           <h2 className="text-4xl font-bold text-center text-[#1e3046] mb-16">Our Proven Process</h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
             {[
               { step: "1", title: "Assessment", desc: "Complete evaluation and damage assessment" },
               { step: "2", title: "Pack & Document", desc: "Professional packing with detailed inventory" },
-              { step: "3", title: "Store & Restore", desc: "Secure storage and specialized restoration" },
-              { step: "4", title: "Return", desc: "Complete return and placement service" }
+              { step: "3", title: "Secure Storage", desc: "Climate-controlled storage facility" },
+              { step: "4", title: "Restoration Services", desc: "Coordinate specialized cleaning & repair" },
+              { step: "5", title: "Return", desc: "Complete return and placement service" }
             ].map((item, index) => (
               <div key={index} className="text-center">
                 <div className="bg-cbrs-orange text-white rounded-full w-16 h-16 flex items-center justify-center text-2xl font-bold mx-auto mb-4">
@@ -94,7 +95,7 @@ const PackoutLanding1 = () => {
         <div className="container mx-auto px-4">
           <h2 className="text-4xl font-bold mb-6">Ready to Protect Your Belongings?</h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Don't let property damage turn into total loss. Our expert packout services ensure your belongings are safely preserved and professionally restored.
+            Don't let property damage turn into total loss. Our expert packout services ensure your belongings are safely preserved and professionally coordinated for restoration.
           </p>
           <Link to="/schedule?service=packout-management">
             <Button size="xl" className="bg-cbrs-orange hover:bg-cbrs-orange/90">

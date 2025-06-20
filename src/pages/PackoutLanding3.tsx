@@ -9,8 +9,8 @@ const PackoutLanding3 = () => {
   return (
     <div className="min-h-screen w-full overflow-x-hidden bg-white">
       <Helmet>
-        <title>Packout & Content Restoration Experts | CBRS Group</title>
-        <meta name="description" content="Professional packout services with guaranteed results. Expert content management, restoration, and storage for contractors and property owners." />
+        <title>Packout & Content Storage Experts | CBRS Group</title>
+        <meta name="description" content="Professional packout services with guaranteed results. Expert content management and storage for contractors and property owners, with restoration coordination." />
       </Helmet>
       
       {/* Hero with Video Background Style */}
@@ -33,7 +33,7 @@ const PackoutLanding3 = () => {
             </h1>
             
             <p className="text-xl md:text-2xl mb-8 text-gray-200 max-w-3xl mx-auto">
-              Professional packout and content management services that maximize recovery and minimize loss. Trusted by contractors and insurance companies.
+              Professional packout and content storage services that preserve your belongings and coordinate restoration. Trusted by contractors and insurance companies.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
@@ -123,7 +123,7 @@ const PackoutLanding3 = () => {
                   <div className="bg-green-100 rounded-full p-2 mr-4 mt-1">
                     <CheckCircle className="w-4 h-4 text-green-600" />
                   </div>
-                  <p className="text-gray-700">Expert restoration using industry-leading techniques</p>
+                  <p className="text-gray-700">Coordination with restoration specialists when needed</p>
                 </div>
               </div>
             </div>
@@ -141,11 +141,61 @@ const PackoutLanding3 = () => {
               ))}
             </div>
             <blockquote className="text-2xl md:text-3xl font-medium text-gray-800 mb-8 italic">
-              "CBRS Group saved thousands of dollars worth of our belongings after the flood. Their attention to detail and professional restoration work was incredible. I thought everything was lost, but they brought most items back to like-new condition."
+              "CBRS Group saved thousands of dollars worth of our belongings after the flood. Their professional packing and storage service was incredible. They coordinated with restoration specialists to bring most items back to perfect condition."
             </blockquote>
             <div className="text-gray-600">
               <p className="font-semibold">Sarah Mitchell</p>
               <p>Houston Homeowner</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      {/* Service Distinction Section */}
+      <section className="py-20 bg-blue-50">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center mb-12">
+            <h2 className="text-4xl font-bold text-[#1e3046] mb-6">Our Packout & Storage Service</h2>
+            <p className="text-xl text-gray-600">
+              We specialize in professional packout and secure storage. Restoration services are coordinated separately with certified specialists.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <div className="bg-white rounded-xl p-8 shadow-lg">
+              <h3 className="text-2xl font-bold text-green-600 mb-4">What We Do</h3>
+              <ul className="space-y-3">
+                <li className="flex items-center">
+                  <CheckCircle className="h-5 w-5 text-green-600 mr-3" />
+                  <span>Emergency packout services</span>
+                </li>
+                <li className="flex items-center">
+                  <CheckCircle className="h-5 w-5 text-green-600 mr-3" />
+                  <span>Professional inventory documentation</span>
+                </li>
+                <li className="flex items-center">
+                  <CheckCircle className="h-5 w-5 text-green-600 mr-3" />
+                  <span>Climate-controlled storage facility</span>
+                </li>
+                <li className="flex items-center">
+                  <CheckCircle className="h-5 w-5 text-green-600 mr-3" />
+                  <span>Coordination with restoration specialists</span>
+                </li>
+                <li className="flex items-center">
+                  <CheckCircle className="h-5 w-5 text-green-600 mr-3" />
+                  <span>Complete return and placement</span>
+                </li>
+              </ul>
+            </div>
+            
+            <div className="bg-orange-50 border-2 border-orange-200 rounded-xl p-8">
+              <h3 className="text-2xl font-bold text-orange-600 mb-4">Restoration Services</h3>
+              <p className="text-gray-700 mb-4">
+                Restoration (cleaning, repair, refinishing) is handled by certified restoration specialists that we coordinate with.
+              </p>
+              <p className="text-sm text-orange-700 font-medium">
+                Restoration services are quoted and billed separately by the restoration specialists.
+              </p>
             </div>
           </div>
         </div>
@@ -170,8 +220,8 @@ const PackoutLanding3 = () => {
                 <p className="text-orange-100">Complete assessment and estimate at no charge</p>
               </div>
               <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6">
-                <h3 className="text-2xl font-bold mb-2">Guaranteed Work</h3>
-                <p className="text-orange-100">100% satisfaction guarantee on all restoration services</p>
+                <h3 className="text-2xl font-bold mb-2">Guaranteed Service</h3>
+                <p className="text-orange-100">100% satisfaction guarantee on all packout and storage services</p>
               </div>
             </div>
             
