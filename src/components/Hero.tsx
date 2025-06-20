@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { services } from "./Services";
-import { ArrowRight, Phone } from "lucide-react";
+import { ArrowRight, Phone, Calendar } from "lucide-react";
 import { Button } from "./ui/button";
 import AnimatedCard from "./ui/AnimatedCard";
 import ServiceIcon from "./services/ServiceIcon";
@@ -75,11 +75,11 @@ const Hero = () => {
                 </div>
                 <p className="text-[#1e3046]/80 mb-4 text-sm">{service.description}</p>
                 <Link 
-                  to={service.detailUrl}
+                  to={`/schedule?service=${service.id}`}
                   className="inline-flex items-center text-white bg-cbrs-orange hover:bg-cbrs-orange/80 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300"
                 >
-                  Learn More
-                  <ArrowRight className="ml-2 h-4 w-4" />
+                  <Calendar className="mr-2 h-4 w-4" />
+                  Book Now
                 </Link>
               </div>
             </AnimatedCard>
