@@ -1,5 +1,6 @@
 
 import React from "react";
+import { Link } from "react-router-dom";
 import { Facebook, Twitter, Instagram, Linkedin, ArrowUp } from "lucide-react";
 
 const Footer = () => {
@@ -114,8 +115,8 @@ const Footer = () => {
           </p>
           
           <div className="mt-4 md:mt-0 flex space-x-6 text-sm text-gray-400">
-            <a href="#" className="hover:text-cbrs-orange transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-cbrs-orange transition-colors">Terms of Service</a>
+            <Link to="/privacy-policy" className="hover:text-cbrs-orange transition-colors">Privacy Policy</Link>
+            <Link to="/terms-of-service" className="hover:text-cbrs-orange transition-colors">Terms of Service</Link>
             <a href="#" className="hover:text-cbrs-orange transition-colors">Sitemap</a>
           </div>
         </div>
