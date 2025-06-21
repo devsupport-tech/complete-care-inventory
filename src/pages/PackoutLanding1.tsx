@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
@@ -17,7 +16,7 @@ const PackoutLanding1 = () => {
       <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-900 to-blue-700">
         <div className="absolute inset-0 bg-black/30"></div>
         <div 
-          className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&q=80&w=2970')] 
+          className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?auto=format&fit=crop&q=80&w=2970')] 
           bg-cover bg-center opacity-40"
         ></div>
         
