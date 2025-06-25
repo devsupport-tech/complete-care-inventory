@@ -5,12 +5,10 @@ import { Helmet } from "react-helmet";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Services from "@/components/Services";
-import Process from "@/components/Process"; // Add import for Process component
 import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import Chatbot from "@/components/Chatbot";
-
 
 const Index = () => {
   const location = useLocation();
@@ -86,7 +84,6 @@ const Index = () => {
       <Header />
       <Hero />
       <Services />
-      <Process /> {/* Add Process component */}
       <Testimonials />
       <Contact />
       <Footer />
