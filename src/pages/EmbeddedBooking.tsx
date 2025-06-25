@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -21,6 +20,8 @@ const EmbeddedBooking = () => {
       return;
     }
 
+    let scriptElement: HTMLScriptElement | null = null;
+
     // Simple Cal.com integration using their standard embed approach
     const loadCalEmbed = async () => {
       try {
@@ -35,6 +36,7 @@ const EmbeddedBooking = () => {
         script.type = 'text/javascript';
         script.async = true;
         script.src = 'https://app.cal.com/embed/embed.js';
+        scriptElement = script;
 
         // Get form data from URL parameters
         const formData = {
@@ -66,7 +68,7 @@ const EmbeddedBooking = () => {
                 // Create the inline embed
                 window.Cal('inline', {
                   elementOrSelector: '#cal-booking-embed',
-                  calLink: 'cbrsgroup/consultation', // Updated to use a more standard format
+                  calLink: 'cbrsgroup/consultation',
                   config: {
                     name: formData.name,
                     email: formData.email,
@@ -102,28 +104,22 @@ const EmbeddedBooking = () => {
         // Add script to document
         document.head.appendChild(script);
 
-        // Cleanup function
-        return () => {
-          try {
-            if (document.head.contains(script)) {
-              document.head.removeChild(script);
-            }
-          } catch (cleanupError) {
-            console.warn('Error during cleanup:', cleanupError);
-          }
-        };
-
       } catch (loadError) {
         console.error('Error in loadCalEmbed:', loadError);
         setError('Failed to set up the booking system. Please refresh the page and try again.');
       }
     };
 
-    const cleanup = loadCalEmbed();
+    loadCalEmbed();
 
+    // Cleanup function
     return () => {
-      if (cleanup && typeof cleanup === 'function') {
-        cleanup();
+      try {
+        if (scriptElement && document.head.contains(scriptElement)) {
+          document.head.removeChild(scriptElement);
+        }
+      } catch (cleanupError) {
+        console.warn('Error during cleanup:', cleanupError);
       }
     };
   }, [searchParams]);
