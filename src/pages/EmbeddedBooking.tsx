@@ -13,6 +13,49 @@ const EmbeddedBooking = () => {
   useEffect(() => {
     let scriptAdded = false;
     
+    // Define initializeCal function first
+    const initializeCal = () => {
+      try {
+        console.log('Initializing Cal...');
+        
+        // Get form data from URL parameters
+        const formData = {
+          name: searchParams.get('name') || '',
+          email: searchParams.get('email') || '',
+          phone: searchParams.get('phone') || '',
+          service: searchParams.get('service') || '',
+          location: searchParams.get('location') || '',
+          notes: searchParams.get('notes') || '',
+          insurance: searchParams.get('insurance') || 'No'
+        };
+
+        console.log('Form data:', formData);
+
+        // Initialize Cal embed
+        window.Cal('init', {
+          origin: 'https://app.cal.com'
+        });
+
+        // Configure the booking form with prefilled data
+        window.Cal('inline', {
+          elementOrSelector: '#cal-booking-embed',
+          calLink: 'admin/cbrs-booking-form',
+          config: {
+            name: formData.name,
+            email: formData.email,
+            // Note: Cal.com may not support all custom inputs as expected
+            // This is a limitation of their embed system
+          }
+        });
+
+        setCalLoaded(true);
+        console.log('Cal initialized successfully');
+      } catch (err) {
+        console.error('Error initializing Cal:', err);
+        setError('Failed to initialize booking system. Please refresh the page.');
+      }
+    };
+    
     // Check if Cal script is already loaded
     if (window.Cal) {
       console.log('Cal already loaded, initializing...');
@@ -73,48 +116,6 @@ const EmbeddedBooking = () => {
     script.addEventListener('error', handleScriptError);
     
     document.head.appendChild(script);
-
-    const initializeCal = () => {
-      try {
-        console.log('Initializing Cal...');
-        
-        // Get form data from URL parameters
-        const formData = {
-          name: searchParams.get('name') || '',
-          email: searchParams.get('email') || '',
-          phone: searchParams.get('phone') || '',
-          service: searchParams.get('service') || '',
-          location: searchParams.get('location') || '',
-          notes: searchParams.get('notes') || '',
-          insurance: searchParams.get('insurance') || 'No'
-        };
-
-        console.log('Form data:', formData);
-
-        // Initialize Cal embed
-        window.Cal('init', {
-          origin: 'https://app.cal.com'
-        });
-
-        // Configure the booking form with prefilled data
-        window.Cal('inline', {
-          elementOrSelector: '#cal-booking-embed',
-          calLink: 'admin/cbrs-booking-form',
-          config: {
-            name: formData.name,
-            email: formData.email,
-            // Note: Cal.com may not support all custom inputs as expected
-            // This is a limitation of their embed system
-          }
-        });
-
-        setCalLoaded(true);
-        console.log('Cal initialized successfully');
-      } catch (err) {
-        console.error('Error initializing Cal:', err);
-        setError('Failed to initialize booking system. Please refresh the page.');
-      }
-    };
 
     return () => {
       // Cleanup
