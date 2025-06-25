@@ -63,7 +63,15 @@ const BookingModal = ({ isOpen, onClose, formData }: BookingModalProps) => {
   }, [isOpen, formData]);
 
   const handleBookingClick = () => {
-    console.log('Opening Cal.com booking form with data:', formData);
+    console.log('Opening Cal.com booking form with prefilled data:', formData);
+  };
+
+  // Create prefill data for Cal.com
+  const prefillData = {
+    name: formData.name,
+    email: formData.email,
+    phone: formData.phone,
+    notes: `Service: ${formData.service}\nCity: ${formData.city}\nInsurance Claim: ${formData.isInsuranceClaim ? 'Yes' : 'No'}${formData.message ? `\nAdditional Notes: ${formData.message}` : ''}`
   };
 
   return (
@@ -113,7 +121,10 @@ const BookingModal = ({ isOpen, onClose, formData }: BookingModalProps) => {
                 data-cal-namespace="cbrs-booking-modal"
                 data-cal-link="admin/cbrs-booking-form"
                 data-cal-origin="https://schedule.cbrsgroup.com"
-                data-cal-config='{"layout":"month_view"}'
+                data-cal-config={JSON.stringify({
+                  layout: "month_view",
+                  prefill: prefillData
+                })}
                 className="bg-[#1e3046] hover:bg-[#1e3046]/90 text-white px-8 py-3 rounded-md transition-colors font-medium"
                 onClick={handleBookingClick}
               >
