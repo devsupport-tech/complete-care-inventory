@@ -78,11 +78,23 @@ const BookingModal = ({ isOpen, onClose, formData }: BookingModalProps) => {
     }
     
     console.log('Opening Cal.com booking form with prefilled data:', formData);
-    console.log('Prefill data being sent:', {
+    
+    // Prepare the prefill data for Cal.com
+    const prefillData = {
       name: formData.name,
       email: formData.email,
+      phone: formData.phone,
+      // Map service to service type field
+      'Service Type': formData.service,
+      // Map city to city field
+      city: formData.city,
+      // Combine message and insurance info for project description
+      'Project Description': `${formData.message || 'No additional message'}${formData.isInsuranceClaim ? '\n\nInsurance Claim: Yes' : '\n\nInsurance Claim: No'}`,
+      // Additional notes field
       notes: `Service: ${formData.service}\nCity: ${formData.city}\nPhone: ${formData.phone}\nInsurance Claim: ${formData.isInsuranceClaim ? 'Yes' : 'No'}${formData.message ? `\nAdditional Notes: ${formData.message}` : ''}`
-    });
+    };
+    
+    console.log('Prefill data being sent to Cal.com:', prefillData);
   };
 
   // Enhanced global styles for Cal.com z-index and interaction issues
@@ -147,6 +159,33 @@ const BookingModal = ({ isOpen, onClose, formData }: BookingModalProps) => {
     }
   }, [isOpen]);
 
+  // Prepare the configuration object for Cal.com with proper field mapping
+  const calConfig = {
+    layout: "month_view",
+    // Standard fields that Cal.com recognizes
+    name: formData.name,
+    email: formData.email,
+    // Custom fields mapped to match your Cal.com form structure
+    guests: [formData.email],
+    metadata: {
+      phone: formData.phone,
+      serviceType: formData.service,
+      city: formData.city,
+      projectDescription: `${formData.message || 'No additional message'}${formData.isInsuranceClaim ? '\n\nInsurance Claim: Yes' : '\n\nInsurance Claim: No'}`,
+      insuranceClaim: formData.isInsuranceClaim ? 'Yes' : 'No'
+    },
+    // Additional prefill for form fields
+    prefill: {
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      'Service Type': formData.service,
+      'City': formData.city,
+      'Project Description': `${formData.message || 'No additional message'}${formData.isInsuranceClaim ? '\n\nInsurance Claim: Yes' : '\n\nInsurance Claim: No'}`
+    },
+    notes: `Service: ${formData.service}\nCity: ${formData.city}\nPhone: ${formData.phone}\nInsurance Claim: ${formData.isInsuranceClaim ? 'Yes' : 'No'}${formData.message ? `\nAdditional Notes: ${formData.message}` : ''}`
+  };
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto" style={{ zIndex: 50 }}>
@@ -198,12 +237,7 @@ const BookingModal = ({ isOpen, onClose, formData }: BookingModalProps) => {
                   data-cal-namespace="cbrs-booking-modal"
                   data-cal-link="admin/cbrs-booking-form"
                   data-cal-origin="https://schedule.cbrsgroup.com"
-                  data-cal-config={JSON.stringify({
-                    layout: "month_view",
-                    name: formData.name,
-                    email: formData.email,
-                    notes: `Service: ${formData.service}\nCity: ${formData.city}\nPhone: ${formData.phone}\nInsurance Claim: ${formData.isInsuranceClaim ? 'Yes' : 'No'}${formData.message ? `\nAdditional Notes: ${formData.message}` : ''}`
-                  })}
+                  data-cal-config={JSON.stringify(calConfig)}
                   className={`px-8 py-3 rounded-md transition-colors font-medium ${
                     calReady 
                       ? 'bg-[#1e3046] hover:bg-[#1e3046]/90 text-white cursor-pointer' 
