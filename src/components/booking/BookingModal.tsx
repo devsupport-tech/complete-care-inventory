@@ -25,10 +25,16 @@ interface BookingModalProps {
 
 const BookingModal = ({ isOpen, onClose, formData }: BookingModalProps) => {
   const [calLoaded, setCalLoaded] = useState(false);
+  const [calReady, setCalReady] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!isOpen) return;
+    if (!isOpen) {
+      // Reset states when modal closes
+      setCalLoaded(false);
+      setCalReady(false);
+      return;
+    }
 
     console.log('BookingModal: Initializing Cal.com booking form');
     console.log('Form data:', formData);
@@ -47,11 +53,14 @@ const BookingModal = ({ isOpen, onClose, formData }: BookingModalProps) => {
           "layout": "month_view"
         });
 
-        // Add a small delay to ensure Cal API is fully loaded
+        console.log('Cal.com initialized successfully');
+        setCalLoaded(true);
+        
+        // Add additional delay to ensure Cal.com is fully interactive
         setTimeout(() => {
-          console.log('Cal.com initialized successfully');
-          setCalLoaded(true);
-        }, 1000);
+          console.log('Cal.com is now ready for interaction');
+          setCalReady(true);
+        }, 2000);
         
       } catch (initError) {
         console.error('Error initializing Cal.com:', initError);
@@ -63,6 +72,11 @@ const BookingModal = ({ isOpen, onClose, formData }: BookingModalProps) => {
   }, [isOpen, formData]);
 
   const handleBookingClick = () => {
+    if (!calReady) {
+      console.log('Cal.com not ready yet, please wait...');
+      return;
+    }
+    
     console.log('Opening Cal.com booking form with prefilled data:', formData);
     console.log('Prefill data being sent:', {
       name: formData.name,
@@ -87,13 +101,16 @@ const BookingModal = ({ isOpen, onClose, formData }: BookingModalProps) => {
             </div>
           )}
           
-          {!calLoaded && !error && (
-            <div className="flex items-center justify-center py-8">
+          {!calReady && !error && (
+            <div className="flex flex-col items-center justify-center py-8">
               <LoadingSpinner />
+              <p className="mt-4 text-[#1e3046]/70 text-sm">
+                {calLoaded ? 'Preparing booking calendar...' : 'Loading booking system...'}
+              </p>
             </div>
           )}
           
-          {calLoaded && !error && (
+          {calReady && !error && (
             <div className="text-center">
               <div className="mb-6">
                 <h3 className="text-lg font-semibold text-[#1e3046] mb-2">
@@ -124,10 +141,15 @@ const BookingModal = ({ isOpen, onClose, formData }: BookingModalProps) => {
                   email: formData.email,
                   notes: `Service: ${formData.service}\nCity: ${formData.city}\nPhone: ${formData.phone}\nInsurance Claim: ${formData.isInsuranceClaim ? 'Yes' : 'No'}${formData.message ? `\nAdditional Notes: ${formData.message}` : ''}`
                 })}
-                className="bg-[#1e3046] hover:bg-[#1e3046]/90 text-white px-8 py-3 rounded-md transition-colors font-medium"
+                className={`px-8 py-3 rounded-md transition-colors font-medium ${
+                  calReady 
+                    ? 'bg-[#1e3046] hover:bg-[#1e3046]/90 text-white cursor-pointer' 
+                    : 'bg-gray-400 text-gray-600 cursor-not-allowed'
+                }`}
                 onClick={handleBookingClick}
+                disabled={!calReady}
               >
-                Open Booking Calendar
+                {calReady ? 'Open Booking Calendar' : 'Loading Calendar...'}
               </button>
             </div>
           )}
