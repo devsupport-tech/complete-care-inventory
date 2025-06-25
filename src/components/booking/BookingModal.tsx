@@ -85,81 +85,11 @@ const BookingModal = ({ isOpen, onClose, formData }: BookingModalProps) => {
     });
   };
 
-  return (
-    <>
-      <Dialog open={isOpen} onOpenChange={onClose}>
-        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle className="text-2xl font-bold text-[#1e3046]">
-              Schedule Your Service
-            </DialogTitle>
-          </DialogHeader>
-          
-          <div className="mt-4">
-            {error && (
-              <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded mb-4">
-                {error}
-              </div>
-            )}
-            
-            {!calReady && !error && (
-              <div className="flex flex-col items-center justify-center py-8">
-                <LoadingSpinner />
-                <p className="mt-4 text-[#1e3046]/70 text-sm">
-                  {calLoaded ? 'Preparing booking calendar...' : 'Loading booking system...'}
-                </p>
-              </div>
-            )}
-            
-            {calReady && !error && (
-              <div className="text-center">
-                <div className="mb-6">
-                  <h3 className="text-lg font-semibold text-[#1e3046] mb-2">
-                    Service Details
-                  </h3>
-                  <div className="bg-gray-50 p-4 rounded-lg text-left">
-                    <p><strong>Name:</strong> {formData.name}</p>
-                    <p><strong>Email:</strong> {formData.email}</p>
-                    <p><strong>Phone:</strong> {formData.phone}</p>
-                    <p><strong>Service:</strong> {formData.service}</p>
-                    <p><strong>City:</strong> {formData.city}</p>
-                    {formData.message && <p><strong>Message:</strong> {formData.message}</p>}
-                    <p><strong>Insurance Claim:</strong> {formData.isInsuranceClaim ? 'Yes' : 'No'}</p>
-                  </div>
-                </div>
-                
-                <p className="text-[#1e3046]/70 mb-6">
-                  Click the button below to select your preferred date and time
-                </p>
-                
-                <button
-                  data-cal-namespace="cbrs-booking-modal"
-                  data-cal-link="admin/cbrs-booking-form"
-                  data-cal-origin="https://schedule.cbrsgroup.com"
-                  data-cal-config={JSON.stringify({
-                    layout: "month_view",
-                    name: formData.name,
-                    email: formData.email,
-                    notes: `Service: ${formData.service}\nCity: ${formData.city}\nPhone: ${formData.phone}\nInsurance Claim: ${formData.isInsuranceClaim ? 'Yes' : 'No'}${formData.message ? `\nAdditional Notes: ${formData.message}` : ''}`
-                  })}
-                  className={`px-8 py-3 rounded-md transition-colors font-medium ${
-                    calReady 
-                      ? 'bg-[#1e3046] hover:bg-[#1e3046]/90 text-white cursor-pointer' 
-                      : 'bg-gray-400 text-gray-600 cursor-not-allowed'
-                  }`}
-                  onClick={handleBookingClick}
-                  disabled={!calReady}
-                >
-                  {calReady ? 'Open Booking Calendar' : 'Loading Calendar...'}
-                </button>
-              </div>
-            )}
-          </div>
-        </DialogContent>
-      </Dialog>
-      
-      {/* Global styles to ensure Cal.com modal appears above everything */}
-      <style jsx global>{`
+  // Add global styles for Cal.com z-index issues
+  useEffect(() => {
+    if (isOpen) {
+      const style = document.createElement('style');
+      style.textContent = `
         .cal-modal-overlay,
         .cal-modal,
         [data-cal-namespace="cbrs-booking-modal"] .cal-modal-overlay,
@@ -176,8 +106,86 @@ const BookingModal = ({ isOpen, onClose, formData }: BookingModalProps) => {
         div[data-radix-popper-content-wrapper] {
           z-index: 10000 !important;
         }
-      `}</style>
-    </>
+      `;
+      document.head.appendChild(style);
+      
+      return () => {
+        document.head.removeChild(style);
+      };
+    }
+  }, [isOpen]);
+
+  return (
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+        <DialogHeader>
+          <DialogTitle className="text-2xl font-bold text-[#1e3046]">
+            Schedule Your Service
+          </DialogTitle>
+        </DialogHeader>
+        
+        <div className="mt-4">
+          {error && (
+            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded mb-4">
+              {error}
+            </div>
+          )}
+          
+          {!calReady && !error && (
+            <div className="flex flex-col items-center justify-center py-8">
+              <LoadingSpinner />
+              <p className="mt-4 text-[#1e3046]/70 text-sm">
+                {calLoaded ? 'Preparing booking calendar...' : 'Loading booking system...'}
+              </p>
+            </div>
+          )}
+          
+          {calReady && !error && (
+            <div className="text-center">
+              <div className="mb-6">
+                <h3 className="text-lg font-semibold text-[#1e3046] mb-2">
+                  Service Details
+                </h3>
+                <div className="bg-gray-50 p-4 rounded-lg text-left">
+                  <p><strong>Name:</strong> {formData.name}</p>
+                  <p><strong>Email:</strong> {formData.email}</p>
+                  <p><strong>Phone:</strong> {formData.phone}</p>
+                  <p><strong>Service:</strong> {formData.service}</p>
+                  <p><strong>City:</strong> {formData.city}</p>
+                  {formData.message && <p><strong>Message:</strong> {formData.message}</p>}
+                  <p><strong>Insurance Claim:</strong> {formData.isInsuranceClaim ? 'Yes' : 'No'}</p>
+                </div>
+              </div>
+              
+              <p className="text-[#1e3046]/70 mb-6">
+                Click the button below to select your preferred date and time
+              </p>
+              
+              <button
+                data-cal-namespace="cbrs-booking-modal"
+                data-cal-link="admin/cbrs-booking-form"
+                data-cal-origin="https://schedule.cbrsgroup.com"
+                data-cal-config={JSON.stringify({
+                  layout: "month_view",
+                  name: formData.name,
+                  email: formData.email,
+                  notes: `Service: ${formData.service}\nCity: ${formData.city}\nPhone: ${formData.phone}\nInsurance Claim: ${formData.isInsuranceClaim ? 'Yes' : 'No'}${formData.message ? `\nAdditional Notes: ${formData.message}` : ''}`
+                })}
+                className={`px-8 py-3 rounded-md transition-colors font-medium ${
+                  calReady 
+                    ? 'bg-[#1e3046] hover:bg-[#1e3046]/90 text-white cursor-pointer' 
+                    : 'bg-gray-400 text-gray-600 cursor-not-allowed'
+                }`}
+                onClick={handleBookingClick}
+                disabled={!calReady}
+              >
+                {calReady ? 'Open Booking Calendar' : 'Loading Calendar...'}
+              </button>
+            </div>
+          )}
+        </div>
+      </DialogContent>
+    </Dialog>
   );
 };
 
