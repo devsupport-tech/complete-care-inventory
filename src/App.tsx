@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import ServiceDetail from "./pages/ServiceDetail";
 import ScheduleService from "./pages/ScheduleService";
+import BookingRedirect from "./pages/BookingRedirect";
 import TermsOfService from "./pages/TermsOfService";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import PackoutLanding1 from "./pages/PackoutLanding1";
@@ -27,6 +28,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/services/:serviceId" element={<ServiceDetail />} />
           <Route path="/schedule" element={<ScheduleService />} />
+          <Route path="/booking-redirect" element={<BookingRedirect />} />
           <Route path="/terms-of-service" element={<TermsOfService />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/packout-landing-1" element={<PackoutLanding1 />} />

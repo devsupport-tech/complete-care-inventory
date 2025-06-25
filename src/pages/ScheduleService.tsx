@@ -5,7 +5,7 @@ import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { Form } from "@/components/ui/form";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import { services } from "@/data/services";
 import { formSchema } from "@/components/schedule/ScheduleFormSchema";
 import Header from "@/components/Header";
@@ -17,6 +17,7 @@ import Chatbot from "@/components/Chatbot";
 const ScheduleService = () => {
   const { toast } = useToast();
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   const serviceId = searchParams.get('service');
 
   const defaultService = serviceId 
@@ -37,7 +38,7 @@ const ScheduleService = () => {
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    // Construct URL with query parameters
+    // Construct URL with query parameters for our redirect page
     const params = new URLSearchParams({
       name: values.name,
       email: values.email,
@@ -48,8 +49,8 @@ const ScheduleService = () => {
       insurance: values.isInsuranceClaim ? 'Yes' : 'No'
     });
 
-    // Redirect to Cal.com booking form with parameters
-    window.location.href = `https://schedule.cbrsgroup.com/admin/cbrs-booking-form?${params.toString()}`;
+    // Navigate to our intermediate redirect page with the parameters
+    navigate(`/booking-redirect?${params.toString()}`);
   };
 
   return (
