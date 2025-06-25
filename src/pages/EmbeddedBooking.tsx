@@ -9,7 +9,6 @@ const EmbeddedBooking = () => {
   const [searchParams] = useSearchParams();
   const [calLoaded, setCalLoaded] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [isInitializing, setIsInitializing] = useState(true);
 
   useEffect(() => {
     console.log('EmbeddedBooking component mounted');
@@ -22,157 +21,105 @@ const EmbeddedBooking = () => {
       return;
     }
 
-    let scriptElement: HTMLScriptElement | null = null;
-    let initTimeout: NodeJS.Timeout | null = null;
-
-    // Function to wait for Cal object to be available
-    const waitForCal = (): Promise<void> => {
-      return new Promise((resolve, reject) => {
-        let attempts = 0;
-        const maxAttempts = 100; // Increased from 50 to 100 (20 seconds)
-        
-        const checkCal = () => {
-          attempts++;
-          console.log(`Checking for Cal object, attempt ${attempts}`);
-          
-          if (typeof window.Cal !== 'undefined' && window.Cal) {
-            console.log('Cal object found!');
-            resolve();
-          } else if (attempts >= maxAttempts) {
-            console.error('Cal object not found after maximum attempts');
-            reject(new Error('Cal object not available after timeout'));
-          } else {
-            setTimeout(checkCal, 200);
-          }
-        };
-        
-        checkCal();
-      });
+    // Get form data from URL parameters
+    const formData = {
+      name: searchParams.get('name') || '',
+      email: searchParams.get('email') || '',
+      phone: searchParams.get('phone') || '',
+      service: searchParams.get('service') || '',
+      location: searchParams.get('location') || '',
+      notes: searchParams.get('notes') || '',
+      insurance: searchParams.get('insurance') || 'No'
     };
 
-    // Cal.com integration
-    const loadCalEmbed = async () => {
+    console.log('Form data to prefill:', formData);
+
+    // Cal.com integration using your custom embed code
+    const loadCalEmbed = () => {
       try {
-        console.log('Starting Cal.com embed loading...');
-        setIsInitializing(true);
+        console.log('Starting Cal.com embed loading with custom script...');
 
         // Remove any existing Cal scripts to avoid conflicts
         const existingScripts = document.querySelectorAll('script[src*="cal.com"]');
         existingScripts.forEach(script => script.remove());
 
-        // Get form data from URL parameters
-        const formData = {
-          name: searchParams.get('name') || '',
-          email: searchParams.get('email') || '',
-          phone: searchParams.get('phone') || '',
-          service: searchParams.get('service') || '',
-          location: searchParams.get('location') || '',
-          notes: searchParams.get('notes') || '',
-          insurance: searchParams.get('insurance') || 'No'
-        };
+        // Your custom Cal.com embed script
+        const calScript = `
+          (function (C, A, L) { 
+            let p = function (a, ar) { a.q.push(ar); }; 
+            let d = C.document; 
+            C.Cal = C.Cal || function () { 
+              let cal = C.Cal; 
+              let ar = arguments; 
+              if (!cal.loaded) { 
+                cal.ns = {}; 
+                cal.q = cal.q || []; 
+                d.head.appendChild(d.createElement("script")).src = A; 
+                cal.loaded = true; 
+              } 
+              if (ar[0] === L) { 
+                const api = function () { p(api, arguments); }; 
+                const namespace = ar[1]; 
+                api.q = api.q || []; 
+                if(typeof namespace === "string"){
+                  cal.ns[namespace] = cal.ns[namespace] || api;
+                  p(cal.ns[namespace], ar);
+                  p(cal, ["initNamespace", namespace]);
+                } else p(cal, ar); 
+                return;
+              } 
+              p(cal, ar); 
+            }; 
+          })(window, "https://schedule.cbrsgroup.com/embed/embed.js", "init");
+          
+          Cal("init", "cbrs-booking-form", {origin:"https://schedule.cbrsgroup.com"});
+          Cal.ns["cbrs-booking-form"]("ui", {"hideEventTypeDetails":false,"layout":"month_view"});
+        `;
 
-        console.log('Form data to prefill:', formData);
-
-        // Create the Cal.com embed script
+        // Execute the script
         const script = document.createElement('script');
         script.type = 'text/javascript';
-        script.async = true;
-        script.src = 'https://app.cal.com/embed/embed.js';
-        scriptElement = script;
+        script.innerHTML = calScript;
+        document.head.appendChild(script);
 
-        // Wait for script to load
-        await new Promise<void>((resolve, reject) => {
-          script.onload = () => {
-            console.log('Cal.com script loaded successfully');
-            resolve();
-          };
-
-          script.onerror = (err) => {
-            console.error('Failed to load Cal.com script:', err);
-            reject(new Error('Failed to load Cal.com script'));
-          };
-
-          // Add script to document
-          document.head.appendChild(script);
-        });
-
-        // Wait for Cal object to be available
-        await waitForCal();
-
-        // Initialize Cal with more robust error handling
-        console.log('Initializing Cal.com embed...');
-        
-        // Set a timeout for the entire initialization process
-        initTimeout = setTimeout(() => {
-          console.warn('Cal initialization taking longer than expected, but continuing...');
-          setCalLoaded(true);
-          setIsInitializing(false);
-        }, 10000); // 10 second fallback
-
-        window.Cal('init', {
-          origin: 'https://app.cal.com'
-        });
-
-        // Create the inline embed with better error handling
-        window.Cal('inline', {
-          elementOrSelector: '#cal-booking-embed',
-          calLink: 'cbrsgroup/consultation',
-          config: {
-            name: formData.name,
-            email: formData.email,
-            // Add form data as metadata
-            metadata: {
-              service: formData.service,
-              location: formData.location,
-              phone: formData.phone,
-              insurance: formData.insurance,
-              notes: formData.notes
+        // Wait a moment for the script to initialize, then create the booking element
+        setTimeout(() => {
+          try {
+            // Create a clickable element that will trigger the calendar
+            const bookingElement = document.getElementById('cal-booking-embed');
+            if (bookingElement) {
+              // Set the required attributes for the Cal.com embed
+              bookingElement.setAttribute('data-cal-link', 'admin/cbrs-booking-form');
+              bookingElement.setAttribute('data-cal-namespace', 'cbrs-booking-form');
+              bookingElement.setAttribute('data-cal-config', '{"layout":"month_view"}');
+              
+              // Make it clickable to open the calendar
+              bookingElement.style.cursor = 'pointer';
+              bookingElement.innerHTML = `
+                <div class="text-center p-8 bg-white rounded-lg border-2 border-dashed border-gray-300 hover:border-cbrs-orange transition-colors">
+                  <div class="text-4xl mb-4">📅</div>
+                  <h3 class="text-xl font-semibold text-[#1e3046] mb-2">Click to Schedule Your Appointment</h3>
+                  <p class="text-[#1e3046]/70">Select your preferred date and time</p>
+                </div>
+              `;
             }
+            
+            console.log('Cal.com embed initialized successfully');
+            setCalLoaded(true);
+          } catch (initError) {
+            console.error('Error setting up booking element:', initError);
+            setError('Failed to set up the booking interface. Please refresh the page and try again.');
           }
-        });
-
-        // Clear the timeout since we succeeded
-        if (initTimeout) {
-          clearTimeout(initTimeout);
-          initTimeout = null;
-        }
-
-        console.log('Cal.com embed initialized successfully');
-        setCalLoaded(true);
-        setIsInitializing(false);
+        }, 2000);
 
       } catch (loadError) {
         console.error('Error in loadCalEmbed:', loadError);
-        
-        // Clear timeout on error
-        if (initTimeout) {
-          clearTimeout(initTimeout);
-          initTimeout = null;
-        }
-        
-        // Only set error if we're still initializing (not if timeout already handled it)
-        if (isInitializing) {
-          setError('Failed to set up the booking system. Please refresh the page and try again.');
-          setIsInitializing(false);
-        }
+        setError('Failed to set up the booking system. Please refresh the page and try again.');
       }
     };
 
     loadCalEmbed();
 
-    // Cleanup function
-    return () => {
-      try {
-        if (initTimeout) {
-          clearTimeout(initTimeout);
-        }
-        if (scriptElement && document.head.contains(scriptElement)) {
-          document.head.removeChild(scriptElement);
-        }
-      } catch (cleanupError) {
-        console.warn('Error during cleanup:', cleanupError);
-      }
-    };
   }, [searchParams]);
 
   if (error) {
@@ -248,8 +195,8 @@ const EmbeddedBooking = () => {
               Complete Your Booking
             </h1>
             <p className="text-[#1e3046]/80 max-w-2xl mx-auto">
-              Select your preferred date and time for your service appointment. 
-              Your information has been pre-filled from the previous form.
+              Click below to open the booking calendar and select your preferred date and time. 
+              Your information has been noted from the previous form.
             </p>
           </div>
         </div>
@@ -260,13 +207,12 @@ const EmbeddedBooking = () => {
             id="cal-booking-embed" 
             style={{ 
               width: '100%', 
-              height: '700px',
-              overflow: 'hidden'
+              minHeight: '200px'
             }}
           >
             {/* Loading state */}
-            {(isInitializing || (!calLoaded && !error)) && (
-              <div className="flex items-center justify-center h-full">
+            {!calLoaded && !error && (
+              <div className="flex items-center justify-center h-full py-20">
                 <div className="text-center">
                   <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-cbrs-orange mx-auto mb-4"></div>
                   <p className="text-[#1e3046]/60">Loading booking form...</p>
