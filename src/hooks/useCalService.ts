@@ -32,7 +32,7 @@ export const useCalService = () => {
         
         const cal = await getCalApi({
           "namespace": "cbrs-booking-form",
-          "embedLibUrl": "https://schedule.cbrsgroup.com/embed/embed.js"
+          "embedJsUrl": "https://schedule.cbrsgroup.com/embed/embed.js"
         });
         
         cal("ui", {
