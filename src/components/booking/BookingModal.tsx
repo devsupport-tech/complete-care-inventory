@@ -64,14 +64,11 @@ const BookingModal = ({ isOpen, onClose, formData }: BookingModalProps) => {
 
   const handleBookingClick = () => {
     console.log('Opening Cal.com booking form with prefilled data:', formData);
-  };
-
-  // Create prefill data for Cal.com
-  const prefillData = {
-    name: formData.name,
-    email: formData.email,
-    phone: formData.phone,
-    notes: `Service: ${formData.service}\nCity: ${formData.city}\nInsurance Claim: ${formData.isInsuranceClaim ? 'Yes' : 'No'}${formData.message ? `\nAdditional Notes: ${formData.message}` : ''}`
+    console.log('Prefill data being sent:', {
+      name: formData.name,
+      email: formData.email,
+      notes: `Service: ${formData.service}\nCity: ${formData.city}\nPhone: ${formData.phone}\nInsurance Claim: ${formData.isInsuranceClaim ? 'Yes' : 'No'}${formData.message ? `\nAdditional Notes: ${formData.message}` : ''}`
+    });
   };
 
   return (
@@ -123,7 +120,9 @@ const BookingModal = ({ isOpen, onClose, formData }: BookingModalProps) => {
                 data-cal-origin="https://schedule.cbrsgroup.com"
                 data-cal-config={JSON.stringify({
                   layout: "month_view",
-                  prefill: prefillData
+                  name: formData.name,
+                  email: formData.email,
+                  notes: `Service: ${formData.service}\nCity: ${formData.city}\nPhone: ${formData.phone}\nInsurance Claim: ${formData.isInsuranceClaim ? 'Yes' : 'No'}${formData.message ? `\nAdditional Notes: ${formData.message}` : ''}`
                 })}
                 className="bg-[#1e3046] hover:bg-[#1e3046]/90 text-white px-8 py-3 rounded-md transition-colors font-medium"
                 onClick={handleBookingClick}
