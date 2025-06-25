@@ -11,13 +11,31 @@ const EmbeddedBooking = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    let scriptAdded = false;
-    
-    // Define initializeCal function first
-    const initializeCal = () => {
+    console.log('EmbeddedBooking component mounted');
+    console.log('Search params:', Object.fromEntries(searchParams.entries()));
+
+    // Check if we're in a browser environment
+    if (typeof window === 'undefined') {
+      console.error('Window object not available');
+      setError('Browser environment not detected. Please refresh the page.');
+      return;
+    }
+
+    // Simple Cal.com integration using their standard embed approach
+    const loadCalEmbed = async () => {
       try {
-        console.log('Initializing Cal...');
-        
+        console.log('Starting Cal.com embed loading...');
+
+        // Remove any existing Cal scripts to avoid conflicts
+        const existingScripts = document.querySelectorAll('script[src*="cal.com"]');
+        existingScripts.forEach(script => script.remove());
+
+        // Create the Cal.com embed script
+        const script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.async = true;
+        script.src = 'https://app.cal.com/embed/embed.js';
+
         // Get form data from URL parameters
         const formData = {
           name: searchParams.get('name') || '',
@@ -29,100 +47,83 @@ const EmbeddedBooking = () => {
           insurance: searchParams.get('insurance') || 'No'
         };
 
-        console.log('Form data:', formData);
+        console.log('Form data to prefill:', formData);
 
-        // Initialize Cal embed
-        window.Cal('init', {
-          origin: 'https://app.cal.com'
-        });
+        script.onload = () => {
+          console.log('Cal.com script loaded successfully');
+          
+          // Wait a moment for Cal to initialize
+          setTimeout(() => {
+            try {
+              if (typeof window.Cal !== 'undefined') {
+                console.log('Initializing Cal.com embed...');
+                
+                // Initialize Cal
+                window.Cal('init', {
+                  origin: 'https://app.cal.com'
+                });
 
-        // Configure the booking form with prefilled data
-        window.Cal('inline', {
-          elementOrSelector: '#cal-booking-embed',
-          calLink: 'admin/cbrs-booking-form',
-          config: {
-            name: formData.name,
-            email: formData.email,
-            // Note: Cal.com may not support all custom inputs as expected
-            // This is a limitation of their embed system
+                // Create the inline embed
+                window.Cal('inline', {
+                  elementOrSelector: '#cal-booking-embed',
+                  calLink: 'cbrsgroup/consultation', // Updated to use a more standard format
+                  config: {
+                    name: formData.name,
+                    email: formData.email,
+                    guests: [formData.email].filter(Boolean),
+                    // Add form data as metadata/notes
+                    metadata: {
+                      service: formData.service,
+                      location: formData.location,
+                      phone: formData.phone,
+                      insurance: formData.insurance,
+                      notes: formData.notes
+                    }
+                  }
+                });
+
+                console.log('Cal.com embed initialized successfully');
+                setCalLoaded(true);
+              } else {
+                throw new Error('Cal object not available after script load');
+              }
+            } catch (initError) {
+              console.error('Error during Cal initialization:', initError);
+              setError('Failed to initialize the booking form. Please try refreshing the page.');
+            }
+          }, 500);
+        };
+
+        script.onerror = (err) => {
+          console.error('Failed to load Cal.com script:', err);
+          setError('Failed to load the booking system. Please check your internet connection and try again.');
+        };
+
+        // Add script to document
+        document.head.appendChild(script);
+
+        // Cleanup function
+        return () => {
+          try {
+            if (document.head.contains(script)) {
+              document.head.removeChild(script);
+            }
+          } catch (cleanupError) {
+            console.warn('Error during cleanup:', cleanupError);
           }
-        });
+        };
 
-        setCalLoaded(true);
-        console.log('Cal initialized successfully');
-      } catch (err) {
-        console.error('Error initializing Cal:', err);
-        setError('Failed to initialize booking system. Please refresh the page.');
+      } catch (loadError) {
+        console.error('Error in loadCalEmbed:', loadError);
+        setError('Failed to set up the booking system. Please refresh the page and try again.');
       }
     };
-    
-    // Check if Cal script is already loaded
-    if (window.Cal) {
-      console.log('Cal already loaded, initializing...');
-      initializeCal();
-      return;
-    }
 
-    // Check if script is already in the DOM
-    const existingScript = document.querySelector('script[src*="cal.com/embed"]');
-    if (existingScript) {
-      console.log('Cal script already exists, waiting for load...');
-      // Wait for existing script to load
-      const checkCal = setInterval(() => {
-        if (window.Cal) {
-          console.log('Cal loaded from existing script');
-          clearInterval(checkCal);
-          initializeCal();
-        }
-      }, 100);
-      
-      // Timeout after 10 seconds
-      setTimeout(() => {
-        clearInterval(checkCal);
-        if (!window.Cal) {
-          setError('Failed to load booking system. Please refresh the page.');
-        }
-      }, 10000);
-      return;
-    }
-
-    // Load Cal.com embed script
-    console.log('Loading Cal script...');
-    const script = document.createElement('script');
-    script.src = 'https://app.cal.com/embed/embed.js';
-    script.async = true;
-    scriptAdded = true;
-
-    const handleScriptLoad = () => {
-      console.log('Cal script loaded successfully');
-      // Wait a bit for Cal to initialize
-      setTimeout(() => {
-        if (window.Cal) {
-          console.log('Cal object available, initializing...');
-          initializeCal();
-        } else {
-          console.error('Cal script loaded but Cal object not available');
-          setError('Failed to initialize booking system. Please refresh the page.');
-        }
-      }, 100);
-    };
-
-    const handleScriptError = () => {
-      console.error('Failed to load Cal script');
-      setError('Failed to load booking system. Please check your internet connection and refresh the page.');
-    };
-
-    script.addEventListener('load', handleScriptLoad);
-    script.addEventListener('error', handleScriptError);
-    
-    document.head.appendChild(script);
+    const cleanup = loadCalEmbed();
 
     return () => {
-      // Cleanup
-      if (scriptAdded && document.head.contains(script)) {
-        script.removeEventListener('load', handleScriptLoad);
-        script.removeEventListener('error', handleScriptError);
-        document.head.removeChild(script);
+      if (cleanup && typeof cleanup === 'function') {
+        cleanup();
       }
     };
   }, [searchParams]);
@@ -217,11 +218,12 @@ const EmbeddedBooking = () => {
             }}
           >
             {/* Loading state */}
-            {!calLoaded && (
+            {!calLoaded && !error && (
               <div className="flex items-center justify-center h-full">
                 <div className="text-center">
                   <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-cbrs-orange mx-auto mb-4"></div>
                   <p className="text-[#1e3046]/60">Loading booking form...</p>
+                  <p className="text-sm text-[#1e3046]/40 mt-2">This may take a few moments</p>
                 </div>
               </div>
             )}
