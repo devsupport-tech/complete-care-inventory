@@ -85,39 +85,71 @@ const BookingModal = ({ isOpen, onClose, formData }: BookingModalProps) => {
     });
   };
 
-  // Add global styles for Cal.com z-index issues
+  // Enhanced global styles for Cal.com z-index and interaction issues
   useEffect(() => {
     if (isOpen) {
       const style = document.createElement('style');
       style.textContent = `
+        /* Ensure Cal.com modal and overlays are at the highest z-index */
         .cal-modal-overlay,
         .cal-modal,
         [data-cal-namespace="cbrs-booking-modal"] .cal-modal-overlay,
         [data-cal-namespace="cbrs-booking-modal"] .cal-modal {
-          z-index: 9999 !important;
+          z-index: 99999 !important;
+          position: fixed !important;
         }
         
         .cal-embed-iframe,
         [data-cal-namespace="cbrs-booking-modal"] .cal-embed-iframe {
-          z-index: 9999 !important;
+          z-index: 99999 !important;
+          position: relative !important;
         }
         
-        /* Ensure Cal.com overlays are above dialog */
+        /* Ensure Cal.com overlays are above everything */
         div[data-radix-popper-content-wrapper] {
-          z-index: 10000 !important;
+          z-index: 100000 !important;
+        }
+        
+        /* Fix interaction issues with Cal.com calendar */
+        [data-cal-namespace="cbrs-booking-modal"] * {
+          pointer-events: auto !important;
+        }
+        
+        /* Ensure calendar days and time slots are clickable */
+        [data-cal-namespace="cbrs-booking-modal"] button,
+        [data-cal-namespace="cbrs-booking-modal"] [role="button"],
+        [data-cal-namespace="cbrs-booking-modal"] [data-testid],
+        [data-cal-namespace="cbrs-booking-modal"] .cal-calendar-day,
+        [data-cal-namespace="cbrs-booking-modal"] .cal-time-slot {
+          pointer-events: auto !important;
+          z-index: inherit !important;
+          position: relative !important;
+        }
+        
+        /* Remove any overlay that might be blocking clicks */
+        [data-cal-namespace="cbrs-booking-modal"] .cal-overlay {
+          pointer-events: none !important;
+        }
+        
+        /* Ensure the entire Cal.com container allows interactions */
+        [data-cal-namespace="cbrs-booking-modal"] {
+          pointer-events: auto !important;
+          isolation: isolate !important;
         }
       `;
       document.head.appendChild(style);
       
       return () => {
-        document.head.removeChild(style);
+        if (document.head.contains(style)) {
+          document.head.removeChild(style);
+        }
       };
     }
   }, [isOpen]);
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto" style={{ zIndex: 50 }}>
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold text-[#1e3046]">
             Schedule Your Service
@@ -161,26 +193,29 @@ const BookingModal = ({ isOpen, onClose, formData }: BookingModalProps) => {
                 Click the button below to select your preferred date and time
               </p>
               
-              <button
-                data-cal-namespace="cbrs-booking-modal"
-                data-cal-link="admin/cbrs-booking-form"
-                data-cal-origin="https://schedule.cbrsgroup.com"
-                data-cal-config={JSON.stringify({
-                  layout: "month_view",
-                  name: formData.name,
-                  email: formData.email,
-                  notes: `Service: ${formData.service}\nCity: ${formData.city}\nPhone: ${formData.phone}\nInsurance Claim: ${formData.isInsuranceClaim ? 'Yes' : 'No'}${formData.message ? `\nAdditional Notes: ${formData.message}` : ''}`
-                })}
-                className={`px-8 py-3 rounded-md transition-colors font-medium ${
-                  calReady 
-                    ? 'bg-[#1e3046] hover:bg-[#1e3046]/90 text-white cursor-pointer' 
-                    : 'bg-gray-400 text-gray-600 cursor-not-allowed'
-                }`}
-                onClick={handleBookingClick}
-                disabled={!calReady}
-              >
-                {calReady ? 'Open Booking Calendar' : 'Loading Calendar...'}
-              </button>
+              <div style={{ position: 'relative', zIndex: 99999 }}>
+                <button
+                  data-cal-namespace="cbrs-booking-modal"
+                  data-cal-link="admin/cbrs-booking-form"
+                  data-cal-origin="https://schedule.cbrsgroup.com"
+                  data-cal-config={JSON.stringify({
+                    layout: "month_view",
+                    name: formData.name,
+                    email: formData.email,
+                    notes: `Service: ${formData.service}\nCity: ${formData.city}\nPhone: ${formData.phone}\nInsurance Claim: ${formData.isInsuranceClaim ? 'Yes' : 'No'}${formData.message ? `\nAdditional Notes: ${formData.message}` : ''}`
+                  })}
+                  className={`px-8 py-3 rounded-md transition-colors font-medium ${
+                    calReady 
+                      ? 'bg-[#1e3046] hover:bg-[#1e3046]/90 text-white cursor-pointer' 
+                      : 'bg-gray-400 text-gray-600 cursor-not-allowed'
+                  }`}
+                  onClick={handleBookingClick}
+                  disabled={!calReady}
+                  style={{ position: 'relative', zIndex: 99999 }}
+                >
+                  {calReady ? 'Open Booking Calendar' : 'Loading Calendar...'}
+                </button>
+              </div>
             </div>
           )}
         </div>
