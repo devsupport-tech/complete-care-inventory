@@ -1,7 +1,18 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
-import { Facebook, Twitter, Instagram, Linkedin, ArrowUp, Tiktok, Youtube  } from "lucide-react";
+import { Facebook, Twitter, Instagram, Linkedin, ArrowUp, Youtube  } from "lucide-react";
+
+const TikTokIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 256 256"
+    fill="currentColor"
+    className="w-5 h-5"
+  >
+    <path d="M176,32a8,8,0,0,0-8,8V72a40,40,0,0,1-40-40,8,8,0,0,0-16,0V160a24,24,0,1,1-24-24,8,8,0,0,0,0-16,40,40,0,1,0,40,40V120.7a56.1,56.1,0,0,0,40,15.3,8,8,0,0,0,8-8V40A8,8,0,0,0,176,32Z" />
+  </svg>
+);
 
 const Footer = () => {
   const scrollToTop = () => {
@@ -35,12 +46,11 @@ const Footer = () => {
                 <Facebook className="w-5 h-5" />
               </a>
               <a 
-                href="https://www.tiktok.com/@cbrs.group?_t=ZT-8xTmDQaKVf3&_r=1" // replace with your real TikTok link
+                href="https://www.tiktok.com/@cbrsgroup"
                 className="bg-white/10 hover:bg-white/20 rounded-full p-2 transition-all"
                 aria-label="TikTok"
               >
-                <Tiktok className="w-5 h-5" />
-              </a>
+                <TikTokIcon />
               <a 
                 href="https://www.instagram.com/cbrsgroup/"
                 className="bg-white/10 hover:bg-white/20 rounded-full p-2 transition-all"
