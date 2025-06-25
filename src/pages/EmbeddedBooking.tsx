@@ -9,6 +9,7 @@ const EmbeddedBooking = () => {
   const [searchParams] = useSearchParams();
   const [calLoaded, setCalLoaded] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [isInitializing, setIsInitializing] = useState(true);
 
   useEffect(() => {
     console.log('EmbeddedBooking component mounted');
@@ -22,13 +23,13 @@ const EmbeddedBooking = () => {
     }
 
     let scriptElement: HTMLScriptElement | null = null;
-    let pollInterval: NodeJS.Timeout | null = null;
+    let initTimeout: NodeJS.Timeout | null = null;
 
     // Function to wait for Cal object to be available
     const waitForCal = (): Promise<void> => {
       return new Promise((resolve, reject) => {
         let attempts = 0;
-        const maxAttempts = 50; // 10 seconds max wait time
+        const maxAttempts = 100; // Increased from 50 to 100 (20 seconds)
         
         const checkCal = () => {
           attempts++;
@@ -53,6 +54,7 @@ const EmbeddedBooking = () => {
     const loadCalEmbed = async () => {
       try {
         console.log('Starting Cal.com embed loading...');
+        setIsInitializing(true);
 
         // Remove any existing Cal scripts to avoid conflicts
         const existingScripts = document.querySelectorAll('script[src*="cal.com"]');
@@ -97,21 +99,28 @@ const EmbeddedBooking = () => {
         // Wait for Cal object to be available
         await waitForCal();
 
-        // Initialize Cal
+        // Initialize Cal with more robust error handling
         console.log('Initializing Cal.com embed...');
+        
+        // Set a timeout for the entire initialization process
+        initTimeout = setTimeout(() => {
+          console.warn('Cal initialization taking longer than expected, but continuing...');
+          setCalLoaded(true);
+          setIsInitializing(false);
+        }, 10000); // 10 second fallback
+
         window.Cal('init', {
           origin: 'https://app.cal.com'
         });
 
-        // Create the inline embed
+        // Create the inline embed with better error handling
         window.Cal('inline', {
           elementOrSelector: '#cal-booking-embed',
           calLink: 'cbrsgroup/consultation',
           config: {
             name: formData.name,
             email: formData.email,
-            guests: [formData.email].filter(Boolean),
-            // Add form data as metadata/notes
+            // Add form data as metadata
             metadata: {
               service: formData.service,
               location: formData.location,
@@ -122,12 +131,30 @@ const EmbeddedBooking = () => {
           }
         });
 
+        // Clear the timeout since we succeeded
+        if (initTimeout) {
+          clearTimeout(initTimeout);
+          initTimeout = null;
+        }
+
         console.log('Cal.com embed initialized successfully');
         setCalLoaded(true);
+        setIsInitializing(false);
 
       } catch (loadError) {
         console.error('Error in loadCalEmbed:', loadError);
-        setError('Failed to set up the booking system. Please refresh the page and try again.');
+        
+        // Clear timeout on error
+        if (initTimeout) {
+          clearTimeout(initTimeout);
+          initTimeout = null;
+        }
+        
+        // Only set error if we're still initializing (not if timeout already handled it)
+        if (isInitializing) {
+          setError('Failed to set up the booking system. Please refresh the page and try again.');
+          setIsInitializing(false);
+        }
       }
     };
 
@@ -136,8 +163,8 @@ const EmbeddedBooking = () => {
     // Cleanup function
     return () => {
       try {
-        if (pollInterval) {
-          clearInterval(pollInterval);
+        if (initTimeout) {
+          clearTimeout(initTimeout);
         }
         if (scriptElement && document.head.contains(scriptElement)) {
           document.head.removeChild(scriptElement);
@@ -238,7 +265,7 @@ const EmbeddedBooking = () => {
             }}
           >
             {/* Loading state */}
-            {!calLoaded && !error && (
+            {(isInitializing || (!calLoaded && !error)) && (
               <div className="flex items-center justify-center h-full">
                 <div className="text-center">
                   <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-cbrs-orange mx-auto mb-4"></div>
