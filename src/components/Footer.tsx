@@ -1,7 +1,7 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
-import { Facebook, Twitter, Instagram, Linkedin, ArrowUp } from "lucide-react";
+import { Facebook, Twitter, Instagram, Linkedin, ArrowUp, Tiktok, Youtube  } from "lucide-react";
 
 const Footer = () => {
   const scrollToTop = () => {
@@ -28,34 +28,35 @@ const Footer = () => {
             </p>
             <div className="flex space-x-4">
               <a 
-                href="#"
+                href="https://www.facebook.com/people/Complete-Building-and-Restoration-Solutions/61564870028363/"
                 className="bg-white/10 hover:bg-white/20 rounded-full p-2 transition-all"
                 aria-label="Facebook"
               >
                 <Facebook className="w-5 h-5" />
               </a>
               <a 
-                href="#"
+                href="https://www.tiktok.com/@cbrs.group?_t=ZT-8xTmDQaKVf3&_r=1" // replace with your real TikTok link
                 className="bg-white/10 hover:bg-white/20 rounded-full p-2 transition-all"
-                aria-label="Twitter"
+                aria-label="TikTok"
               >
-                <Twitter className="w-5 h-5" />
+                <Tiktok className="w-5 h-5" />
               </a>
               <a 
-                href="#"
+                href="https://www.instagram.com/cbrsgroup/"
                 className="bg-white/10 hover:bg-white/20 rounded-full p-2 transition-all"
                 aria-label="Instagram"
               >
                 <Instagram className="w-5 h-5" />
               </a>
               <a 
-                href="#"
+                href="https://www.youtube.com/@cbrsgroup" // replace with your real YouTube link
                 className="bg-white/10 hover:bg-white/20 rounded-full p-2 transition-all"
-                aria-label="LinkedIn"
+                aria-label="YouTube"
               >
-                <Linkedin className="w-5 h-5" />
+                <Youtube className="w-5 h-5" />
               </a>
             </div>
+
           </div>
           
           <div>
