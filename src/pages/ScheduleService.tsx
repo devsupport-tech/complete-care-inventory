@@ -1,23 +1,26 @@
-import React from "react";
+
+import React, { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { Form } from "@/components/ui/form";
-import { useSearchParams, useNavigate } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { services } from "@/data/services";
 import { formSchema } from "@/components/schedule/ScheduleFormSchema";
 import Header from "@/components/Header";
 import ContactInformation from "@/components/schedule/ContactInformation";
 import ServiceDetails from "@/components/schedule/ServiceDetails";
 import InsuranceInformation from "@/components/schedule/InsuranceInformation";
+import BookingModal from "@/components/booking/BookingModal";
 import Chatbot from "@/components/Chatbot";
 
 const ScheduleService = () => {
   const { toast } = useToast();
   const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
+  const [showBookingModal, setShowBookingModal] = useState(false);
+  const [bookingData, setBookingData] = useState<any>(null);
   const serviceId = searchParams.get('service');
 
   const defaultService = serviceId 
@@ -38,19 +41,20 @@ const ScheduleService = () => {
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    // Construct URL with query parameters for our embedded booking page
-    const params = new URLSearchParams({
-      name: values.name,
-      email: values.email,
-      phone: values.phone,
-      service: values.service,
-      location: values.city,
-      notes: values.message || '',
-      insurance: values.isInsuranceClaim ? 'Yes' : 'No'
+    console.log('Form submitted with values:', values);
+    
+    // Store the form data and open the booking modal
+    setBookingData(values);
+    setShowBookingModal(true);
+    
+    toast({
+      title: "Form Submitted",
+      description: "Opening booking calendar for you to select a date and time.",
     });
+  };
 
-    // Navigate to our embedded booking page with the parameters
-    navigate(`/book?${params.toString()}`);
+  const handleCloseModal = () => {
+    setShowBookingModal(false);
   };
 
   return (
@@ -94,6 +98,15 @@ const ScheduleService = () => {
           </Form>
         </div>
       </div>
+      
+      {/* Booking Modal */}
+      {bookingData && (
+        <BookingModal 
+          isOpen={showBookingModal}
+          onClose={handleCloseModal}
+          formData={bookingData}
+        />
+      )}
       
       <Chatbot />
     </>
