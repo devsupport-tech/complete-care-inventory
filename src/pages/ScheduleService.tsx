@@ -38,7 +38,7 @@ const ScheduleService = () => {
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    // Construct URL with query parameters for our redirect page
+    // Construct URL with query parameters for our embedded booking page
     const params = new URLSearchParams({
       name: values.name,
       email: values.email,
@@ -49,8 +49,8 @@ const ScheduleService = () => {
       insurance: values.isInsuranceClaim ? 'Yes' : 'No'
     });
 
-    // Navigate to our intermediate redirect page with the parameters
-    navigate(`/booking-redirect?${params.toString()}`);
+    // Navigate to our embedded booking page with the parameters
+    navigate(`/book?${params.toString()}`);
   };
 
   return (
