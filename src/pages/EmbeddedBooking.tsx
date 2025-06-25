@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -21,8 +22,34 @@ const EmbeddedBooking = () => {
     }
 
     let scriptElement: HTMLScriptElement | null = null;
+    let pollInterval: NodeJS.Timeout | null = null;
 
-    // Simple Cal.com integration using their standard embed approach
+    // Function to wait for Cal object to be available
+    const waitForCal = (): Promise<void> => {
+      return new Promise((resolve, reject) => {
+        let attempts = 0;
+        const maxAttempts = 50; // 10 seconds max wait time
+        
+        const checkCal = () => {
+          attempts++;
+          console.log(`Checking for Cal object, attempt ${attempts}`);
+          
+          if (typeof window.Cal !== 'undefined' && window.Cal) {
+            console.log('Cal object found!');
+            resolve();
+          } else if (attempts >= maxAttempts) {
+            console.error('Cal object not found after maximum attempts');
+            reject(new Error('Cal object not available after timeout'));
+          } else {
+            setTimeout(checkCal, 200);
+          }
+        };
+        
+        checkCal();
+      });
+    };
+
+    // Cal.com integration
     const loadCalEmbed = async () => {
       try {
         console.log('Starting Cal.com embed loading...');
@@ -30,13 +57,6 @@ const EmbeddedBooking = () => {
         // Remove any existing Cal scripts to avoid conflicts
         const existingScripts = document.querySelectorAll('script[src*="cal.com"]');
         existingScripts.forEach(script => script.remove());
-
-        // Create the Cal.com embed script
-        const script = document.createElement('script');
-        script.type = 'text/javascript';
-        script.async = true;
-        script.src = 'https://app.cal.com/embed/embed.js';
-        scriptElement = script;
 
         // Get form data from URL parameters
         const formData = {
@@ -51,58 +71,59 @@ const EmbeddedBooking = () => {
 
         console.log('Form data to prefill:', formData);
 
-        script.onload = () => {
-          console.log('Cal.com script loaded successfully');
-          
-          // Wait a moment for Cal to initialize
-          setTimeout(() => {
-            try {
-              if (typeof window.Cal !== 'undefined') {
-                console.log('Initializing Cal.com embed...');
-                
-                // Initialize Cal
-                window.Cal('init', {
-                  origin: 'https://app.cal.com'
-                });
+        // Create the Cal.com embed script
+        const script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.async = true;
+        script.src = 'https://app.cal.com/embed/embed.js';
+        scriptElement = script;
 
-                // Create the inline embed
-                window.Cal('inline', {
-                  elementOrSelector: '#cal-booking-embed',
-                  calLink: 'cbrsgroup/consultation',
-                  config: {
-                    name: formData.name,
-                    email: formData.email,
-                    guests: [formData.email].filter(Boolean),
-                    // Add form data as metadata/notes
-                    metadata: {
-                      service: formData.service,
-                      location: formData.location,
-                      phone: formData.phone,
-                      insurance: formData.insurance,
-                      notes: formData.notes
-                    }
-                  }
-                });
+        // Wait for script to load
+        await new Promise<void>((resolve, reject) => {
+          script.onload = () => {
+            console.log('Cal.com script loaded successfully');
+            resolve();
+          };
 
-                console.log('Cal.com embed initialized successfully');
-                setCalLoaded(true);
-              } else {
-                throw new Error('Cal object not available after script load');
-              }
-            } catch (initError) {
-              console.error('Error during Cal initialization:', initError);
-              setError('Failed to initialize the booking form. Please try refreshing the page.');
+          script.onerror = (err) => {
+            console.error('Failed to load Cal.com script:', err);
+            reject(new Error('Failed to load Cal.com script'));
+          };
+
+          // Add script to document
+          document.head.appendChild(script);
+        });
+
+        // Wait for Cal object to be available
+        await waitForCal();
+
+        // Initialize Cal
+        console.log('Initializing Cal.com embed...');
+        window.Cal('init', {
+          origin: 'https://app.cal.com'
+        });
+
+        // Create the inline embed
+        window.Cal('inline', {
+          elementOrSelector: '#cal-booking-embed',
+          calLink: 'cbrsgroup/consultation',
+          config: {
+            name: formData.name,
+            email: formData.email,
+            guests: [formData.email].filter(Boolean),
+            // Add form data as metadata/notes
+            metadata: {
+              service: formData.service,
+              location: formData.location,
+              phone: formData.phone,
+              insurance: formData.insurance,
+              notes: formData.notes
             }
-          }, 500);
-        };
+          }
+        });
 
-        script.onerror = (err) => {
-          console.error('Failed to load Cal.com script:', err);
-          setError('Failed to load the booking system. Please check your internet connection and try again.');
-        };
-
-        // Add script to document
-        document.head.appendChild(script);
+        console.log('Cal.com embed initialized successfully');
+        setCalLoaded(true);
 
       } catch (loadError) {
         console.error('Error in loadCalEmbed:', loadError);
@@ -115,6 +136,9 @@ const EmbeddedBooking = () => {
     // Cleanup function
     return () => {
       try {
+        if (pollInterval) {
+          clearInterval(pollInterval);
+        }
         if (scriptElement && document.head.contains(scriptElement)) {
           document.head.removeChild(scriptElement);
         }
