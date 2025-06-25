@@ -51,6 +51,7 @@ const Footer = () => {
                 aria-label="TikTok"
               >
                 <TikTokIcon />
+              </a>
               <a 
                 href="https://www.instagram.com/cbrsgroup/"
                 className="bg-white/10 hover:bg-white/20 rounded-full p-2 transition-all"
