@@ -1,4 +1,3 @@
-
 import React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -6,7 +5,7 @@ import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { Form } from "@/components/ui/form";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import { services } from "@/data/services";
 import { formSchema } from "@/components/schedule/ScheduleFormSchema";
 import Header from "@/components/Header";
@@ -14,13 +13,12 @@ import ContactInformation from "@/components/schedule/ContactInformation";
 import ServiceDetails from "@/components/schedule/ServiceDetails";
 import InsuranceInformation from "@/components/schedule/InsuranceInformation";
 import Chatbot from "@/components/Chatbot";
-import { useCalService } from "@/hooks/useCalService";
 
 const ScheduleService = () => {
   const { toast } = useToast();
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   const serviceId = searchParams.get('service');
-  const { calLoaded, error, openBookingModal } = useCalService();
 
   const defaultService = serviceId 
     ? services.find(service => service.id === serviceId)?.title 
@@ -40,26 +38,8 @@ const ScheduleService = () => {
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    if (!calLoaded) {
-      toast({
-        title: "Booking system loading",
-        description: "Please wait a moment for the booking system to load.",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    if (error) {
-      toast({
-        title: "Booking system error",
-        description: "There was an error loading the booking system. Please refresh the page.",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    // Prepare the prefill data for Cal.com
-    const prefillData = {
+    // Construct URL with query parameters for our embedded booking page
+    const params = new URLSearchParams({
       name: values.name,
       email: values.email,
       phone: values.phone,
@@ -67,10 +47,10 @@ const ScheduleService = () => {
       location: values.city,
       notes: values.message || '',
       insurance: values.isInsuranceClaim ? 'Yes' : 'No'
-    };
+    });
 
-    // Open the Cal.com booking modal directly
-    openBookingModal(prefillData);
+    // Navigate to our embedded booking page with the parameters
+    navigate(`/book?${params.toString()}`);
   };
 
   return (
@@ -107,9 +87,8 @@ const ScheduleService = () => {
                 type="submit" 
                 variant="orange" 
                 className="w-full py-6 text-base bg-[#1e3046] hover:bg-[#1e3046]/90"
-                disabled={!calLoaded}
               >
-                {calLoaded ? 'Schedule Service' : 'Loading booking system...'}
+                Schedule Service
               </Button>
             </form>
           </Form>
