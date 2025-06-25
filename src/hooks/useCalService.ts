@@ -35,9 +35,15 @@ export const useCalService = () => {
           "layout": "month_view"
         });
 
-        console.log('Cal.com initialized successfully');
+        console.log('Cal.com API obtained, waiting for full initialization...');
         setCalApi(cal);
-        setCalLoaded(true);
+
+        // Wait a bit more to ensure the Cal API is fully ready
+        setTimeout(() => {
+          console.log('Cal.com fully initialized and ready');
+          setCalLoaded(true);
+        }, 2000);
+
       } catch (initError) {
         console.error('Error initializing Cal.com:', initError);
         setError('Failed to initialize the booking system. Please refresh the page.');
@@ -48,6 +54,8 @@ export const useCalService = () => {
   }, []);
 
   const openBookingModal = (prefillData: PrefillData) => {
+    console.log('openBookingModal called with:', { calLoaded, calApi: !!calApi });
+    
     if (!calApi || !calLoaded) {
       console.error('Cal.com API not loaded yet');
       return;
