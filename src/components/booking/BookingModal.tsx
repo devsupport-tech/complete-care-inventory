@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import {
   Dialog,
@@ -146,18 +147,21 @@ const BookingModal = ({ isOpen, onClose, formData }: BookingModalProps) => {
     const baseUrl = "admin/cbrs-booking-form";
     const params = new URLSearchParams();
     
-    // Add prefill parameters that match Cal.com's expected format
+    // Add prefill parameters that match Cal.com's expected format exactly
     if (formData.name) params.append('name', formData.name);
     if (formData.email) params.append('email', formData.email);
     if (formData.phone) params.append('phone', formData.phone);
-    if (formData.service) params.append('service-type', formData.service);
+    
+    // Use exact field names as shown in the Cal.com form
+    if (formData.service) params.append('Service Type', formData.service);
     if (formData.city) params.append('city', formData.city);
     
     // Combine message and insurance info for project description
     const projectDescription = `${formData.message || 'No additional message'}${formData.isInsuranceClaim ? '\n\nInsurance Claim: Yes' : '\n\nInsurance Claim: No'}`;
-    if (projectDescription) params.append('project-description', projectDescription);
+    if (projectDescription) params.append('Project Description', projectDescription);
     
     const queryString = params.toString();
+    console.log('Cal.com URL with prefill params:', `${baseUrl}?${queryString}`);
     return queryString ? `${baseUrl}?${queryString}` : baseUrl;
   };
 
@@ -166,14 +170,14 @@ const BookingModal = ({ isOpen, onClose, formData }: BookingModalProps) => {
     layout: "month_view",
     theme: "light",
     hideEventTypeDetails: false,
-    // Use URL parameters for prefilling instead of config object
+    // Use exact field names that match Cal.com form
     prefill: {
       name: formData.name,
       email: formData.email,
       phone: formData.phone,
-      "service-type": formData.service,
+      "Service Type": formData.service,
       city: formData.city,
-      "project-description": `${formData.message || 'No additional message'}${formData.isInsuranceClaim ? '\n\nInsurance Claim: Yes' : '\n\nInsurance Claim: No'}`
+      "Project Description": `${formData.message || 'No additional message'}${formData.isInsuranceClaim ? '\n\nInsurance Claim: Yes' : '\n\nInsurance Claim: No'}`
     }
   };
 
