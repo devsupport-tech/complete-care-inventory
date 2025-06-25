@@ -34,83 +34,66 @@ const EmbeddedBooking = () => {
 
     console.log('Form data to prefill:', formData);
 
-    // Cal.com integration using your custom embed code
+    // Simplified Cal.com integration
     const loadCalEmbed = () => {
       try {
-        console.log('Starting Cal.com embed loading with custom script...');
+        console.log('Loading Cal.com embed script...');
 
-        // Remove any existing Cal scripts to avoid conflicts
-        const existingScripts = document.querySelectorAll('script[src*="cal.com"]');
+        // Remove any existing Cal scripts
+        const existingScripts = document.querySelectorAll('script[src*="embed.js"]');
         existingScripts.forEach(script => script.remove());
 
-        // Your custom Cal.com embed script
-        const calScript = `
-          (function (C, A, L) { 
-            let p = function (a, ar) { a.q.push(ar); }; 
-            let d = C.document; 
-            C.Cal = C.Cal || function () { 
-              let cal = C.Cal; 
-              let ar = arguments; 
-              if (!cal.loaded) { 
-                cal.ns = {}; 
-                cal.q = cal.q || []; 
-                d.head.appendChild(d.createElement("script")).src = A; 
-                cal.loaded = true; 
-              } 
-              if (ar[0] === L) { 
-                const api = function () { p(api, arguments); }; 
-                const namespace = ar[1]; 
-                api.q = api.q || []; 
-                if(typeof namespace === "string"){
-                  cal.ns[namespace] = cal.ns[namespace] || api;
-                  p(cal.ns[namespace], ar);
-                  p(cal, ["initNamespace", namespace]);
-                } else p(cal, ar); 
-                return;
-              } 
-              p(cal, ar); 
-            }; 
-          })(window, "https://schedule.cbrsgroup.com/embed/embed.js", "init");
-          
-          Cal("init", "cbrs-booking-form", {origin:"https://schedule.cbrsgroup.com"});
-          Cal.ns["cbrs-booking-form"]("ui", {"hideEventTypeDetails":false,"layout":"month_view"});
-        `;
+        // Clear any existing Cal objects
+        if (window.Cal) {
+          delete window.Cal;
+        }
 
-        // Execute the script
+        // Load the Cal.com embed script
         const script = document.createElement('script');
-        script.type = 'text/javascript';
-        script.innerHTML = calScript;
-        document.head.appendChild(script);
+        script.src = 'https://schedule.cbrsgroup.com/embed/embed.js';
+        script.async = true;
+        
+        script.onload = () => {
+          console.log('Cal.com script loaded successfully');
+          
+          // Wait for Cal to be available
+          const initCal = () => {
+            if (window.Cal) {
+              try {
+                console.log('Initializing Cal.com embed...');
+                
+                // Initialize Cal
+                window.Cal("init", "cbrs-booking-form", {
+                  origin: "https://schedule.cbrsgroup.com"
+                });
+                
+                // Configure the UI
+                window.Cal.ns["cbrs-booking-form"]("ui", {
+                  hideEventTypeDetails: false,
+                  layout: "month_view"
+                });
 
-        // Wait a moment for the script to initialize, then create the booking element
-        setTimeout(() => {
-          try {
-            // Create a clickable element that will trigger the calendar
-            const bookingElement = document.getElementById('cal-booking-embed');
-            if (bookingElement) {
-              // Set the required attributes for the Cal.com embed
-              bookingElement.setAttribute('data-cal-link', 'admin/cbrs-booking-form');
-              bookingElement.setAttribute('data-cal-namespace', 'cbrs-booking-form');
-              bookingElement.setAttribute('data-cal-config', '{"layout":"month_view"}');
-              
-              // Make it clickable to open the calendar
-              bookingElement.style.cursor = 'pointer';
-              bookingElement.innerHTML = `
-                <div class="text-center p-8 bg-white rounded-lg border-2 border-dashed border-gray-300 hover:border-cbrs-orange transition-colors">
-                  <div class="text-4xl mb-4">📅</div>
-                  <h3 class="text-xl font-semibold text-[#1e3046] mb-2">Click to Schedule Your Appointment</h3>
-                  <p class="text-[#1e3046]/70">Select your preferred date and time</p>
-                </div>
-              `;
+                console.log('Cal.com embed initialized successfully');
+                setCalLoaded(true);
+              } catch (initError) {
+                console.error('Error initializing Cal.com:', initError);
+                setError('Failed to initialize the booking system. Please refresh the page.');
+              }
+            } else {
+              console.log('Cal object not available yet, retrying...');
+              setTimeout(initCal, 500);
             }
-            
-            console.log('Cal.com embed initialized successfully');
-            setCalLoaded(true);
-          } catch (initError) {
-            console.error('Error setting up booking element:', initError);
-            setError('Failed to set up the booking interface. Please refresh the page and try again.');
-          }
-        }, 2000);
+          };
+          
+          initCal();
+        };
+
+        script.onerror = () => {
+          console.error('Failed to load Cal.com script');
+          setError('Failed to load the booking system. Please check your internet connection and refresh the page.');
+        };
+
+        document.head.appendChild(script);
 
       } catch (loadError) {
         console.error('Error in loadCalEmbed:', loadError);
@@ -121,6 +104,24 @@ const EmbeddedBooking = () => {
     loadCalEmbed();
 
   }, [searchParams]);
+
+  const handleBookingClick = () => {
+    if (window.Cal && window.Cal.ns && window.Cal.ns["cbrs-booking-form"]) {
+      try {
+        // Open the Cal.com booking modal
+        window.Cal.ns["cbrs-booking-form"]("openModal", {
+          calLink: "admin/cbrs-booking-form"
+        });
+      } catch (error) {
+        console.error('Error opening booking modal:', error);
+        // Fallback: open in new window
+        window.open('https://schedule.cbrsgroup.com/admin/cbrs-booking-form', '_blank');
+      }
+    } else {
+      // Fallback: open in new window
+      window.open('https://schedule.cbrsgroup.com/admin/cbrs-booking-form', '_blank');
+    }
+  };
 
   if (error) {
     return (
@@ -195,32 +196,49 @@ const EmbeddedBooking = () => {
               Complete Your Booking
             </h1>
             <p className="text-[#1e3046]/80 max-w-2xl mx-auto">
-              Click below to open the booking calendar and select your preferred date and time. 
+              Click the button below to open the booking calendar and select your preferred date and time. 
               Your information has been noted from the previous form.
             </p>
           </div>
         </div>
 
-        {/* Cal.com embed container */}
+        {/* Booking interface */}
         <div className="bg-white rounded-lg shadow-sm p-6">
-          <div 
-            id="cal-booking-embed" 
-            style={{ 
-              width: '100%', 
-              minHeight: '200px'
-            }}
-          >
-            {/* Loading state */}
-            {!calLoaded && !error && (
-              <div className="flex items-center justify-center h-full py-20">
-                <div className="text-center">
-                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-cbrs-orange mx-auto mb-4"></div>
-                  <p className="text-[#1e3046]/60">Loading booking form...</p>
-                  <p className="text-sm text-[#1e3046]/40 mt-2">This may take a few moments</p>
-                </div>
+          {!calLoaded && !error && (
+            <div className="flex items-center justify-center py-20">
+              <div className="text-center">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-cbrs-orange mx-auto mb-4"></div>
+                <p className="text-[#1e3046]/60">Loading booking system...</p>
+                <p className="text-sm text-[#1e3046]/40 mt-2">This may take a few moments</p>
               </div>
-            )}
-          </div>
+            </div>
+          )}
+
+          {calLoaded && (
+            <div className="text-center">
+              <div 
+                onClick={handleBookingClick}
+                className="cursor-pointer p-8 bg-white rounded-lg border-2 border-dashed border-gray-300 hover:border-cbrs-orange transition-colors"
+              >
+                <div className="text-4xl mb-4">📅</div>
+                <h3 className="text-xl font-semibold text-[#1e3046] mb-2">
+                  Click to Schedule Your Appointment
+                </h3>
+                <p className="text-[#1e3046]/70">
+                  Select your preferred date and time
+                </p>
+              </div>
+              
+              <div className="mt-6">
+                <Button 
+                  onClick={handleBookingClick}
+                  className="bg-[#1e3046] hover:bg-[#1e3046]/90 px-8 py-3"
+                >
+                  Open Booking Calendar
+                </Button>
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="text-center mt-6">
