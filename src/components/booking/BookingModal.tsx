@@ -77,47 +77,19 @@ const BookingModal = ({ isOpen, onClose, formData }: BookingModalProps) => {
       return;
     }
     
-    console.log('Opening Cal.com booking form with preloaded data:', formData);
+    console.log('Opening Cal.com booking form with prefilled data:', formData);
     
     try {
       const cal = await getCalApi({
         "namespace": "cbrs-booking-modal"
       });
       
-      // Prepare preload data for Cal.com
-      const preloadData = {
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        // Try different possible field names for service type
-        service: formData.service,
-        serviceType: formData.service,
-        "Service Type": formData.service,
-        city: formData.city,
-        location: formData.city,
-        // Combine message and insurance info
-        message: `${formData.message || 'No additional message'}${formData.isInsuranceClaim ? '\n\nInsurance Claim: Yes' : '\n\nInsurance Claim: No'}`,
-        description: `${formData.message || 'No additional message'}${formData.isInsuranceClaim ? '\n\nInsurance Claim: Yes' : '\n\nInsurance Claim: No'}`,
-        notes: `${formData.message || 'No additional message'}${formData.isInsuranceClaim ? '\n\nInsurance Claim: Yes' : '\n\nInsurance Claim: No'}`,
-        "Project Description": `${formData.message || 'No additional message'}${formData.isInsuranceClaim ? '\n\nInsurance Claim: Yes' : '\n\nInsurance Claim: No'}`
-      };
-
-      console.log('Preload data being sent to Cal.com:', preloadData);
-      
-      // Use Cal.com's preload method to prefill data
-      cal("preload", {
-        calLink: "admin/cbrs-booking-form",
-        ...preloadData
+      // Use Cal.com's modal method to open the booking form
+      cal("modal", {
+        calLink: buildCalLink()
       });
       
-      // Small delay to ensure preload is processed
-      setTimeout(() => {
-        cal("modal", {
-          calLink: "admin/cbrs-booking-form"
-        });
-        console.log('Cal.com booking modal opened with preloaded data');
-      }, 500);
-      
+      console.log('Cal.com booking modal opened with prefill data');
     } catch (openError) {
       console.error('Error opening Cal.com modal:', openError);
     }
@@ -185,43 +157,41 @@ const BookingModal = ({ isOpen, onClose, formData }: BookingModalProps) => {
     }
   }, [isOpen]);
 
-  // Build Cal.com link with query parameters for prefilling
+  // Prepare the Cal.com link with URL parameters - updated field mapping
   const buildCalLink = () => {
     const baseUrl = "admin/cbrs-booking-form";
     const params = new URLSearchParams();
     
-    // Add basic contact info
+    // Add prefill parameters using exact field names that Cal.com expects
     if (formData.name) params.append('name', formData.name);
     if (formData.email) params.append('email', formData.email);
     if (formData.phone) params.append('phone', formData.phone);
-    if (formData.city) params.append('city', formData.city);
     
-    // Try different variations for Service Type field
+    // Try multiple possible field names for Service Type
     if (formData.service) {
-      // Most common field names for service type
+      params.append('service', formData.service);
       params.append('serviceType', formData.service);
       params.append('service_type', formData.service);
-      params.append('Service%20Type', formData.service); // URL encoded
-      params.append('field_service_type', formData.service);
-      params.append('custom_service_type', formData.service);
+      params.append('Service', formData.service);
+      params.append('Service Type', formData.service);
     }
     
-    // Combine message and insurance info
+    if (formData.city) params.append('city', formData.city);
+    
+    // Combine message and insurance info for project description with multiple field name attempts
     const projectDescription = `${formData.message || 'No additional message'}${formData.isInsuranceClaim ? '\n\nInsurance Claim: Yes' : '\n\nInsurance Claim: No'}`;
     if (projectDescription) {
+      params.append('message', projectDescription);
       params.append('description', projectDescription);
       params.append('projectDescription', projectDescription);
-      params.append('Project%20Description', projectDescription); // URL encoded
+      params.append('project_description', projectDescription);
+      params.append('Project Description', projectDescription);
       params.append('notes', projectDescription);
-      params.append('message', projectDescription);
     }
     
     const queryString = params.toString();
-    const fullUrl = queryString ? `${baseUrl}?${queryString}` : baseUrl;
-    console.log('Cal.com URL with prefill params:', fullUrl);
-    console.log('Service type being passed:', formData.service);
-    
-    return fullUrl;
+    console.log('Cal.com URL with prefill params:', `${baseUrl}?${queryString}`);
+    return queryString ? `${baseUrl}?${queryString}` : baseUrl;
   };
 
   return (
@@ -272,6 +242,28 @@ const BookingModal = ({ isOpen, onClose, formData }: BookingModalProps) => {
               
               <div style={{ position: 'relative', zIndex: 99999 }}>
                 <button
+                  data-cal-namespace="cbrs-booking-modal"
+                  data-cal-link={buildCalLink()}
+                  data-cal-origin="https://schedule.cbrsgroup.com"
+                  data-cal-config={JSON.stringify({
+                    layout: "month_view",
+                    theme: "light",
+                    hideEventTypeDetails: false,
+                    // Try multiple prefill approaches
+                    prefill: {
+                      name: formData.name,
+                      email: formData.email,
+                      phone: formData.phone,
+                      service: formData.service,
+                      serviceType: formData.service,
+                      "Service Type": formData.service,
+                      city: formData.city,
+                      message: `${formData.message || 'No additional message'}${formData.isInsuranceClaim ? '\n\nInsurance Claim: Yes' : '\n\nInsurance Claim: No'}`,
+                      description: `${formData.message || 'No additional message'}${formData.isInsuranceClaim ? '\n\nInsurance Claim: Yes' : '\n\nInsurance Claim: No'}`,
+                      "Project Description": `${formData.message || 'No additional message'}${formData.isInsuranceClaim ? '\n\nInsurance Claim: Yes' : '\n\nInsurance Claim: No'}`,
+                      notes: `${formData.message || 'No additional message'}${formData.isInsuranceClaim ? '\n\nInsurance Claim: Yes' : '\n\nInsurance Claim: No'}`
+                    }
+                  })}
                   className={`px-8 py-3 rounded-md transition-colors font-medium ${
                     calReady 
                       ? 'bg-[#1e3046] hover:bg-[#1e3046]/90 text-white cursor-pointer' 
@@ -283,11 +275,6 @@ const BookingModal = ({ isOpen, onClose, formData }: BookingModalProps) => {
                 >
                   {calReady ? 'Open Booking Calendar' : 'Loading Calendar...'}
                 </button>
-              </div>
-              
-              <div className="mt-4 text-sm text-gray-600">
-                <p>Debug info: Service type = "{formData.service}"</p>
-                <p>Prefill method: Using Cal.com's preload API</p>
               </div>
             </div>
           )}
