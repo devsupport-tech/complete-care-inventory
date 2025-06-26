@@ -84,22 +84,15 @@ const BookingModal = ({ isOpen, onClose, formData }: BookingModalProps) => {
         "namespace": "cbrs-booking-modal"
       });
       
-      // Use Cal.com's prefill method to populate the form
-      cal("preload", {
-        calLink: "admin/cbrs-booking-form",
-        config: {
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          "Service Type": formData.service,
-          "city": formData.city,
-          "Project Description": `${formData.message || 'No additional message'}${formData.isInsuranceClaim ? '\n\nInsurance Claim: Yes' : '\n\nInsurance Claim: No'}`
-        }
+      // Use Cal.com's standard method to open the booking form
+      // The prefill data will be handled by the data attributes on the button
+      cal("openModal", {
+        calLink: buildCalLink()
       });
       
-      console.log('Cal.com prefill data set successfully');
-    } catch (prefillError) {
-      console.error('Error setting prefill data:', prefillError);
+      console.log('Cal.com booking modal opened with prefill data');
+    } catch (openError) {
+      console.error('Error opening Cal.com modal:', openError);
     }
   };
 
