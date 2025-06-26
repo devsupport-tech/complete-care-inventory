@@ -67,16 +67,27 @@ const ScheduleService = () => {
     const baseUrl = "admin/cbrs-booking-form";
     const params = new URLSearchParams();
     
-    // Add prefill parameters
+    // Add prefill parameters with exact field names Cal.com expects
     if (formData.name) params.append('name', formData.name);
     if (formData.email) params.append('email', formData.email);
     if (formData.phone) params.append('phone', formData.phone);
-    if (formData.service) params.append('service', formData.service);
     if (formData.city) params.append('city', formData.city);
     
+    // Try the exact field name that appears in the Cal.com form
+    if (formData.service) {
+      params.append('Service Type', formData.service);
+      // Also try without spaces and other variations as backup
+      params.append('ServiceType', formData.service);
+      params.append('service_type', formData.service);
+      params.append('service', formData.service);
+    }
+    
     // Combine message and insurance info
-    const projectDescription = `${formData.message || 'No additional message'}${formData.isInsuranceClaim ? '\n\nInsurance Claim: Yes' : '\n\nInsurance Claim: No'}`;
+    const projectDescription = `${formData.message || 'This is a sample project'}${formData.isInsuranceClaim ? '\n\nInsurance Claim: Yes' : '\n\nInsurance Claim: No'}`;
     if (projectDescription) {
+      params.append('Project Description', projectDescription);
+      params.append('ProjectDescription', projectDescription);
+      params.append('project_description', projectDescription);
       params.append('message', projectDescription);
       params.append('description', projectDescription);
       params.append('notes', projectDescription);
@@ -84,11 +95,13 @@ const ScheduleService = () => {
     
     const queryString = params.toString();
     console.log('Cal.com URL with prefill params:', `${baseUrl}?${queryString}`);
+    console.log('Service value being passed:', formData.service);
     return queryString ? `${baseUrl}?${queryString}` : baseUrl;
   };
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     console.log('Form submitted with values:', values);
+    console.log('Service field value:', values.service);
     
     try {
       const cal = await getCalApi({

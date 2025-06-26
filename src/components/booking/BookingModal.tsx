@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import {
   Dialog,
@@ -38,6 +37,7 @@ const BookingModal = ({ isOpen, onClose, formData }: BookingModalProps) => {
 
     console.log('BookingModal: Initializing Cal.com booking form');
     console.log('Form data:', formData);
+    console.log('Service field value:', formData.service);
 
     const initializeCal = async () => {
       try {
@@ -78,6 +78,7 @@ const BookingModal = ({ isOpen, onClose, formData }: BookingModalProps) => {
     }
     
     console.log('Opening Cal.com booking form with prefilled data:', formData);
+    console.log('Service value being passed:', formData.service);
     
     try {
       const cal = await getCalApi({
@@ -157,7 +158,7 @@ const BookingModal = ({ isOpen, onClose, formData }: BookingModalProps) => {
     }
   }, [isOpen]);
 
-  // Prepare the Cal.com link with URL parameters - updated field mapping
+  // Prepare the Cal.com link with URL parameters - using exact field names from Cal.com
   const buildCalLink = () => {
     const baseUrl = "admin/cbrs-booking-form";
     const params = new URLSearchParams();
@@ -166,31 +167,31 @@ const BookingModal = ({ isOpen, onClose, formData }: BookingModalProps) => {
     if (formData.name) params.append('name', formData.name);
     if (formData.email) params.append('email', formData.email);
     if (formData.phone) params.append('phone', formData.phone);
-    
-    // Try multiple possible field names for Service Type
-    if (formData.service) {
-      params.append('service', formData.service);
-      params.append('serviceType', formData.service);
-      params.append('service_type', formData.service);
-      params.append('Service', formData.service);
-      params.append('Service Type', formData.service);
-    }
-    
     if (formData.city) params.append('city', formData.city);
     
-    // Combine message and insurance info for project description with multiple field name attempts
-    const projectDescription = `${formData.message || 'No additional message'}${formData.isInsuranceClaim ? '\n\nInsurance Claim: Yes' : '\n\nInsurance Claim: No'}`;
+    // Use the exact field name from the Cal.com form screenshot
+    if (formData.service) {
+      params.append('Service Type', formData.service);
+      // Also add backup variations
+      params.append('ServiceType', formData.service);
+      params.append('service_type', formData.service);
+      params.append('service', formData.service);
+    }
+    
+    // Combine message and insurance info for project description
+    const projectDescription = `${formData.message || 'This is a sample project'}${formData.isInsuranceClaim ? '\n\nInsurance Claim: Yes' : '\n\nInsurance Claim: No'}`;
     if (projectDescription) {
+      params.append('Project Description', projectDescription);
+      params.append('ProjectDescription', projectDescription);
+      params.append('project_description', projectDescription);
       params.append('message', projectDescription);
       params.append('description', projectDescription);
-      params.append('projectDescription', projectDescription);
-      params.append('project_description', projectDescription);
-      params.append('Project Description', projectDescription);
       params.append('notes', projectDescription);
     }
     
     const queryString = params.toString();
     console.log('Cal.com URL with prefill params:', `${baseUrl}?${queryString}`);
+    console.log('Service Type parameter:', formData.service);
     return queryString ? `${baseUrl}?${queryString}` : baseUrl;
   };
 
@@ -249,19 +250,22 @@ const BookingModal = ({ isOpen, onClose, formData }: BookingModalProps) => {
                     layout: "month_view",
                     theme: "light",
                     hideEventTypeDetails: false,
-                    // Try multiple prefill approaches
+                    // Use exact field names from Cal.com form
                     prefill: {
                       name: formData.name,
                       email: formData.email,
                       phone: formData.phone,
-                      service: formData.service,
-                      serviceType: formData.service,
                       "Service Type": formData.service,
+                      ServiceType: formData.service,
+                      service_type: formData.service,
+                      service: formData.service,
                       city: formData.city,
-                      message: `${formData.message || 'No additional message'}${formData.isInsuranceClaim ? '\n\nInsurance Claim: Yes' : '\n\nInsurance Claim: No'}`,
-                      description: `${formData.message || 'No additional message'}${formData.isInsuranceClaim ? '\n\nInsurance Claim: Yes' : '\n\nInsurance Claim: No'}`,
-                      "Project Description": `${formData.message || 'No additional message'}${formData.isInsuranceClaim ? '\n\nInsurance Claim: Yes' : '\n\nInsurance Claim: No'}`,
-                      notes: `${formData.message || 'No additional message'}${formData.isInsuranceClaim ? '\n\nInsurance Claim: Yes' : '\n\nInsurance Claim: No'}`
+                      "Project Description": `${formData.message || 'This is a sample project'}${formData.isInsuranceClaim ? '\n\nInsurance Claim: Yes' : '\n\nInsurance Claim: No'}`,
+                      ProjectDescription: `${formData.message || 'This is a sample project'}${formData.isInsuranceClaim ? '\n\nInsurance Claim: Yes' : '\n\nInsurance Claim: No'}`,
+                      project_description: `${formData.message || 'This is a sample project'}${formData.isInsuranceClaim ? '\n\nInsurance Claim: Yes' : '\n\nInsurance Claim: No'}`,
+                      message: `${formData.message || 'This is a sample project'}${formData.isInsuranceClaim ? '\n\nInsurance Claim: Yes' : '\n\nInsurance Claim: No'}`,
+                      description: `${formData.message || 'This is a sample project'}${formData.isInsuranceClaim ? '\n\nInsurance Claim: Yes' : '\n\nInsurance Claim: No'}`,
+                      notes: `${formData.message || 'This is a sample project'}${formData.isInsuranceClaim ? '\n\nInsurance Claim: Yes' : '\n\nInsurance Claim: No'}`
                     }
                   })}
                   className={`px-8 py-3 rounded-md transition-colors font-medium ${
