@@ -37,7 +37,7 @@ const BookingModal = ({ isOpen, onClose, formData }: BookingModalProps) => {
 
     console.log('BookingModal: Initializing Cal.com booking form');
     console.log('Form data:', formData);
-    console.log('Service field value for servicetype identifier:', formData.service);
+    console.log('Service field value:', formData.service);
 
     const initializeCal = async () => {
       try {
@@ -78,7 +78,7 @@ const BookingModal = ({ isOpen, onClose, formData }: BookingModalProps) => {
     }
     
     console.log('Opening Cal.com booking form with prefilled data:', formData);
-    console.log('Service value being passed with servicetype identifier:', formData.service);
+    console.log('Service value being passed:', formData.service);
     
     try {
       const cal = await getCalApi({
@@ -90,7 +90,7 @@ const BookingModal = ({ isOpen, onClose, formData }: BookingModalProps) => {
         calLink: buildCalLink()
       });
       
-      console.log('Cal.com booking modal opened with servicetype prefill data');
+      console.log('Cal.com booking modal opened with prefill data');
     } catch (openError) {
       console.error('Error opening Cal.com modal:', openError);
     }
@@ -158,20 +158,24 @@ const BookingModal = ({ isOpen, onClose, formData }: BookingModalProps) => {
     }
   }, [isOpen]);
 
-  // Prepare the Cal.com link with URL parameters - using correct identifier 'servicetype'
+  // Prepare the Cal.com link with URL parameters - using exact field names from Cal.com
   const buildCalLink = () => {
     const baseUrl = "admin/cbrs-booking-form";
     const params = new URLSearchParams();
     
-    // Add prefill parameters using exact field identifiers from Cal.com
+    // Add prefill parameters using exact field names that Cal.com expects
     if (formData.name) params.append('name', formData.name);
     if (formData.email) params.append('email', formData.email);
     if (formData.phone) params.append('phone', formData.phone);
     if (formData.city) params.append('city', formData.city);
     
-    // Use the correct identifier 'servicetype' from Cal.com admin
+    // Use the exact field name from the Cal.com form screenshot
     if (formData.service) {
-      params.append('servicetype', formData.service);
+      params.append('Service Type', formData.service);
+      // Also add backup variations
+      params.append('ServiceType', formData.service);
+      params.append('service_type', formData.service);
+      params.append('service', formData.service);
     }
     
     // Combine message and insurance info for project description
@@ -186,8 +190,8 @@ const BookingModal = ({ isOpen, onClose, formData }: BookingModalProps) => {
     }
     
     const queryString = params.toString();
-    console.log('Cal.com URL with servicetype prefill params:', `${baseUrl}?${queryString}`);
-    console.log('Service Type parameter with servicetype identifier:', formData.service);
+    console.log('Cal.com URL with prefill params:', `${baseUrl}?${queryString}`);
+    console.log('Service Type parameter:', formData.service);
     return queryString ? `${baseUrl}?${queryString}` : baseUrl;
   };
 
@@ -246,12 +250,15 @@ const BookingModal = ({ isOpen, onClose, formData }: BookingModalProps) => {
                     layout: "month_view",
                     theme: "light",
                     hideEventTypeDetails: false,
-                    // Use correct identifier 'servicetype' from Cal.com admin
+                    // Use exact field names from Cal.com form
                     prefill: {
                       name: formData.name,
                       email: formData.email,
                       phone: formData.phone,
-                      servicetype: formData.service,
+                      "Service Type": formData.service,
+                      ServiceType: formData.service,
+                      service_type: formData.service,
+                      service: formData.service,
                       city: formData.city,
                       "Project Description": `${formData.message || 'This is a sample project'}${formData.isInsuranceClaim ? '\n\nInsurance Claim: Yes' : '\n\nInsurance Claim: No'}`,
                       ProjectDescription: `${formData.message || 'This is a sample project'}${formData.isInsuranceClaim ? '\n\nInsurance Claim: Yes' : '\n\nInsurance Claim: No'}`,
