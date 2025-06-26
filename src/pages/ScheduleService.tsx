@@ -1,4 +1,3 @@
-
 import React, { useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -73,44 +72,42 @@ const ScheduleService = () => {
     if (formData.phone) params.append('phone', formData.phone);
     if (formData.city) params.append('city', formData.city);
     
-    // Try the exact field name that appears in the Cal.com form
+    // For Service Type - since it's a short text field in Cal.com, pass the exact service name
     if (formData.service) {
-      params.append('Service Type', formData.service);
-      // Also try without spaces and other variations as backup
-      params.append('ServiceType', formData.service);
-      params.append('service_type', formData.service);
-      params.append('service', formData.service);
+      // Use the exact field name from Cal.com (no spaces, lowercase)
+      params.append('servicetype', formData.service);
+      console.log('Setting servicetype parameter to:', formData.service);
     }
     
     // Combine message and insurance info
     const projectDescription = `${formData.message || 'This is a sample project'}${formData.isInsuranceClaim ? '\n\nInsurance Claim: Yes' : '\n\nInsurance Claim: No'}`;
     if (projectDescription) {
-      params.append('Project Description', projectDescription);
-      params.append('ProjectDescription', projectDescription);
-      params.append('project_description', projectDescription);
-      params.append('message', projectDescription);
-      params.append('description', projectDescription);
-      params.append('notes', projectDescription);
+      params.append('projectdescription', projectDescription);
+      console.log('Setting projectdescription parameter to:', projectDescription);
     }
     
     const queryString = params.toString();
-    console.log('Cal.com URL with prefill params:', `${baseUrl}?${queryString}`);
-    console.log('Service value being passed:', formData.service);
+    console.log('Complete Cal.com URL:', `${baseUrl}?${queryString}`);
+    console.log('All URL parameters:', Object.fromEntries(params.entries()));
     return queryString ? `${baseUrl}?${queryString}` : baseUrl;
   };
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     console.log('Form submitted with values:', values);
-    console.log('Service field value:', values.service);
+    console.log('Service field value (from dropdown):', values.service);
     
     try {
       const cal = await getCalApi({
         "namespace": "cbrs-direct-booking"
       });
       
+      // Build the Cal.com link with prefilled data
+      const calLink = buildCalLink(values);
+      console.log('Opening Cal.com modal with link:', calLink);
+      
       // Directly open Cal.com booking modal with prefilled data
       cal("modal", {
-        calLink: buildCalLink(values)
+        calLink: calLink
       });
       
       toast({
@@ -118,7 +115,7 @@ const ScheduleService = () => {
         description: "Your information has been pre-filled in the booking form.",
       });
       
-      console.log('Cal.com booking modal opened directly with prefill data');
+      console.log('Cal.com booking modal opened successfully');
     } catch (error) {
       console.error('Error opening Cal.com modal:', error);
       toast({

@@ -37,7 +37,7 @@ const BookingModal = ({ isOpen, onClose, formData }: BookingModalProps) => {
 
     console.log('BookingModal: Initializing Cal.com booking form');
     console.log('Form data:', formData);
-    console.log('Service field value:', formData.service);
+    console.log('Service field value (from dropdown):', formData.service);
 
     const initializeCal = async () => {
       try {
@@ -71,6 +71,36 @@ const BookingModal = ({ isOpen, onClose, formData }: BookingModalProps) => {
     initializeCal();
   }, [isOpen, formData]);
 
+  // Prepare the Cal.com link with URL parameters - using simplified field names
+  const buildCalLink = () => {
+    const baseUrl = "admin/cbrs-booking-form";
+    const params = new URLSearchParams();
+    
+    // Add prefill parameters using simplified field names
+    if (formData.name) params.append('name', formData.name);
+    if (formData.email) params.append('email', formData.email);
+    if (formData.phone) params.append('phone', formData.phone);
+    if (formData.city) params.append('city', formData.city);
+    
+    // Use simplified field name for service type (no spaces, lowercase)
+    if (formData.service) {
+      params.append('servicetype', formData.service);
+      console.log('Setting servicetype parameter to:', formData.service);
+    }
+    
+    // Combine message and insurance info for project description
+    const projectDescription = `${formData.message || 'This is a sample project'}${formData.isInsuranceClaim ? '\n\nInsurance Claim: Yes' : '\n\nInsurance Claim: No'}`;
+    if (projectDescription) {
+      params.append('projectdescription', projectDescription);
+      console.log('Setting projectdescription parameter to:', projectDescription);
+    }
+    
+    const queryString = params.toString();
+    console.log('Complete Cal.com URL:', `${baseUrl}?${queryString}`);
+    console.log('All URL parameters:', Object.fromEntries(params.entries()));
+    return queryString ? `${baseUrl}?${queryString}` : baseUrl;
+  };
+
   const handleBookingClick = async () => {
     if (!calReady) {
       console.log('Cal.com not ready yet, please wait...');
@@ -78,7 +108,6 @@ const BookingModal = ({ isOpen, onClose, formData }: BookingModalProps) => {
     }
     
     console.log('Opening Cal.com booking form with prefilled data:', formData);
-    console.log('Service value being passed:', formData.service);
     
     try {
       const cal = await getCalApi({
@@ -158,43 +187,6 @@ const BookingModal = ({ isOpen, onClose, formData }: BookingModalProps) => {
     }
   }, [isOpen]);
 
-  // Prepare the Cal.com link with URL parameters - using exact field names from Cal.com
-  const buildCalLink = () => {
-    const baseUrl = "admin/cbrs-booking-form";
-    const params = new URLSearchParams();
-    
-    // Add prefill parameters using exact field names that Cal.com expects
-    if (formData.name) params.append('name', formData.name);
-    if (formData.email) params.append('email', formData.email);
-    if (formData.phone) params.append('phone', formData.phone);
-    if (formData.city) params.append('city', formData.city);
-    
-    // Use the exact field name from the Cal.com form screenshot
-    if (formData.service) {
-      params.append('Service Type', formData.service);
-      // Also add backup variations
-      params.append('ServiceType', formData.service);
-      params.append('service_type', formData.service);
-      params.append('service', formData.service);
-    }
-    
-    // Combine message and insurance info for project description
-    const projectDescription = `${formData.message || 'This is a sample project'}${formData.isInsuranceClaim ? '\n\nInsurance Claim: Yes' : '\n\nInsurance Claim: No'}`;
-    if (projectDescription) {
-      params.append('Project Description', projectDescription);
-      params.append('ProjectDescription', projectDescription);
-      params.append('project_description', projectDescription);
-      params.append('message', projectDescription);
-      params.append('description', projectDescription);
-      params.append('notes', projectDescription);
-    }
-    
-    const queryString = params.toString();
-    console.log('Cal.com URL with prefill params:', `${baseUrl}?${queryString}`);
-    console.log('Service Type parameter:', formData.service);
-    return queryString ? `${baseUrl}?${queryString}` : baseUrl;
-  };
-
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto" style={{ zIndex: 50 }}>
@@ -246,28 +238,6 @@ const BookingModal = ({ isOpen, onClose, formData }: BookingModalProps) => {
                   data-cal-namespace="cbrs-booking-modal"
                   data-cal-link={buildCalLink()}
                   data-cal-origin="https://schedule.cbrsgroup.com"
-                  data-cal-config={JSON.stringify({
-                    layout: "month_view",
-                    theme: "light",
-                    hideEventTypeDetails: false,
-                    // Use exact field names from Cal.com form
-                    prefill: {
-                      name: formData.name,
-                      email: formData.email,
-                      phone: formData.phone,
-                      "Service Type": formData.service,
-                      ServiceType: formData.service,
-                      service_type: formData.service,
-                      service: formData.service,
-                      city: formData.city,
-                      "Project Description": `${formData.message || 'This is a sample project'}${formData.isInsuranceClaim ? '\n\nInsurance Claim: Yes' : '\n\nInsurance Claim: No'}`,
-                      ProjectDescription: `${formData.message || 'This is a sample project'}${formData.isInsuranceClaim ? '\n\nInsurance Claim: Yes' : '\n\nInsurance Claim: No'}`,
-                      project_description: `${formData.message || 'This is a sample project'}${formData.isInsuranceClaim ? '\n\nInsurance Claim: Yes' : '\n\nInsurance Claim: No'}`,
-                      message: `${formData.message || 'This is a sample project'}${formData.isInsuranceClaim ? '\n\nInsurance Claim: Yes' : '\n\nInsurance Claim: No'}`,
-                      description: `${formData.message || 'This is a sample project'}${formData.isInsuranceClaim ? '\n\nInsurance Claim: Yes' : '\n\nInsurance Claim: No'}`,
-                      notes: `${formData.message || 'This is a sample project'}${formData.isInsuranceClaim ? '\n\nInsurance Claim: Yes' : '\n\nInsurance Claim: No'}`
-                    }
-                  })}
                   className={`px-8 py-3 rounded-md transition-colors font-medium ${
                     calReady 
                       ? 'bg-[#1e3046] hover:bg-[#1e3046]/90 text-white cursor-pointer' 
