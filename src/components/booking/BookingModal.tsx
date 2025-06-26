@@ -84,12 +84,37 @@ const BookingModal = ({ isOpen, onClose, formData }: BookingModalProps) => {
         "namespace": "cbrs-booking-modal"
       });
       
-      // Use Cal.com's modal method to open the booking form
-      cal("modal", {
-        calLink: buildCalLink()
-      });
+      // Prepare prefill data
+      const prefillData = {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        // Try different possible field names for service type
+        service: formData.service,
+        serviceType: formData.service,
+        "Service Type": formData.service,
+        city: formData.city,
+        location: formData.city,
+        // Combine message and insurance info
+        message: `${formData.message || 'No additional message'}${formData.isInsuranceClaim ? '\n\nInsurance Claim: Yes' : '\n\nInsurance Claim: No'}`,
+        description: `${formData.message || 'No additional message'}${formData.isInsuranceClaim ? '\n\nInsurance Claim: Yes' : '\n\nInsurance Claim: No'}`,
+        notes: `${formData.message || 'No additional message'}${formData.isInsuranceClaim ? '\n\nInsurance Claim: Yes' : '\n\nInsurance Claim: No'}`,
+        "Project Description": `${formData.message || 'No additional message'}${formData.isInsuranceClaim ? '\n\nInsurance Claim: Yes' : '\n\nInsurance Claim: No'}`
+      };
+
+      console.log('Prefill data being sent to Cal.com:', prefillData);
       
-      console.log('Cal.com booking modal opened with prefill data');
+      // Use Cal.com's prefill method before opening modal
+      cal("prefill", prefillData);
+      
+      // Small delay to ensure prefill is processed
+      setTimeout(() => {
+        cal("modal", {
+          calLink: "admin/cbrs-booking-form"
+        });
+        console.log('Cal.com booking modal opened with prefill data');
+      }, 500);
+      
     } catch (openError) {
       console.error('Error opening Cal.com modal:', openError);
     }
@@ -244,14 +269,6 @@ const BookingModal = ({ isOpen, onClose, formData }: BookingModalProps) => {
               
               <div style={{ position: 'relative', zIndex: 99999 }}>
                 <button
-                  data-cal-namespace="cbrs-booking-modal"
-                  data-cal-link={buildCalLink()}
-                  data-cal-origin="https://schedule.cbrsgroup.com"
-                  data-cal-config={JSON.stringify({
-                    layout: "month_view",
-                    theme: "light",
-                    hideEventTypeDetails: false
-                  })}
                   className={`px-8 py-3 rounded-md transition-colors font-medium ${
                     calReady 
                       ? 'bg-[#1e3046] hover:bg-[#1e3046]/90 text-white cursor-pointer' 
@@ -267,7 +284,7 @@ const BookingModal = ({ isOpen, onClose, formData }: BookingModalProps) => {
               
               <div className="mt-4 text-sm text-gray-600">
                 <p>Debug info: Service type = "{formData.service}"</p>
-                <p>Full URL: {buildCalLink()}</p>
+                <p>Prefill method: Using Cal.com's prefill API</p>
               </div>
             </div>
           )}
