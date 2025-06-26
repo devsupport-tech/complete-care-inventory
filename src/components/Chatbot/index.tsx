@@ -2,6 +2,7 @@
 import { useState, useRef, useEffect } from "react";
 import { MessageCircle, X, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
 
 type Message = {
   id: string;
@@ -19,7 +20,11 @@ const Chatbot = () => {
     },
   ]);
   const [input, setInput] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const { toast } = useToast();
+
+  const WEBHOOK_URL = "https://n8n2.team-workspace.us/webhook-test/279dac00-cf5d-4e83-b047-99c8cba9230b";
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -29,8 +34,8 @@ const Chatbot = () => {
     scrollToBottom();
   }, [messages]);
 
-  const handleSend = () => {
-    if (!input.trim()) return;
+  const handleSend = async () => {
+    if (!input.trim() || isLoading) return;
 
     const userMessage: Message = {
       id: Date.now().toString(),
@@ -39,18 +44,65 @@ const Chatbot = () => {
     };
 
     setMessages((prev) => [...prev, userMessage]);
+    const currentInput = input.trim();
     setInput("");
+    setIsLoading(true);
 
-    setTimeout(() => {
+    try {
+      console.log('Sending message to webhook:', currentInput);
+      
+      const response = await fetch(WEBHOOK_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          message: currentInput,
+          timestamp: new Date().toISOString(),
+          source: "cbrs-chatbot",
+          user_id: `user_${Date.now()}` // Simple user identification
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Webhook response:', data);
+        
+        // Add bot response from webhook
+        const botResponse = data.response || data.message || "Thanks for your message! We'll get back to you soon or feel free to contact us directly.";
+        
+        setMessages((prev) => [
+          ...prev,
+          {
+            id: `${Date.now()}-bot`,
+            text: botResponse,
+            isUser: false,
+          },
+        ]);
+      } else {
+        throw new Error(`Webhook responded with status: ${response.status}`);
+      }
+    } catch (error) {
+      console.error('Error sending message to webhook:', error);
+      
+      // Fallback response
       setMessages((prev) => [
         ...prev,
         {
           id: `${Date.now()}-bot`,
-          text: "Thanks for your message! We'll get back to you soon or feel free to contact us directly.",
+          text: "Thanks for your message! We're experiencing some technical issues but we'll get back to you soon. Feel free to contact us directly if this is urgent.",
           isUser: false,
         },
       ]);
-    }, 1200);
+
+      toast({
+        title: "Connection Issue",
+        description: "Your message was received but we're having trouble connecting to our system. We'll still help you!",
+        variant: "destructive"
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -101,10 +153,21 @@ const Chatbot = () => {
                     </div>
                   </div>
                 ))}
+                {isLoading && (
+                  <div className="flex justify-start">
+                    <div className="bg-gray-100 text-black rounded-lg rounded-bl-none px-3 py-2 text-sm">
+                      <div className="flex items-center space-x-1">
+                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
+                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+                      </div>
+                    </div>
+                  </div>
+                )}
                 <div ref={messagesEndRef} />
               </div>
 
-              {/* Input Container - Fixed width to prevent overflow */}
+              {/* Input Container */}
               <div className="flex-shrink-0 border-t bg-white rounded-b-xl">
                 <div className="p-3">
                   <div className="flex items-center gap-2">
@@ -115,13 +178,15 @@ const Chatbot = () => {
                       value={input}
                       onChange={(e) => setInput(e.target.value)}
                       onKeyDown={(e) => {
-                        if (e.key === "Enter") handleSend();
+                        if (e.key === "Enter" && !isLoading) handleSend();
                       }}
+                      disabled={isLoading}
                     />
                     <Button 
                       onClick={handleSend} 
                       className="rounded-full w-8 h-8 bg-[#1A2A3A] hover:bg-[#1A2A3A]/90 flex-shrink-0 p-0" 
                       size="sm"
+                      disabled={isLoading || !input.trim()}
                     >
                       <Send className="w-4 h-4" />
                     </Button>
