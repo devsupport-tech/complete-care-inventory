@@ -49,8 +49,8 @@ const InsuranceCoverage = () => {
         
         <div className="relative h-[400px] rounded-xl overflow-hidden shadow-xl">
           <img 
-            src="https://images.unsplash.com/photo-1631382180449-6f2457fa37f3?auto=format&fit=crop&q=80&w=2970" 
-            alt="Water damage restoration"
+            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=2970" 
+            alt="Professional contractor reviewing documents and plans"
             className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#1e3046]/50 to-transparent flex items-end">
