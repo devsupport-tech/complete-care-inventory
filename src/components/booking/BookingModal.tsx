@@ -77,15 +77,15 @@ const BookingModal = ({ isOpen, onClose, formData }: BookingModalProps) => {
       return;
     }
     
-    console.log('Opening Cal.com booking form with prefilled data:', formData);
+    console.log('Opening Cal.com booking form with preloaded data:', formData);
     
     try {
       const cal = await getCalApi({
         "namespace": "cbrs-booking-modal"
       });
       
-      // Prepare prefill data
-      const prefillData = {
+      // Prepare preload data for Cal.com
+      const preloadData = {
         name: formData.name,
         email: formData.email,
         phone: formData.phone,
@@ -102,17 +102,20 @@ const BookingModal = ({ isOpen, onClose, formData }: BookingModalProps) => {
         "Project Description": `${formData.message || 'No additional message'}${formData.isInsuranceClaim ? '\n\nInsurance Claim: Yes' : '\n\nInsurance Claim: No'}`
       };
 
-      console.log('Prefill data being sent to Cal.com:', prefillData);
+      console.log('Preload data being sent to Cal.com:', preloadData);
       
-      // Use Cal.com's prefill method before opening modal
-      cal("prefill", prefillData);
+      // Use Cal.com's preload method to prefill data
+      cal("preload", {
+        calLink: "admin/cbrs-booking-form",
+        ...preloadData
+      });
       
-      // Small delay to ensure prefill is processed
+      // Small delay to ensure preload is processed
       setTimeout(() => {
         cal("modal", {
           calLink: "admin/cbrs-booking-form"
         });
-        console.log('Cal.com booking modal opened with prefill data');
+        console.log('Cal.com booking modal opened with preloaded data');
       }, 500);
       
     } catch (openError) {
@@ -284,7 +287,7 @@ const BookingModal = ({ isOpen, onClose, formData }: BookingModalProps) => {
               
               <div className="mt-4 text-sm text-gray-600">
                 <p>Debug info: Service type = "{formData.service}"</p>
-                <p>Prefill method: Using Cal.com's prefill API</p>
+                <p>Prefill method: Using Cal.com's preload API</p>
               </div>
             </div>
           )}
