@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -13,14 +13,12 @@ import Header from "@/components/Header";
 import ContactInformation from "@/components/schedule/ContactInformation";
 import ServiceDetails from "@/components/schedule/ServiceDetails";
 import InsuranceInformation from "@/components/schedule/InsuranceInformation";
-import BookingModal from "@/components/booking/BookingModal";
 import Chatbot from "@/components/Chatbot";
+import { getCalApi } from "@calcom/embed-react";
 
 const ScheduleService = () => {
   const { toast } = useToast();
   const [searchParams] = useSearchParams();
-  const [showBookingModal, setShowBookingModal] = useState(false);
-  const [bookingData, setBookingData] = useState<any>(null);
   const serviceId = searchParams.get('service');
 
   const defaultService = serviceId 
@@ -40,18 +38,115 @@ const ScheduleService = () => {
     }
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
+  // Initialize Cal.com when component mounts
+  useEffect(() => {
+    const initializeCal = async () => {
+      try {
+        console.log('Initializing Cal.com for direct booking...');
+        
+        const cal = await getCalApi({
+          "namespace": "cbrs-direct-booking",
+          "embedJsUrl": "https://schedule.cbrsgroup.com/embed/embed.js"
+        });
+        
+        cal("ui", {
+          "hideEventTypeDetails": false,
+          "layout": "month_view"
+        });
+
+        console.log('Cal.com initialized successfully for direct booking');
+      } catch (error) {
+        console.error('Error initializing Cal.com:', error);
+      }
+    };
+
+    initializeCal();
+  }, []);
+
+  const buildCalLink = (formData: z.infer<typeof formSchema>) => {
+    const baseUrl = "admin/cbrs-booking-form";
+    const params = new URLSearchParams();
+    
+    // Add prefill parameters
+    if (formData.name) params.append('name', formData.name);
+    if (formData.email) params.append('email', formData.email);
+    if (formData.phone) params.append('phone', formData.phone);
+    if (formData.service) params.append('service', formData.service);
+    if (formData.city) params.append('city', formData.city);
+    
+    // Combine message and insurance info
+    const projectDescription = `${formData.message || 'No additional message'}${formData.isInsuranceClaim ? '\n\nInsurance Claim: Yes' : '\n\nInsurance Claim: No'}`;
+    if (projectDescription) {
+      params.append('message', projectDescription);
+      params.append('description', projectDescription);
+      params.append('notes', projectDescription);
+    }
+    
+    const queryString = params.toString();
+    console.log('Cal.com URL with prefill params:', `${baseUrl}?${queryString}`);
+    return queryString ? `${baseUrl}?${queryString}` : baseUrl;
+  };
+
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
     console.log('Form submitted with values:', values);
     
-    // Store the form data and show the booking modal
-    setBookingData(values);
-    setShowBookingModal(true);
-    
-    toast({
-      title: "Form Submitted",
-      description: "Opening booking calendar...",
-    });
+    try {
+      const cal = await getCalApi({
+        "namespace": "cbrs-direct-booking"
+      });
+      
+      // Directly open Cal.com booking modal with prefilled data
+      cal("modal", {
+        calLink: buildCalLink(values)
+      });
+      
+      toast({
+        title: "Opening Booking Calendar",
+        description: "Your information has been pre-filled in the booking form.",
+      });
+      
+      console.log('Cal.com booking modal opened directly with prefill data');
+    } catch (error) {
+      console.error('Error opening Cal.com modal:', error);
+      toast({
+        title: "Error",
+        description: "Failed to open booking calendar. Please try again.",
+        variant: "destructive"
+      });
+    }
   };
+
+  // Add global styles for Cal.com z-index
+  useEffect(() => {
+    const style = document.createElement('style');
+    style.textContent = `
+      .cal-modal-overlay,
+      .cal-modal,
+      [data-cal-namespace="cbrs-direct-booking"] .cal-modal-overlay,
+      [data-cal-namespace="cbrs-direct-booking"] .cal-modal {
+        z-index: 99999 !important;
+        position: fixed !important;
+      }
+      
+      [data-cal-namespace="cbrs-direct-booking"] * {
+        pointer-events: auto !important;
+      }
+      
+      [data-cal-namespace="cbrs-direct-booking"] button,
+      [data-cal-namespace="cbrs-direct-booking"] [role="button"] {
+        pointer-events: auto !important;
+        z-index: inherit !important;
+        position: relative !important;
+      }
+    `;
+    document.head.appendChild(style);
+    
+    return () => {
+      if (document.head.contains(style)) {
+        document.head.removeChild(style);
+      }
+    };
+  }, []);
 
   return (
     <>
@@ -96,15 +191,6 @@ const ScheduleService = () => {
       </div>
       
       <Chatbot />
-      
-      {/* Booking Modal */}
-      {bookingData && (
-        <BookingModal
-          isOpen={showBookingModal}
-          onClose={() => setShowBookingModal(false)}
-          formData={bookingData}
-        />
-      )}
     </>
   );
 };
