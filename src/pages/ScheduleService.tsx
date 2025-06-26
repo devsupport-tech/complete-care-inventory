@@ -1,3 +1,4 @@
+
 import React, { useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -72,19 +73,30 @@ const ScheduleService = () => {
     if (formData.phone) params.append('phone', formData.phone);
     if (formData.city) params.append('city', formData.city);
     
-    // For Service Type - since it's a short text field in Cal.com, pass the exact service name
+    // For Service Type - using exact field name from Cal.com
     if (formData.service) {
-      // Use the exact field name from Cal.com (no spaces, lowercase)
       params.append('servicetype', formData.service);
       console.log('Setting servicetype parameter to:', formData.service);
     }
     
-    // Combine message and insurance info
-    const projectDescription = `${formData.message || 'This is a sample project'}${formData.isInsuranceClaim ? '\n\nInsurance Claim: Yes' : '\n\nInsurance Claim: No'}`;
-    if (projectDescription) {
-      params.append('projectdescription', projectDescription);
-      console.log('Setting projectdescription parameter to:', projectDescription);
+    // Build comprehensive project description with message and insurance info
+    let projectDescription = '';
+    if (formData.message && formData.message.trim()) {
+      projectDescription = formData.message.trim();
+    } else {
+      projectDescription = 'Service request from CBRS website';
     }
+    
+    // Add insurance information
+    if (formData.isInsuranceClaim) {
+      projectDescription += '\n\nInsurance Claim: Yes';
+    } else {
+      projectDescription += '\n\nInsurance Claim: No';
+    }
+    
+    // Use the exact field name that Cal.com expects for project description
+    params.append('project-description', projectDescription);
+    console.log('Setting project-description parameter to:', projectDescription);
     
     const queryString = params.toString();
     console.log('Complete Cal.com URL:', `${baseUrl}?${queryString}`);

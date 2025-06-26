@@ -71,29 +71,41 @@ const BookingModal = ({ isOpen, onClose, formData }: BookingModalProps) => {
     initializeCal();
   }, [isOpen, formData]);
 
-  // Prepare the Cal.com link with URL parameters - using simplified field names
+  // Prepare the Cal.com link with URL parameters - using correct field names
   const buildCalLink = () => {
     const baseUrl = "admin/cbrs-booking-form";
     const params = new URLSearchParams();
     
-    // Add prefill parameters using simplified field names
+    // Add prefill parameters using exact field names Cal.com expects
     if (formData.name) params.append('name', formData.name);
     if (formData.email) params.append('email', formData.email);
     if (formData.phone) params.append('phone', formData.phone);
     if (formData.city) params.append('city', formData.city);
     
-    // Use simplified field name for service type (no spaces, lowercase)
+    // Use exact field name for service type
     if (formData.service) {
       params.append('servicetype', formData.service);
       console.log('Setting servicetype parameter to:', formData.service);
     }
     
-    // Combine message and insurance info for project description
-    const projectDescription = `${formData.message || 'This is a sample project'}${formData.isInsuranceClaim ? '\n\nInsurance Claim: Yes' : '\n\nInsurance Claim: No'}`;
-    if (projectDescription) {
-      params.append('projectdescription', projectDescription);
-      console.log('Setting projectdescription parameter to:', projectDescription);
+    // Build comprehensive project description with message and insurance info
+    let projectDescription = '';
+    if (formData.message && formData.message.trim()) {
+      projectDescription = formData.message.trim();
+    } else {
+      projectDescription = 'Service request from CBRS website';
     }
+    
+    // Add insurance information
+    if (formData.isInsuranceClaim) {
+      projectDescription += '\n\nInsurance Claim: Yes';
+    } else {
+      projectDescription += '\n\nInsurance Claim: No';
+    }
+    
+    // Use the exact field name that Cal.com expects for project description
+    params.append('project-description', projectDescription);
+    console.log('Setting project-description parameter to:', projectDescription);
     
     const queryString = params.toString();
     console.log('Complete Cal.com URL:', `${baseUrl}?${queryString}`);
