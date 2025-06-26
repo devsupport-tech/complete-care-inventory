@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import {
   Dialog,
@@ -84,9 +83,8 @@ const BookingModal = ({ isOpen, onClose, formData }: BookingModalProps) => {
         "namespace": "cbrs-booking-modal"
       });
       
-      // Use Cal.com's standard method to open the booking form
-      // The prefill data will be handled by the data attributes on the button
-      cal("openModal", {
+      // Use Cal.com's modal method to open the booking form
+      cal("modal", {
         calLink: buildCalLink()
       });
       
