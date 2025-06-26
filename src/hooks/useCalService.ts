@@ -23,7 +23,7 @@ export const useCalService = () => {
       insurance: searchParams.get('insurance') || 'No'
     };
 
-    console.log('Form data to prefill:', formData);
+    console.log('Form data to prefill with servicetype identifier:', formData);
 
     // Initialize Cal.com using the React package
     const initializeCal = async () => {
@@ -54,7 +54,7 @@ export const useCalService = () => {
 
   const handleBookingClick = () => {
     // The booking will be handled by the data attributes on the button
-    console.log('Booking button clicked');
+    console.log('Booking button clicked with servicetype identifier');
   };
 
   return {

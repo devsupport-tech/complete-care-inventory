@@ -1,4 +1,3 @@
-
 import React, { useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -67,19 +66,15 @@ const ScheduleService = () => {
     const baseUrl = "admin/cbrs-booking-form";
     const params = new URLSearchParams();
     
-    // Add prefill parameters with exact field names Cal.com expects
+    // Add prefill parameters with exact field identifiers from Cal.com
     if (formData.name) params.append('name', formData.name);
     if (formData.email) params.append('email', formData.email);
     if (formData.phone) params.append('phone', formData.phone);
     if (formData.city) params.append('city', formData.city);
     
-    // Try the exact field name that appears in the Cal.com form
+    // Use the correct identifier 'servicetype' from Cal.com admin
     if (formData.service) {
-      params.append('Service Type', formData.service);
-      // Also try without spaces and other variations as backup
-      params.append('ServiceType', formData.service);
-      params.append('service_type', formData.service);
-      params.append('service', formData.service);
+      params.append('servicetype', formData.service);
     }
     
     // Combine message and insurance info
@@ -95,13 +90,13 @@ const ScheduleService = () => {
     
     const queryString = params.toString();
     console.log('Cal.com URL with prefill params:', `${baseUrl}?${queryString}`);
-    console.log('Service value being passed:', formData.service);
+    console.log('Service value being passed with servicetype identifier:', formData.service);
     return queryString ? `${baseUrl}?${queryString}` : baseUrl;
   };
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     console.log('Form submitted with values:', values);
-    console.log('Service field value:', values.service);
+    console.log('Service field value for servicetype:', values.service);
     
     try {
       const cal = await getCalApi({
@@ -118,7 +113,7 @@ const ScheduleService = () => {
         description: "Your information has been pre-filled in the booking form.",
       });
       
-      console.log('Cal.com booking modal opened directly with prefill data');
+      console.log('Cal.com booking modal opened directly with servicetype prefill data');
     } catch (error) {
       console.error('Error opening Cal.com modal:', error);
       toast({
