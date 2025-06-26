@@ -104,7 +104,7 @@ const BookingModal = ({ isOpen, onClose, formData }: BookingModalProps) => {
     }
     
     // Use the exact field name that Cal.com expects for project description
-    params.append('description', projectDescription);
+    params.append('project-description', projectDescription);
     console.log('Setting project-description parameter to:', projectDescription);
     
     const queryString = params.toString();
