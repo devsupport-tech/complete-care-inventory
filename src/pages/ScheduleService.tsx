@@ -39,6 +39,7 @@ const ScheduleService = () => {
   }, [defaultService]);
 
   const isPackoutService = selectedService === "Packout & Content Management";
+  const isEstimatingService = selectedService === "Estimating & Insurance Supplementing";
 
   const regularForm = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -257,6 +258,61 @@ const ScheduleService = () => {
     return fullUrl;
   };
 
+  const buildEstimatingCalLink = (formData: z.infer<typeof formSchema>) => {
+    const baseUrl = "admin/estimating-services";
+    const params = new URLSearchParams();
+    
+    // Map form fields to the exact Cal.com field names - ensure proper encoding
+    if (formData.name?.trim()) {
+      params.append('name', formData.name.trim());
+      console.log('Setting name to:', formData.name.trim());
+    }
+    
+    if (formData.phone?.trim()) {
+      params.append('contractor_phone', formData.phone.trim());
+      console.log('Setting contractor_phone to:', formData.phone.trim());
+    }
+    
+    if (formData.email?.trim()) {
+      params.append('email', formData.email.trim());
+      console.log('Setting email to:', formData.email.trim());
+    }
+    
+    if (formData.service?.trim()) {
+      params.append('servicetype', formData.service.trim());
+      console.log('Setting servicetype parameter to:', formData.service.trim());
+    }
+    
+    if (formData.city?.trim()) {
+      params.append('city', formData.city.trim());
+      console.log('Setting city to:', formData.city.trim());
+    }
+    
+    // Project Description with proper formatting
+    let projectDescription = '';
+    if (formData.message?.trim()) {
+      projectDescription = formData.message.trim();
+    } else {
+      projectDescription = 'Estimating & Insurance Supplementing service request from CBRS website';
+    }
+    
+    if (formData.isInsuranceClaim) {
+      projectDescription += '\n\nInsurance Claim: Yes';
+    } else {
+      projectDescription += '\n\nInsurance Claim: No';
+    }
+    
+    params.append('description', projectDescription);
+    console.log('Setting description parameter to:', projectDescription);
+    
+    const queryString = params.toString();
+    const fullUrl = `${baseUrl}?${queryString}`;
+    console.log('Complete Cal.com URL for estimating services:', fullUrl);
+    console.log('All URL parameters:', Object.fromEntries(params.entries()));
+    
+    return fullUrl;
+  };
+
   const onSubmitRegular = async (values: z.infer<typeof formSchema>) => {
     console.log('Regular form submitted with values:', values);
     console.log('Service field value (from dropdown):', values.service);
@@ -266,9 +322,15 @@ const ScheduleService = () => {
         "namespace": "cbrs-direct-booking"
       });
       
-      // Build the Cal.com link with prefilled data
-      const calLink = buildCalLink(values);
-      console.log('Opening Cal.com modal with link:', calLink);
+      // Build the Cal.com link with prefilled data based on service type
+      let calLink;
+      if (isEstimatingService) {
+        calLink = buildEstimatingCalLink(values);
+        console.log('Opening Cal.com estimating services modal with link:', calLink);
+      } else {
+        calLink = buildCalLink(values);
+        console.log('Opening Cal.com modal with link:', calLink);
+      }
       
       // Directly open Cal.com booking modal with prefilled data
       cal("modal", {
@@ -277,7 +339,7 @@ const ScheduleService = () => {
       
       toast({
         title: "Opening Booking Calendar",
-        description: "Your information has been pre-filled in the booking form.",
+        description: `Your information has been pre-filled in the ${isEstimatingService ? 'estimating services' : ''} booking form.`,
       });
       
       console.log('Cal.com booking modal opened successfully');
@@ -386,11 +448,15 @@ const ScheduleService = () => {
         <div className="bg-white rounded-lg shadow-sm p-6 md:p-8">
           <div className="mb-8">
             <h2 className="text-xl font-semibold text-[#1e3046] mb-2">
-              {isPackoutService ? "Packout & Content Management Request Form" : "Service Request Form"}
+              {isPackoutService ? "Packout & Content Management Request Form" : 
+               isEstimatingService ? "Estimating & Insurance Supplementing Request Form" : 
+               "Service Request Form"}
             </h2>
             <p className="text-[#1e3046]/70 text-sm">
               {isPackoutService 
                 ? "Please provide the details for your packout and content management service, including contractor and claim information."
+                : isEstimatingService
+                ? "Please provide the details for your estimating and insurance supplementing service."
                 : "Please provide the details of the service you need."
               }
             </p>
@@ -426,7 +492,7 @@ const ScheduleService = () => {
                   variant="orange" 
                   className="w-full py-6 text-base bg-[#1e3046] hover:bg-[#1e3046]/90"
                 >
-                  Schedule Service
+                  {isEstimatingService ? "Schedule Estimating Service" : "Schedule Service"}
                 </Button>
               </form>
             </Form>
