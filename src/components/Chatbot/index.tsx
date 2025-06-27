@@ -100,16 +100,6 @@ const Chatbot = () => {
                 {messages.length === 0 && (
                   <div className="space-y-3">
                     <div className="flex justify-start">
-                      <div className="bg-gray-100 text-black rounded-lg rounded-bl-none px-3 py-2 text-sm">
-                        Hello! How can we help you today?
-                      </div>
-                    </div>
-                    <div className="flex justify-start">
-                      <div className="bg-gray-100 text-black rounded-lg rounded-bl-none px-3 py-2 text-sm">
-                        You can also contact us directly or schedule a service:
-                      </div>
-                    </div>
-                    <div className="flex justify-start">
                       <div className="bg-gray-100 text-black rounded-lg rounded-bl-none px-3 py-2 text-sm space-y-2">
                         <div className="flex flex-col gap-2">
                           <Button

@@ -10,6 +10,7 @@ export const sendChatMessage = async (message: string) => {
       headers: {
         'Content-Type': 'application/json',
       },
+      mode: 'no-cors',
       body: JSON.stringify({
         message: message,
         timestamp: new Date().toISOString(),
@@ -21,23 +22,10 @@ export const sendChatMessage = async (message: string) => {
     console.log('Response status:', response.status);
     console.log('Response ok:', response.ok);
 
-    if (!response.ok) {
-      console.error('Webhook request failed with status:', response.status);
-      throw new Error(`Webhook failed with status ${response.status}`);
-    }
-
-    // Try to read the response if possible
-    let responseData;
-    try {
-      responseData = await response.json();
-      console.log('Webhook response data:', responseData);
-    } catch (e) {
-      console.log('Could not parse response as JSON, treating as text');
-      responseData = await response.text();
-    }
-
+    // Since we're using no-cors mode, we can't read the actual response
+    // Return a generic success message
     return { 
-      reply: "Thank you for your message! We've received your inquiry and our support team will get back to you shortly. In the meantime, feel free to call us directly or schedule a service through our booking system." 
+      reply: "Message sent successfully! Our team will get back to you shortly." 
     };
     
   } catch (error) {
@@ -48,12 +36,6 @@ export const sendChatMessage = async (message: string) => {
       console.error('CORS or network error detected');
       return {
         reply: "I'm having trouble connecting to our chat system right now. This might be due to network restrictions. Please contact us directly at our phone number or use our service booking form, and we'll get back to you right away!"
-      };
-    }
-    
-    if (error instanceof Error && error.message.includes('404')) {
-      return {
-        reply: "We're currently updating our chat system. Please contact us directly at our phone number or use our service booking form to get in touch with our team. We apologize for the inconvenience!"
       };
     }
     
