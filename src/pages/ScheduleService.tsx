@@ -196,8 +196,8 @@ const ScheduleService = () => {
 
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-              <ContactInformation control={form.control} />
               <ServiceDetails control={form.control} />
+              <ContactInformation control={form.control} />
               <InsuranceInformation control={form.control} />
 
               <Button 
