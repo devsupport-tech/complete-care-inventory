@@ -1,7 +1,9 @@
+
 import { useState, useRef, useEffect } from "react";
 import { MessageCircle, X, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
+import { sendChatMessage } from "@/utils/chatbotApi";
 
 type Message = {
   id: string;
@@ -16,9 +18,6 @@ const Chatbot = () => {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
-
-  const WEBHOOK_URL = "/api/chatbot";
-
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -43,20 +42,7 @@ const Chatbot = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch(WEBHOOK_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          message: currentInput,
-          timestamp: new Date().toISOString(),
-          source: "cbrs-chatbot",
-          user_id: `user_${Date.now()}`,
-        }),
-      });
-
-      const data = await response.json();
+      const data = await sendChatMessage(currentInput);
 
       if (data.reply) {
         setMessages((prev) => [
