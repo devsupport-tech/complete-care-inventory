@@ -9,10 +9,16 @@ import { Form } from "@/components/ui/form";
 import { useSearchParams } from "react-router-dom";
 import { services } from "@/data/services";
 import { formSchema } from "@/components/schedule/ScheduleFormSchema";
+import { packoutFormSchema } from "@/components/schedule/PackoutFormSchema";
 import Header from "@/components/Header";
 import ContactInformation from "@/components/schedule/ContactInformation";
 import ServiceDetails from "@/components/schedule/ServiceDetails";
 import InsuranceInformation from "@/components/schedule/InsuranceInformation";
+import PackoutContactInformation from "@/components/schedule/PackoutContactInformation";
+import PackoutServiceDetails from "@/components/schedule/PackoutServiceDetails";
+import PackoutInsuranceInformation from "@/components/schedule/PackoutInsuranceInformation";
+import ContractorInformation from "@/components/schedule/ContractorInformation";
+import ClaimInformation from "@/components/schedule/ClaimInformation";
 import Chatbot from "@/components/Chatbot";
 import { getCalApi } from "@calcom/embed-react";
 
@@ -25,7 +31,9 @@ const ScheduleService = () => {
     ? services.find(service => service.id === serviceId)?.title 
     : '';
 
-  const form = useForm<z.infer<typeof formSchema>>({
+  const isPackoutService = defaultService === "Packout & Content Management";
+
+  const regularForm = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
@@ -35,6 +43,25 @@ const ScheduleService = () => {
       city: "",
       message: "",
       isInsuranceClaim: false,
+    }
+  });
+
+  const packoutForm = useForm<z.infer<typeof packoutFormSchema>>({
+    resolver: zodResolver(packoutFormSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      phone: "",
+      service: defaultService || "",
+      city: "",
+      message: "",
+      isInsuranceClaim: false,
+      contractorName: "",
+      contractorPhone: "",
+      contractorEmail: "",
+      claimName: "",
+      claimPhone: "",
+      claimEmail: "",
     }
   });
 
@@ -63,7 +90,7 @@ const ScheduleService = () => {
     initializeCal();
   }, []);
 
-  const buildCalLink = (formData: z.infer<typeof formSchema>) => {
+  const buildCalLink = (formData: z.infer<typeof formSchema> | z.infer<typeof packoutFormSchema>) => {
     const baseUrl = "admin/cbrs-booking-form";
     const params = new URLSearchParams();
     
@@ -93,6 +120,19 @@ const ScheduleService = () => {
     } else {
       projectDescription += '\n\nInsurance Claim: No';
     }
+
+    // Add contractor and claim information for packout services
+    if ('contractorName' in formData) {
+      projectDescription += '\n\nContractor Information:';
+      projectDescription += `\nName: ${formData.contractorName}`;
+      projectDescription += `\nPhone: ${formData.contractorPhone}`;
+      projectDescription += `\nEmail: ${formData.contractorEmail}`;
+      
+      projectDescription += '\n\nClaim Information:';
+      projectDescription += `\nName: ${formData.claimName}`;
+      projectDescription += `\nPhone: ${formData.claimPhone}`;
+      projectDescription += `\nEmail: ${formData.claimEmail}`;
+    }
     
     // Use the exact field name that Cal.com expects for project description
     params.append('project-description', projectDescription);
@@ -104,8 +144,42 @@ const ScheduleService = () => {
     return queryString ? `${baseUrl}?${queryString}` : baseUrl;
   };
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log('Form submitted with values:', values);
+  const onSubmitRegular = async (values: z.infer<typeof formSchema>) => {
+    console.log('Regular form submitted with values:', values);
+    console.log('Service field value (from dropdown):', values.service);
+    
+    try {
+      const cal = await getCalApi({
+        "namespace": "cbrs-direct-booking"
+      });
+      
+      // Build the Cal.com link with prefilled data
+      const calLink = buildCalLink(values);
+      console.log('Opening Cal.com modal with link:', calLink);
+      
+      // Directly open Cal.com booking modal with prefilled data
+      cal("modal", {
+        calLink: calLink
+      });
+      
+      toast({
+        title: "Opening Booking Calendar",
+        description: "Your information has been pre-filled in the booking form.",
+      });
+      
+      console.log('Cal.com booking modal opened successfully');
+    } catch (error) {
+      console.error('Error opening Cal.com modal:', error);
+      toast({
+        title: "Error",
+        description: "Failed to open booking calendar. Please try again.",
+        variant: "destructive"
+      });
+    }
+  };
+
+  const onSubmitPackout = async (values: z.infer<typeof packoutFormSchema>) => {
+    console.log('Packout form submitted with values:', values);
     console.log('Service field value (from dropdown):', values.service);
     
     try {
@@ -187,28 +261,51 @@ const ScheduleService = () => {
         <div className="bg-white rounded-lg shadow-sm p-6 md:p-8">
           <div className="mb-8">
             <h2 className="text-xl font-semibold text-[#1e3046] mb-2">
-              Service Request Form
+              {isPackoutService ? "Packout & Content Management Request Form" : "Service Request Form"}
             </h2>
             <p className="text-[#1e3046]/70 text-sm">
-              Please provide the details of the service you need.
+              {isPackoutService 
+                ? "Please provide the details for your packout and content management service, including contractor and claim information."
+                : "Please provide the details of the service you need."
+              }
             </p>
           </div>
 
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-              <ServiceDetails control={form.control} />
-              <ContactInformation control={form.control} />
-              <InsuranceInformation control={form.control} />
+          {isPackoutService ? (
+            <Form {...packoutForm}>
+              <form onSubmit={packoutForm.handleSubmit(onSubmitPackout)} className="space-y-6">
+                <PackoutServiceDetails control={packoutForm.control} />
+                <PackoutContactInformation control={packoutForm.control} />
+                <ContractorInformation control={packoutForm.control} />
+                <ClaimInformation control={packoutForm.control} />
+                <PackoutInsuranceInformation control={packoutForm.control} />
 
-              <Button 
-                type="submit" 
-                variant="orange" 
-                className="w-full py-6 text-base bg-[#1e3046] hover:bg-[#1e3046]/90"
-              >
-                Schedule Service
-              </Button>
-            </form>
-          </Form>
+                <Button 
+                  type="submit" 
+                  variant="orange" 
+                  className="w-full py-6 text-base bg-[#1e3046] hover:bg-[#1e3046]/90"
+                >
+                  Schedule Packout Service
+                </Button>
+              </form>
+            </Form>
+          ) : (
+            <Form {...regularForm}>
+              <form onSubmit={regularForm.handleSubmit(onSubmitRegular)} className="space-y-6">
+                <ServiceDetails control={regularForm.control} />
+                <ContactInformation control={regularForm.control} />
+                <InsuranceInformation control={regularForm.control} />
+
+                <Button 
+                  type="submit" 
+                  variant="orange" 
+                  className="w-full py-6 text-base bg-[#1e3046] hover:bg-[#1e3046]/90"
+                >
+                  Schedule Service
+                </Button>
+              </form>
+            </Form>
+          )}
         </div>
       </div>
       
