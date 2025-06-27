@@ -18,7 +18,6 @@ import PackoutServiceDetails from "@/components/schedule/PackoutServiceDetails";
 import PackoutInsuranceInformation from "@/components/schedule/PackoutInsuranceInformation";
 import ContractorInformation from "@/components/schedule/ContractorInformation";
 import ClaimInformation from "@/components/schedule/ClaimInformation";
-import Chatbot from "@/components/Chatbot";
 import { getCalApi } from "@calcom/embed-react";
 
 const ScheduleService = () => {
@@ -116,7 +115,24 @@ const ScheduleService = () => {
       }
     };
 
+    // Load n8n chatbot script
+    const loadChatbot = () => {
+      const script = document.createElement('script');
+      script.src = 'https://n8n2.team-workspace.us/form/279dac00-cf5d-4e83-b047-99c8cba9230b/chatbot.js';
+      script.async = true;
+      document.head.appendChild(script);
+    };
+
     initializeCal();
+    loadChatbot();
+
+    return () => {
+      // Clean up n8n script
+      const existingScript = document.querySelector('script[src*="n8n2.team-workspace.us"]');
+      if (existingScript) {
+        existingScript.remove();
+      }
+    };
   }, []);
 
   const buildCalLink = (formData: z.infer<typeof formSchema> | z.infer<typeof packoutFormSchema>) => {
@@ -563,8 +579,6 @@ const ScheduleService = () => {
           )}
         </div>
       </div>
-      
-      <Chatbot />
     </>
   );
 };
