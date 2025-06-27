@@ -18,6 +18,7 @@ import PackoutServiceDetails from "@/components/schedule/PackoutServiceDetails";
 import PackoutInsuranceInformation from "@/components/schedule/PackoutInsuranceInformation";
 import ContractorInformation from "@/components/schedule/ContractorInformation";
 import ClaimInformation from "@/components/schedule/ClaimInformation";
+import Chatbot from "@/components/Chatbot";
 import { getCalApi } from "@calcom/embed-react";
 
 const ScheduleService = () => {
@@ -562,6 +563,8 @@ const ScheduleService = () => {
           )}
         </div>
       </div>
+      
+      <Chatbot />
     </>
   );
 };
