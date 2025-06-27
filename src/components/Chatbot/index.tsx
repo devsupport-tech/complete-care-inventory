@@ -56,7 +56,7 @@ const Chatbot = () => {
         ...prev,
         {
           id: `${Date.now()}-bot`,
-          text: "We're experiencing technical difficulties. Please contact us directly using the phone number on our website or schedule a service through our booking form.",
+          text: "I'm having trouble with our chat system right now. Please contact us directly using the phone number on our website or schedule a service through our booking form. We're here to help!",
           isUser: false,
         },
       ]);

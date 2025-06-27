@@ -43,14 +43,22 @@ export const sendChatMessage = async (message: string) => {
   } catch (error) {
     console.error('[Chatbot API] Error details:', error);
     
+    // Handle CORS errors specifically
+    if (error instanceof TypeError && error.message.includes('fetch')) {
+      console.error('CORS or network error detected');
+      return {
+        reply: "I'm having trouble connecting to our chat system right now. This might be due to network restrictions. Please contact us directly at our phone number or use our service booking form, and we'll get back to you right away!"
+      };
+    }
+    
     if (error instanceof Error && error.message.includes('404')) {
       return {
-        reply: "We're currently updating our chat system. Please contact us directly at (your phone number) or use our service booking form to get in touch with our team. We apologize for the inconvenience!"
+        reply: "We're currently updating our chat system. Please contact us directly at our phone number or use our service booking form to get in touch with our team. We apologize for the inconvenience!"
       };
     }
     
     return {
-      reply: "We're currently experiencing technical difficulties with our chat system. Please contact us directly or use our service booking form to get in touch with our team."
+      reply: "I'm experiencing technical difficulties connecting to our chat system. Please contact us directly using the phone number on our website or schedule a service through our booking form. Our team is ready to help you!"
     };
   }
 };
