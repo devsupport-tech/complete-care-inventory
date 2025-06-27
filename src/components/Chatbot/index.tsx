@@ -1,6 +1,6 @@
 
 import { useState, useRef, useEffect } from "react";
-import { MessageCircle, X, Send } from "lucide-react";
+import { MessageCircle, X, Send, Phone, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { sendChatMessage } from "@/utils/chatbotApi";
@@ -50,12 +50,6 @@ const Chatbot = () => {
 
       console.log('Chatbot response processed successfully');
       
-      // Show a toast to let users know their message was received
-      toast({
-        title: "Message Received",
-        description: "Your message has been sent to our support team!",
-      });
-      
     } catch (error) {
       console.error("Chatbot error:", error);
       setMessages((prev) => [
@@ -103,6 +97,44 @@ const Chatbot = () => {
 
               {/* Messages */}
               <div className="flex-1 overflow-y-auto p-3 space-y-3 min-h-0">
+                {messages.length === 0 && (
+                  <div className="space-y-3">
+                    <div className="flex justify-start">
+                      <div className="bg-gray-100 text-black rounded-lg rounded-bl-none px-3 py-2 text-sm">
+                        Hello! How can we help you today?
+                      </div>
+                    </div>
+                    <div className="flex justify-start">
+                      <div className="bg-gray-100 text-black rounded-lg rounded-bl-none px-3 py-2 text-sm">
+                        You can also contact us directly or schedule a service:
+                      </div>
+                    </div>
+                    <div className="flex justify-start">
+                      <div className="bg-gray-100 text-black rounded-lg rounded-bl-none px-3 py-2 text-sm space-y-2">
+                        <div className="flex flex-col gap-2">
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="text-xs h-8 justify-start"
+                            onClick={() => window.open('tel:+1234567890', '_self')}
+                          >
+                            <Phone className="h-3 w-3 mr-1" />
+                            Call Us
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="text-xs h-8 justify-start"
+                            onClick={() => window.location.href = '/schedule-service'}
+                          >
+                            <Calendar className="h-3 w-3 mr-1" />
+                            Schedule Service
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
                 {messages.map((msg) => (
                   <div
                     key={msg.id}

@@ -5,13 +5,11 @@ export const sendChatMessage = async (message: string) => {
   try {
     console.log('Attempting to send message to n8n webhook:', message);
     
-    // Try the fetch request with no-cors mode
     const response = await fetch(WEBHOOK_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      mode: 'no-cors',
       body: JSON.stringify({
         message: message,
         timestamp: new Date().toISOString(),
@@ -20,21 +18,39 @@ export const sendChatMessage = async (message: string) => {
       }),
     });
 
-    console.log('Fetch request completed');
-    
-    // Since no-cors mode doesn't allow reading the response,
-    // we'll assume success and return a helpful message
+    console.log('Response status:', response.status);
+    console.log('Response ok:', response.ok);
+
+    if (!response.ok) {
+      console.error('Webhook request failed with status:', response.status);
+      throw new Error(`Webhook failed with status ${response.status}`);
+    }
+
+    // Try to read the response if possible
+    let responseData;
+    try {
+      responseData = await response.json();
+      console.log('Webhook response data:', responseData);
+    } catch (e) {
+      console.log('Could not parse response as JSON, treating as text');
+      responseData = await response.text();
+    }
+
     return { 
       reply: "Thank you for your message! We've received your inquiry and our support team will get back to you shortly. In the meantime, feel free to call us directly or schedule a service through our booking system." 
     };
     
   } catch (error) {
-    console.error('[Chatbot API] Network error:', error);
+    console.error('[Chatbot API] Error details:', error);
     
-    // If the fetch fails due to CSP or network issues,
-    // we'll still provide a helpful response to the user
+    if (error instanceof Error && error.message.includes('404')) {
+      return {
+        reply: "We're currently updating our chat system. Please contact us directly at (your phone number) or use our service booking form to get in touch with our team. We apologize for the inconvenience!"
+      };
+    }
+    
     return {
-      reply: "We're currently experiencing technical difficulties with our chat system. Please contact us directly at your phone number or use our service booking form to get in touch with our team."
+      reply: "We're currently experiencing technical difficulties with our chat system. Please contact us directly or use our service booking form to get in touch with our team."
     };
   }
 };
