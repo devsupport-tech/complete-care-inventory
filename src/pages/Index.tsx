@@ -85,7 +85,8 @@ const Index = () => {
       <Hero />
       <Services />
       <Testimonials />
-      <Contact />
+      {/*
+      <Contact />*/}
       <Footer />
       <Chatbot />
 
