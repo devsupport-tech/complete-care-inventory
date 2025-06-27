@@ -1,6 +1,6 @@
 
 export const sendChatMessage = async (message: string) => {
-  const WEBHOOK_URL = 'https://n8n2.team-workspace.us/webhook-test/279dac00-cf5d-4e83-b047-99c8cba9230b';
+  const WEBHOOK_URL = 'https://n8n2.team-workspace.us/webhook/fb0edcb1-b160-4ffc-9997-3f79ccc89a83';
 
   try {
     console.log('Attempting to send message to n8n webhook:', message);
