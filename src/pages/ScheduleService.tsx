@@ -122,9 +122,25 @@ const ScheduleService = () => {
     const params = new URLSearchParams();
     
     // Add prefill parameters with exact field names Cal.com expects
-    if (formData.name) params.append('name', formData.name);
-    if (formData.email) params.append('email', formData.email);
-    if (formData.phone) params.append('phone', formData.phone);
+    // For packout services, use contractor info as primary contact if no direct contact info
+    if (formData.name) {
+      params.append('name', formData.name);
+    } else if ('contractorName' in formData && formData.contractorName) {
+      params.append('name', formData.contractorName);
+    }
+    
+    if (formData.email) {
+      params.append('email', formData.email);
+    } else if ('contractorEmail' in formData && formData.contractorEmail) {
+      params.append('email', formData.contractorEmail);
+    }
+    
+    if (formData.phone) {
+      params.append('phone', formData.phone);
+    } else if ('contractorPhone' in formData && formData.contractorPhone) {
+      params.append('phone', formData.contractorPhone);
+    }
+    
     if (formData.city) params.append('city', formData.city);
     
     // For Service Type - using exact field name from Cal.com
