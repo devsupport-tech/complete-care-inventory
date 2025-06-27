@@ -1,5 +1,4 @@
-
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -26,12 +25,20 @@ const ScheduleService = () => {
   const { toast } = useToast();
   const [searchParams] = useSearchParams();
   const serviceId = searchParams.get('service');
+  const [selectedService, setSelectedService] = useState<string>("");
 
   const defaultService = serviceId 
     ? services.find(service => service.id === serviceId)?.title 
     : '';
 
-  const isPackoutService = defaultService === "Packout & Content Management";
+  // Set initial selected service
+  useEffect(() => {
+    if (defaultService) {
+      setSelectedService(defaultService);
+    }
+  }, [defaultService]);
+
+  const isPackoutService = selectedService === "Packout & Content Management";
 
   const regularForm = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -64,6 +71,26 @@ const ScheduleService = () => {
       claimEmail: "",
     }
   });
+
+  // Watch for service changes in both forms and update selectedService state
+  const regularServiceValue = regularForm.watch("service");
+  const packoutServiceValue = packoutForm.watch("service");
+
+  useEffect(() => {
+    if (regularServiceValue && regularServiceValue !== selectedService) {
+      setSelectedService(regularServiceValue);
+      // Update packout form service value to keep them in sync
+      packoutForm.setValue("service", regularServiceValue);
+    }
+  }, [regularServiceValue, selectedService, packoutForm]);
+
+  useEffect(() => {
+    if (packoutServiceValue && packoutServiceValue !== selectedService) {
+      setSelectedService(packoutServiceValue);
+      // Update regular form service value to keep them in sync
+      regularForm.setValue("service", packoutServiceValue);
+    }
+  }, [packoutServiceValue, selectedService, regularForm]);
 
   // Initialize Cal.com when component mounts
   useEffect(() => {
