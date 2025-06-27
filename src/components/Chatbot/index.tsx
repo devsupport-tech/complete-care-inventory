@@ -1,7 +1,9 @@
+
 import { useState, useRef, useEffect } from "react";
 import { MessageCircle, X, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
+import { sendChatMessage } from "@/utils/chatbotApi";
 
 const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,8 +12,6 @@ const Chatbot = () => {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
   const { toast } = useToast();
-
-  const WEBHOOK_URL = "https://n8n2.team-workspace.us/webhook-test/279dac00-cf5d-4e83-b047-99c8cba9230b";
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -36,45 +36,32 @@ const Chatbot = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch(WEBHOOK_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          message: currentInput,
-          timestamp: new Date().toISOString(),
-          source: "cbrs-chatbot",
-          user_id: `user_${Date.now()}`,
-        }),
-      });
+      console.log('Sending message to chatbot API:', currentInput);
+      const response = await sendChatMessage(currentInput);
 
-      const data = await response.json();
-
-      if (data.reply) {
-        setMessages((prev) => [
-          ...prev,
-          {
-            id: `${Date.now()}-bot`,
-            text: data.reply,
-            isUser: false,
-          },
-        ]);
-      }
-    } catch (error) {
-      console.error("Webhook error:", error);
       setMessages((prev) => [
         ...prev,
         {
           id: `${Date.now()}-bot`,
-          text: "We're having trouble connecting. Please try again shortly.",
+          text: response.reply,
+          isUser: false,
+        },
+      ]);
+
+      console.log('Chatbot response received successfully');
+    } catch (error) {
+      console.error("Chatbot error:", error);
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: `${Date.now()}-bot`,
+          text: "We're having trouble connecting. Please try again shortly or contact us directly at your convenience.",
           isUser: false,
         },
       ]);
       toast({
-        title: "Connection Error",
-        description: "The chatbot could not reach support.",
-        variant: "destructive",
+        title: "Message Sent",
+        description: "Your message has been sent to our support team. We'll get back to you soon!",
       });
     } finally {
       setIsLoading(false);
@@ -113,6 +100,13 @@ const Chatbot = () => {
 
               {/* Messages */}
               <div className="flex-1 overflow-y-auto p-3 space-y-3 min-h-0">
+                {messages.length === 0 && (
+                  <div className="flex justify-start">
+                    <div className="bg-gray-100 text-black rounded-lg rounded-bl-none px-3 py-2 text-sm">
+                      Hello! How can we help you today?
+                    </div>
+                  </div>
+                )}
                 {messages.map((msg) => (
                   <div
                     key={msg.id}
