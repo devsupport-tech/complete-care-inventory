@@ -74,7 +74,7 @@ const PackoutServiceDetails = ({ control }: PackoutServiceDetailsProps) => {
             <FormLabel>Project Description</FormLabel>
             <FormControl>
               <Textarea
-                placeholder="Please provide details about your packout and content management needs..."
+                placeholder="Please provide details about you packout needs. Number of bedrooms, number of bathrooms, number of other rooms, if it is in site or off site storage"
                 className="bg-white border-gray-200 focus:border-cbrs-blue focus:ring-cbrs-blue min-h-[120px]"
                 {...field}
               />
