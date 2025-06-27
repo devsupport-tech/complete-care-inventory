@@ -187,6 +187,68 @@ const ScheduleService = () => {
     return queryString ? `${baseUrl}?${queryString}` : baseUrl;
   };
 
+  const buildPackoutCalLink = (formData: z.infer<typeof packoutFormSchema>) => {
+    const baseUrl = "admin/packout-services";
+    const params = new URLSearchParams();
+    
+    // Add prefill parameters with exact field names Cal.com expects
+    // Use contractor info as primary contact for packout services
+    if (formData.contractorName) {
+      params.append('name', formData.contractorName);
+    }
+    
+    if (formData.contractorEmail) {
+      params.append('email', formData.contractorEmail);
+    }
+    
+    if (formData.contractorPhone) {
+      params.append('phone', formData.contractorPhone);
+    }
+    
+    if (formData.city) params.append('city', formData.city);
+    
+    // For Service Type - using exact field name from Cal.com
+    if (formData.service) {
+      params.append('servicetype', formData.service);
+      console.log('Setting servicetype parameter to:', formData.service);
+    }
+    
+    // Build comprehensive project description with message and insurance info
+    let projectDescription = '';
+    if (formData.message && formData.message.trim()) {
+      projectDescription = formData.message.trim();
+    } else {
+      projectDescription = 'Packout service request from CBRS website';
+    }
+    
+    // Add insurance information
+    if (formData.isInsuranceClaim) {
+      projectDescription += '\n\nInsurance Claim: Yes';
+    } else {
+      projectDescription += '\n\nInsurance Claim: No';
+    }
+
+    // Add contractor and claim information
+    projectDescription += '\n\nContractor Information:';
+    projectDescription += `\nName: ${formData.contractorName}`;
+    projectDescription += `\nPhone: ${formData.contractorPhone}`;
+    projectDescription += `\nEmail: ${formData.contractorEmail}`;
+    
+    projectDescription += '\n\nClaim Information:';
+    projectDescription += `\nName: ${formData.claimName}`;
+    projectDescription += `\nPhone: ${formData.claimPhone}`;
+    projectDescription += `\nEmail: ${formData.claimEmail}`;
+    
+    // Use the exact field name that Cal.com expects for project description
+    params.append('project-description', projectDescription);
+    console.log('Setting project-description parameter to:', projectDescription);
+    
+    const queryString = params.toString();
+    console.log('Complete Cal.com URL for packout services:', `${baseUrl}?${queryString}`);
+    console.log('All URL parameters:', Object.fromEntries(params.entries()));
+    return queryString ? `${baseUrl}?${queryString}` : baseUrl;
+  };
+
   const onSubmitRegular = async (values: z.infer<typeof formSchema>) => {
     console.log('Regular form submitted with values:', values);
     console.log('Service field value (from dropdown):', values.service);
@@ -230,9 +292,9 @@ const ScheduleService = () => {
         "namespace": "cbrs-direct-booking"
       });
       
-      // Build the Cal.com link with prefilled data
-      const calLink = buildCalLink(values);
-      console.log('Opening Cal.com modal with link:', calLink);
+      // Build the Cal.com link with prefilled data for packout services
+      const calLink = buildPackoutCalLink(values);
+      console.log('Opening Cal.com packout services modal with link:', calLink);
       
       // Directly open Cal.com booking modal with prefilled data
       cal("modal", {
@@ -240,11 +302,11 @@ const ScheduleService = () => {
       });
       
       toast({
-        title: "Opening Booking Calendar",
+        title: "Opening Packout Services Calendar",
         description: "Your information has been pre-filled in the booking form.",
       });
       
-      console.log('Cal.com booking modal opened successfully');
+      console.log('Cal.com packout services booking modal opened successfully');
     } catch (error) {
       console.error('Error opening Cal.com modal:', error);
       toast({
