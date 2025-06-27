@@ -1,23 +1,17 @@
-
 import { useState, useRef, useEffect } from "react";
 import { MessageCircle, X, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import { sendChatMessage } from "@/utils/chatbotApi";
-
-type Message = {
-  id: string;
-  text: string;
-  isUser: boolean;
-};
 
 const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const messagesEndRef = useRef(null);
   const { toast } = useToast();
+
+  const WEBHOOK_URL = "https://n8n2.team-workspace.us/webhook-test/279dac00-cf5d-4e83-b047-99c8cba9230b";
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -30,7 +24,7 @@ const Chatbot = () => {
   const handleSend = async () => {
     if (!input.trim() || isLoading) return;
 
-    const userMessage: Message = {
+    const userMessage = {
       id: Date.now().toString(),
       text: input.trim(),
       isUser: true,
@@ -42,7 +36,20 @@ const Chatbot = () => {
     setIsLoading(true);
 
     try {
-      const data = await sendChatMessage(currentInput);
+      const response = await fetch(WEBHOOK_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          message: currentInput,
+          timestamp: new Date().toISOString(),
+          source: "cbrs-chatbot",
+          user_id: `user_${Date.now()}`,
+        }),
+      });
+
+      const data = await response.json();
 
       if (data.reply) {
         setMessages((prev) => [
@@ -54,7 +61,6 @@ const Chatbot = () => {
           },
         ]);
       }
-
     } catch (error) {
       console.error("Webhook error:", error);
       setMessages((prev) => [
@@ -110,7 +116,7 @@ const Chatbot = () => {
                 {messages.map((msg) => (
                   <div
                     key={msg.id}
-                    className={`flex ${msg.isUser ? 'justify-end' : 'justify-start'}`}
+                    className={`flex ${msg.isUser ? "justify-end" : "justify-start"}`}
                   >
                     <div
                       className={`text-sm px-3 py-2 rounded-lg max-w-[75%] ${
@@ -128,8 +134,14 @@ const Chatbot = () => {
                     <div className="bg-gray-100 text-black rounded-lg rounded-bl-none px-3 py-2 text-sm">
                       <div className="flex items-center space-x-1">
                         <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "0.1s" }}></div>
-                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "0.2s" }}></div>
+                        <div
+                          className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                          style={{ animationDelay: "0.1s" }}
+                        ></div>
+                        <div
+                          className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                          style={{ animationDelay: "0.2s" }}
+                        ></div>
                       </div>
                     </div>
                   </div>
