@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -115,16 +116,33 @@ const ScheduleService = () => {
       }
     };
 
-    // Load n8n chatbot script
+    // Load n8n chatbot script with better error handling
     const loadChatbot = () => {
+      // Remove any existing n8n script first
+      const existingScript = document.querySelector('script[src*="n8n2.team-workspace.us"]');
+      if (existingScript) {
+        existingScript.remove();
+      }
+
+      console.log('Loading n8n chatbot script on schedule page...');
       const script = document.createElement('script');
       script.src = 'https://n8n2.team-workspace.us/form/279dac00-cf5d-4e83-b047-99c8cba9230b/chatbot.js';
       script.async = true;
+      
+      script.onload = () => {
+        console.log('n8n chatbot script loaded successfully on schedule page');
+      };
+      
+      script.onerror = (error) => {
+        console.error('Error loading n8n chatbot script on schedule page:', error);
+      };
+      
       document.head.appendChild(script);
     };
 
     initializeCal();
-    loadChatbot();
+    // Load chatbot with a small delay to ensure DOM is ready
+    setTimeout(loadChatbot, 1000);
 
     return () => {
       // Clean up n8n script
