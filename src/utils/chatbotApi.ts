@@ -22,7 +22,11 @@ export const sendChatMessage = async (message: string) => {
     console.log('Response status:', response.status);
     console.log('Response ok:', response.ok);
 
-
+    // Since we're using no-cors mode, we can't read the actual response
+    // Return a generic success message
+    return { 
+      reply: "Message sent successfully! Our team will get back to you shortly." 
+    };
     
   } catch (error) {
     console.error('[Chatbot API] Error details:', error);
