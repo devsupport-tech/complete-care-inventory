@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -192,64 +191,55 @@ const ScheduleService = () => {
     const baseUrl = "admin/packout-services";
     const params = new URLSearchParams();
     
-    // Map form fields to the exact Cal.com field names shown in the image
-    // Contractor Full Name -> contractorfullname
-    if (formData.contractorName) {
-      params.append('contractorfullname', formData.contractorName);
-      console.log('Setting contractorfullname to:', formData.contractorName);
+    // Map form fields to the exact Cal.com field names - ensure proper encoding
+    if (formData.contractorName?.trim()) {
+      params.append('contractorfullname', formData.contractorName.trim());
+      console.log('Setting contractorfullname to:', formData.contractorName.trim());
     }
     
-    // Contractor Phone Number -> contractorphonenumber
-    if (formData.contractorPhone) {
-      params.append('contractorphonenumber', formData.contractorPhone);
-      console.log('Setting contractorphonenumber to:', formData.contractorPhone);
+    if (formData.contractorPhone?.trim()) {
+      params.append('contractorphonenumber', formData.contractorPhone.trim());
+      console.log('Setting contractorphonenumber to:', formData.contractorPhone.trim());
     }
     
-    // Contractor Email Address -> contractoremailaddress
-    if (formData.contractorEmail) {
-      params.append('contractoremailaddress', formData.contractorEmail);
-      console.log('Setting contractoremailaddress to:', formData.contractorEmail);
+    if (formData.contractorEmail?.trim()) {
+      params.append('contractoremailaddress', formData.contractorEmail.trim());
+      console.log('Setting contractoremailaddress to:', formData.contractorEmail.trim());
     }
     
-    // Claim Full Name -> claimfullname
-    if (formData.claimName) {
-      params.append('claimfullname', formData.claimName);
-      console.log('Setting claimfullname to:', formData.claimName);
+    if (formData.claimName?.trim()) {
+      params.append('claimfullname', formData.claimName.trim());
+      console.log('Setting claimfullname to:', formData.claimName.trim());
     }
     
-    // Claim Phone Number -> claimphonenumber
-    if (formData.claimPhone) {
-      params.append('claimphonenumber', formData.claimPhone);
-      console.log('Setting claimphonenumber to:', formData.claimPhone);
+    if (formData.claimPhone?.trim()) {
+      params.append('claimphonenumber', formData.claimPhone.trim());
+      console.log('Setting claimphonenumber to:', formData.claimPhone.trim());
     }
     
-    // Claim Email Address -> claimemailaddress
-    if (formData.claimEmail) {
-      params.append('claimemailaddress', formData.claimEmail);
-      console.log('Setting claimemailaddress to:', formData.claimEmail);
+    if (formData.claimEmail?.trim()) {
+      params.append('claimemailaddress', formData.claimEmail.trim());
+      console.log('Setting claimemailaddress to:', formData.claimEmail.trim());
     }
     
-    // Service Type -> servicetype
-    if (formData.service) {
-      params.append('servicetype', formData.service);
-      console.log('Setting servicetype parameter to:', formData.service);
+    if (formData.service?.trim()) {
+      params.append('servicetype', formData.service.trim());
+      console.log('Setting servicetype parameter to:', formData.service.trim());
     }
     
-    // City -> city
-    if (formData.city) {
-      params.append('city', formData.city);
-      console.log('Setting city to:', formData.city);
+    if (formData.city?.trim()) {
+      params.append('city', formData.city.trim());
+      console.log('Setting city to:', formData.city.trim());
     }
     
-    // Project Description -> projectdescription
+    // Project Description with proper formatting
     let projectDescription = '';
-    if (formData.message && formData.message.trim()) {
+    if (formData.message?.trim()) {
       projectDescription = formData.message.trim();
     } else {
       projectDescription = 'Packout service request from CBRS website';
     }
     
-    // Add insurance information
     if (formData.isInsuranceClaim) {
       projectDescription += '\n\nInsurance Claim: Yes';
     } else {
@@ -260,9 +250,11 @@ const ScheduleService = () => {
     console.log('Setting projectdescription parameter to:', projectDescription);
     
     const queryString = params.toString();
-    console.log('Complete Cal.com URL for packout services:', `${baseUrl}?${queryString}`);
+    const fullUrl = `${baseUrl}?${queryString}`;
+    console.log('Complete Cal.com URL for packout services:', fullUrl);
     console.log('All URL parameters:', Object.fromEntries(params.entries()));
-    return queryString ? `${baseUrl}?${queryString}` : baseUrl;
+    
+    return fullUrl;
   };
 
   const onSubmitRegular = async (values: z.infer<typeof formSchema>) => {
@@ -301,7 +293,17 @@ const ScheduleService = () => {
 
   const onSubmitPackout = async (values: z.infer<typeof packoutFormSchema>) => {
     console.log('Packout form submitted with values:', values);
-    console.log('Service field value (from dropdown):', values.service);
+    console.log('All form field values:');
+    console.log('- contractorName:', values.contractorName);
+    console.log('- contractorPhone:', values.contractorPhone);
+    console.log('- contractorEmail:', values.contractorEmail);
+    console.log('- claimName:', values.claimName);
+    console.log('- claimPhone:', values.claimPhone);
+    console.log('- claimEmail:', values.claimEmail);
+    console.log('- service:', values.service);
+    console.log('- city:', values.city);
+    console.log('- message:', values.message);
+    console.log('- isInsuranceClaim:', values.isInsuranceClaim);
     
     try {
       const cal = await getCalApi({
@@ -312,10 +314,12 @@ const ScheduleService = () => {
       const calLink = buildPackoutCalLink(values);
       console.log('Opening Cal.com packout services modal with link:', calLink);
       
-      // Directly open Cal.com booking modal with prefilled data
-      cal("modal", {
-        calLink: calLink
-      });
+      // Use a small delay to ensure Cal.com is ready
+      setTimeout(() => {
+        cal("modal", {
+          calLink: calLink
+        });
+      }, 100);
       
       toast({
         title: "Opening Packout Services Calendar",
