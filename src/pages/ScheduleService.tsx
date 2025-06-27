@@ -136,9 +136,9 @@ const ScheduleService = () => {
     }
     
     if (formData.phone) {
-      params.append('phone', formData.phone);
+      params.append('contractor_phone', formData.phone);
     } else if ('contractorPhone' in formData && formData.contractorPhone) {
-      params.append('phone', formData.contractorPhone);
+      params.append('contractor_phone', formData.contractorPhone);
     }
     
     if (formData.city) params.append('city', formData.city);
@@ -193,32 +193,32 @@ const ScheduleService = () => {
     
     // Map form fields to the exact Cal.com field names - ensure proper encoding
     if (formData.contractorName?.trim()) {
-      params.append('contractorfullname', formData.contractorName.trim());
+      params.append('name', formData.contractorName.trim());
       console.log('Setting contractorfullname to:', formData.contractorName.trim());
     }
     
     if (formData.contractorPhone?.trim()) {
-      params.append('contractorphonenumber', formData.contractorPhone.trim());
+      params.append('contractor_phone', formData.contractorPhone.trim());
       console.log('Setting contractorphonenumber to:', formData.contractorPhone.trim());
     }
     
     if (formData.contractorEmail?.trim()) {
-      params.append('contractoremailaddress', formData.contractorEmail.trim());
+      params.append('email', formData.contractorEmail.trim());
       console.log('Setting contractoremailaddress to:', formData.contractorEmail.trim());
     }
     
     if (formData.claimName?.trim()) {
-      params.append('claimfullname', formData.claimName.trim());
+      params.append('claim_name', formData.claimName.trim());
       console.log('Setting claimfullname to:', formData.claimName.trim());
     }
     
     if (formData.claimPhone?.trim()) {
-      params.append('claimphonenumber', formData.claimPhone.trim());
+      params.append('claim_number', formData.claimPhone.trim());
       console.log('Setting claimphonenumber to:', formData.claimPhone.trim());
     }
     
     if (formData.claimEmail?.trim()) {
-      params.append('claimemailaddress', formData.claimEmail.trim());
+      params.append('claim_email', formData.claimEmail.trim());
       console.log('Setting claimemailaddress to:', formData.claimEmail.trim());
     }
     
