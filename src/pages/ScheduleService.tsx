@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -191,29 +192,56 @@ const ScheduleService = () => {
     const baseUrl = "admin/packout-services";
     const params = new URLSearchParams();
     
-    // Add prefill parameters with exact field names Cal.com expects
-    // Use contractor info as primary contact for packout services
+    // Map form fields to the exact Cal.com field names shown in the image
+    // Contractor Full Name -> contractorfullname
     if (formData.contractorName) {
-      params.append('name', formData.contractorName);
+      params.append('contractorfullname', formData.contractorName);
+      console.log('Setting contractorfullname to:', formData.contractorName);
     }
     
-    if (formData.contractorEmail) {
-      params.append('email', formData.contractorEmail);
-    }
-    
+    // Contractor Phone Number -> contractorphonenumber
     if (formData.contractorPhone) {
-      params.append('phone', formData.contractorPhone);
+      params.append('contractorphonenumber', formData.contractorPhone);
+      console.log('Setting contractorphonenumber to:', formData.contractorPhone);
     }
     
-    if (formData.city) params.append('city', formData.city);
+    // Contractor Email Address -> contractoremailaddress
+    if (formData.contractorEmail) {
+      params.append('contractoremailaddress', formData.contractorEmail);
+      console.log('Setting contractoremailaddress to:', formData.contractorEmail);
+    }
     
-    // For Service Type - using exact field name from Cal.com
+    // Claim Full Name -> claimfullname
+    if (formData.claimName) {
+      params.append('claimfullname', formData.claimName);
+      console.log('Setting claimfullname to:', formData.claimName);
+    }
+    
+    // Claim Phone Number -> claimphonenumber
+    if (formData.claimPhone) {
+      params.append('claimphonenumber', formData.claimPhone);
+      console.log('Setting claimphonenumber to:', formData.claimPhone);
+    }
+    
+    // Claim Email Address -> claimemailaddress
+    if (formData.claimEmail) {
+      params.append('claimemailaddress', formData.claimEmail);
+      console.log('Setting claimemailaddress to:', formData.claimEmail);
+    }
+    
+    // Service Type -> servicetype
     if (formData.service) {
       params.append('servicetype', formData.service);
       console.log('Setting servicetype parameter to:', formData.service);
     }
     
-    // Build comprehensive project description with message and insurance info
+    // City -> city
+    if (formData.city) {
+      params.append('city', formData.city);
+      console.log('Setting city to:', formData.city);
+    }
+    
+    // Project Description -> projectdescription
     let projectDescription = '';
     if (formData.message && formData.message.trim()) {
       projectDescription = formData.message.trim();
@@ -227,21 +255,9 @@ const ScheduleService = () => {
     } else {
       projectDescription += '\n\nInsurance Claim: No';
     }
-
-    // Add contractor and claim information
-    projectDescription += '\n\nContractor Information:';
-    projectDescription += `\nName: ${formData.contractorName}`;
-    projectDescription += `\nPhone: ${formData.contractorPhone}`;
-    projectDescription += `\nEmail: ${formData.contractorEmail}`;
     
-    projectDescription += '\n\nClaim Information:';
-    projectDescription += `\nName: ${formData.claimName}`;
-    projectDescription += `\nPhone: ${formData.claimPhone}`;
-    projectDescription += `\nEmail: ${formData.claimEmail}`;
-    
-    // Use the exact field name that Cal.com expects for project description
-    params.append('project-description', projectDescription);
-    console.log('Setting project-description parameter to:', projectDescription);
+    params.append('projectdescription', projectDescription);
+    console.log('Setting projectdescription parameter to:', projectDescription);
     
     const queryString = params.toString();
     console.log('Complete Cal.com URL for packout services:', `${baseUrl}?${queryString}`);
