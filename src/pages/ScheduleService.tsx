@@ -269,7 +269,7 @@ const ScheduleService = () => {
     }
     
     if (formData.phone?.trim()) {
-      params.append('contractor_phone', formData.phone.trim());
+      params.append('phone', formData.phone.trim());
       console.log('Setting contractor_phone to:', formData.phone.trim());
     }
     
