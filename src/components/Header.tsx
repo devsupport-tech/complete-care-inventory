@@ -71,12 +71,14 @@ const Header = () => {
               </div>
             </div>
           </div>
+          {/*
           <a
             href="/#testimonials"
             className="text-cbrs-blue font-medium text-sm tracking-wide transition-all hover:text-cbrs-orange hover:scale-105"
           >
             Testimonials
           </a>
+          */}
           <a
             href="/#contact"
             className="text-cbrs-blue font-medium text-sm tracking-wide transition-all hover:text-cbrs-orange hover:scale-105"
