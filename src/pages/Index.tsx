@@ -7,7 +7,6 @@ import Hero from "@/components/Hero";
 import Services from "@/components/Services";
 import Testimonials from "@/components/Testimonials";
 import Footer from "@/components/Footer";
-import Chatbot from "@/components/Chatbot";
 
 const Index = () => {
   const location = useLocation();
@@ -58,8 +57,19 @@ const Index = () => {
       observer.observe(el);
     });
 
+    // Load n8n chatbot script
+    const script = document.createElement('script');
+    script.src = 'https://n8n2.team-workspace.us/form/279dac00-cf5d-4e83-b047-99c8cba9230b/chatbot.js';
+    script.async = true;
+    document.head.appendChild(script);
+
     return () => {
       observer.disconnect();
+      // Clean up n8n script
+      const existingScript = document.querySelector('script[src*="n8n2.team-workspace.us"]');
+      if (existingScript) {
+        existingScript.remove();
+      }
     };
   }, [location]);
 
@@ -85,7 +95,6 @@ const Index = () => {
       <Services />
       <Testimonials />
       <Footer />
-      <Chatbot />
     </div>
   );
 };
