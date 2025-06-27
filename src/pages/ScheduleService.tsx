@@ -514,7 +514,7 @@ const ScheduleService = () => {
             </h2>
             <p className="text-[#1e3046]/70 text-sm">
               {isPackoutService 
-                ? "Please provide the details for your packout and content management service, including contractor and claim information."
+                ? "Please provide details about your packout needs. Number of beds, number of bathrooms, number of other rooms, if it in site or off site storage."
                 : isEstimatingService
                 ? "Please provide the details for your estimating and insurance supplementing service."
                 : isProductionManagementService  
