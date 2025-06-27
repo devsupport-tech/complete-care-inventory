@@ -12,6 +12,7 @@ import BookingRedirect from "./pages/BookingRedirect";
 import EmbeddedBooking from "./pages/EmbeddedBooking";
 import TermsOfService from "./pages/TermsOfService";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
+import ContactPage from "./pages/Contact";
 import PackoutLanding1 from "./pages/PackoutLanding1";
 import PackoutLanding2 from "./pages/PackoutLanding2";
 import PackoutLanding3 from "./pages/PackoutLanding3";
@@ -33,6 +34,7 @@ const App = () => (
           <Route path="/book" element={<EmbeddedBooking />} />
           <Route path="/terms-of-service" element={<TermsOfService />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/contact" element={<ContactPage />} />
           <Route path="/packout-landing-1" element={<PackoutLanding1 />} />
           <Route path="/packout-landing-2" element={<PackoutLanding2 />} />
           <Route path="/packout-landing-3" element={<PackoutLanding3 />} />

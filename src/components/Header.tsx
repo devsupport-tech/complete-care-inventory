@@ -79,12 +79,12 @@ const Header = () => {
             Testimonials
           </a>
           */}
-          <a
-            href="/#contact"
+          <Link
+            to="/contact"
             className="text-cbrs-blue font-medium text-sm tracking-wide transition-all hover:text-cbrs-orange hover:scale-105"
           >
             Contact
-          </a>
+          </Link>
           <a
             href="tel:+3462986933"
             className="text-cbrs-blue font-medium text-sm tracking-wide transition-all hover:text-cbrs-orange hover:scale-105 inline-flex items-center border-r pr-6"
@@ -148,13 +148,13 @@ const Header = () => {
               >
                 Testimonials
               </a>
-              <a
-                href="/#contact"
+              <Link
+                to="/contact"
                 className="text-cbrs-blue font-medium py-2 transition-colors hover:text-cbrs-orange"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Contact
-              </a>
+              </Link>
               <a
                 href="tel:+3462986933"
                 className="text-cbrs-blue font-medium py-2 transition-colors hover:text-cbrs-orange flex items-center"
