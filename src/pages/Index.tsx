@@ -1,3 +1,4 @@
+
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Helmet } from "react-helmet";
@@ -56,74 +57,8 @@ const Index = () => {
       observer.observe(el);
     });
 
-    // Load n8n chatbot script with comprehensive error handling
-    const loadChatbot = () => {
-      // Remove any existing n8n script first
-      const existingScript = document.querySelector('script[src*="n8n2.team-workspace.us"]');
-      if (existingScript) {
-        existingScript.remove();
-      }
-
-      console.log('Attempting to load n8n chatbot script...');
-      
-      // First, let's test if the URL is reachable
-      fetch('https://n8n2.team-workspace.us/form/279dac00-cf5d-4e83-b047-99c8cba9230b/chatbot.js', { 
-        method: 'HEAD',
-        mode: 'no-cors' // This will help avoid CORS issues for the test
-      })
-      .then(() => {
-        console.log('n8n URL appears to be reachable, loading script...');
-        
-        const script = document.createElement('script');
-        script.src = 'https://n8n2.team-workspace.us/form/279dac00-cf5d-4e83-b047-99c8cba9230b/chatbot.js';
-        script.async = true;
-        script.crossOrigin = 'anonymous';
-        
-        script.onload = () => {
-          console.log('✅ n8n chatbot script loaded successfully');
-          // Check if the chatbot was actually initialized
-          setTimeout(() => {
-            const chatbotElement = document.querySelector('[data-chatbot], .chatbot, #chatbot');
-            if (chatbotElement) {
-              console.log('✅ Chatbot element found in DOM');
-            } else {
-              console.warn('⚠️ Chatbot script loaded but no chatbot element found');
-            }
-          }, 2000);
-        };
-        
-        script.onerror = (error) => {
-          console.error('❌ Error loading n8n chatbot script:', error);
-          console.error('Script src:', script.src);
-          console.error('This could indicate:');
-          console.error('1. The n8n server is down');
-          console.error('2. The chatbot URL has changed');
-          console.error('3. CORS restrictions are blocking the script');
-          console.error('4. The chatbot form ID is incorrect');
-        };
-        
-        document.head.appendChild(script);
-      })
-      .catch((error) => {
-        console.error('❌ Cannot reach n8n server:', error);
-        console.error('The n8n chatbot URL appears to be unreachable.');
-        console.error('Please check:');
-        console.error('1. Is the n8n server running?');
-        console.error('2. Is the form ID correct: 279dac00-cf5d-4e83-b047-99c8cba9230b');
-        console.error('3. Is the domain correct: n8n2.team-workspace.us');
-      });
-    };
-
-    // Load chatbot with a delay to ensure DOM is ready
-    setTimeout(loadChatbot, 1000);
-
     return () => {
       observer.disconnect();
-      // Clean up n8n script
-      const existingScript = document.querySelector('script[src*="n8n2.team-workspace.us"]');
-      if (existingScript) {
-        existingScript.remove();
-      }
     };
   }, [location]);
 
