@@ -19,7 +19,7 @@ const ClaimInformation = ({ control }: ClaimInformationProps) => {
           name="claimName"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Claim Contact Full Name*</FormLabel>
+              <FormLabel>Claim Contact Full Name</FormLabel>
               <FormControl>
                 <Input 
                   placeholder="Jane Doe" 
@@ -37,7 +37,7 @@ const ClaimInformation = ({ control }: ClaimInformationProps) => {
           name="claimPhone"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Claim Contact Phone Number*</FormLabel>
+              <FormLabel>Claim Contact Phone Number</FormLabel>
               <FormControl>
                 <Input 
                   placeholder="(555) 987-6543" 
@@ -57,7 +57,7 @@ const ClaimInformation = ({ control }: ClaimInformationProps) => {
         name="claimEmail"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Claim Contact Email Address*</FormLabel>
+            <FormLabel>Claim Contact Email Address</FormLabel>
             <FormControl>
               <Input 
                 placeholder="claim@example.com" 

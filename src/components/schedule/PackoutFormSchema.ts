@@ -13,8 +13,8 @@ export const packoutFormSchema = z.object({
   contractorName: z.string().min(2, { message: "Contractor name must be at least 2 characters." }),
   contractorPhone: z.string().min(10, { message: "Please enter a valid contractor phone number." }),
   contractorEmail: z.string().email({ message: "Invalid contractor email address." }),
-  // Claim Information
-  claimName: z.string().min(2, { message: "Claim contact name must be at least 2 characters." }),
-  claimPhone: z.string().min(10, { message: "Please enter a valid claim contact phone number." }),
-  claimEmail: z.string().email({ message: "Invalid claim contact email address." }),
+  // Claim Information - now optional
+  claimName: z.string().optional(),
+  claimPhone: z.string().optional(),
+  claimEmail: z.string().optional(),
 });
