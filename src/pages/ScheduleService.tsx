@@ -449,6 +449,7 @@ const ScheduleService = () => {
           claim_name: formData.claimName,
           claim_phone: formData.claimPhone,
           claim_email: formData.claimEmail,
+          user_id: null, // No authentication required
         });
 
       if (error) {
@@ -477,6 +478,7 @@ const ScheduleService = () => {
           city: formData.city,
           message: formData.message,
           is_insurance_claim: formData.isInsuranceClaim,
+          user_id: null, // No authentication required
         });
 
       if (error) {
@@ -505,6 +507,7 @@ const ScheduleService = () => {
           city: formData.city,
           message: formData.message,
           is_insurance_claim: formData.isInsuranceClaim,
+          user_id: null, // No authentication required
         });
 
       if (error) {
