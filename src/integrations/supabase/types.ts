@@ -374,16 +374,12 @@ export type Database = {
           contractor_name: string | null
           contractor_phone: string | null
           created_at: string
-          email: string | null
           id: string
           is_insurance_claim: boolean | null
           message: string | null
-          name: string | null
-          phone: string | null
           service: string | null
           status: string | null
           updated_at: string
-          user_id: string | null
         }
         Insert: {
           city?: string | null
@@ -394,16 +390,12 @@ export type Database = {
           contractor_name?: string | null
           contractor_phone?: string | null
           created_at?: string
-          email?: string | null
           id?: string
           is_insurance_claim?: boolean | null
           message?: string | null
-          name?: string | null
-          phone?: string | null
           service?: string | null
           status?: string | null
           updated_at?: string
-          user_id?: string | null
         }
         Update: {
           city?: string | null
@@ -414,16 +406,12 @@ export type Database = {
           contractor_name?: string | null
           contractor_phone?: string | null
           created_at?: string
-          email?: string | null
           id?: string
           is_insurance_claim?: boolean | null
           message?: string | null
-          name?: string | null
-          phone?: string | null
           service?: string | null
           status?: string | null
           updated_at?: string
-          user_id?: string | null
         }
         Relationships: []
       }
