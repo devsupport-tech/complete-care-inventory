@@ -29,6 +29,7 @@ const ScheduleService = () => {
   const [selectedService, setSelectedService] = useState<string>("");
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [packoutFormData, setPackoutFormData] = useState<z.infer<typeof packoutFormSchema> | null>(null);
+  const [estimatingFormData, setEstimatingFormData] = useState<z.infer<typeof formSchema> | null>(null);
 
   const defaultService = serviceId 
     ? services.find(service => service.id === serviceId)?.title 
@@ -192,6 +193,61 @@ const ScheduleService = () => {
     return fullUrl;
   };
 
+  const buildEstimatingBookingUrl = (formData: z.infer<typeof formSchema>) => {
+    const baseUrl = "https://booking.cbrsgroup.com/support-cbrsgroup.com/estimating-services";
+    const params = new URLSearchParams();
+    
+    // Map form fields to Cal.com field names exactly as they appear in the booking form
+    if (formData.name?.trim()) {
+      params.append('name', formData.name.trim());
+      console.log('Setting name to:', formData.name.trim());
+    }
+    
+    if (formData.email?.trim()) {
+      params.append('email', formData.email.trim());
+      console.log('Setting email to:', formData.email.trim());
+    }
+    
+    if (formData.phone?.trim()) {
+      params.append('phone', formData.phone.trim());
+      console.log('Setting phone to:', formData.phone.trim());
+    }
+    
+    if (formData.service?.trim()) {
+      params.append('servicetype', formData.service.trim());
+      console.log('Setting servicetype parameter to:', formData.service.trim());
+    }
+    
+    if (formData.city?.trim()) {
+      params.append('city', formData.city.trim());
+      console.log('Setting city to:', formData.city.trim());
+    }
+    
+    // Project Description with proper formatting
+    let projectDescription = '';
+    if (formData.message?.trim()) {
+      projectDescription = formData.message.trim();
+    } else {
+      projectDescription = 'Estimating & Insurance Supplementing service request from CBRS website';
+    }
+    
+    if (formData.isInsuranceClaim) {
+      projectDescription += '\n\nInsurance Claim: Yes';
+    } else {
+      projectDescription += '\n\nInsurance Claim: No';
+    }
+    
+    params.append('description', projectDescription);
+    console.log('Setting description parameter to:', projectDescription);
+    
+    const queryString = params.toString();
+    const fullUrl = `${baseUrl}?${queryString}&overlayCalendar=true`;
+    console.log('Complete estimating services booking URL:', fullUrl);
+    console.log('All URL parameters:', Object.fromEntries(params.entries()));
+    
+    return fullUrl;
+  };
+
   const buildCalLink = (formData: z.infer<typeof formSchema> | z.infer<typeof packoutFormSchema>) => {
     const baseUrl = "admin/cbrs-booking-form";
     const params = new URLSearchParams();
@@ -262,61 +318,6 @@ const ScheduleService = () => {
     return queryString ? `${baseUrl}?${queryString}` : baseUrl;
   };
 
-  const buildEstimatingCalLink = (formData: z.infer<typeof formSchema>) => {
-    const baseUrl = "https://booking.cbrsgroup.com/support-cbrsgroup.com/estimating-services";
-    const params = new URLSearchParams();
-    
-    // Map form fields to the exact Cal.com field names - ensure proper encoding
-    if (formData.name?.trim()) {
-      params.append('name', formData.name.trim());
-      console.log('Setting name to:', formData.name.trim());
-    }
-    
-    if (formData.phone?.trim()) {
-      params.append('phone', formData.phone.trim());
-      console.log('Setting contractor_phone to:', formData.phone.trim());
-    }
-    
-    if (formData.email?.trim()) {
-      params.append('email', formData.email.trim());
-      console.log('Setting email to:', formData.email.trim());
-    }
-    
-    if (formData.service?.trim()) {
-      params.append('servicetype', formData.service.trim());
-      console.log('Setting servicetype parameter to:', formData.service.trim());
-    }
-    
-    if (formData.city?.trim()) {
-      params.append('city', formData.city.trim());
-      console.log('Setting city to:', formData.city.trim());
-    }
-    
-    // Project Description with proper formatting
-    let projectDescription = '';
-    if (formData.message?.trim()) {
-      projectDescription = formData.message.trim();
-    } else {
-      projectDescription = 'Estimating & Insurance Supplementing service request from CBRS website';
-    }
-    
-    if (formData.isInsuranceClaim) {
-      projectDescription += '\n\nInsurance Claim: Yes';
-    } else {
-      projectDescription += '\n\nInsurance Claim: No';
-    }
-    
-    params.append('description', projectDescription);
-    console.log('Setting description parameter to:', projectDescription);
-    
-    const queryString = params.toString();
-    const fullUrl = `${baseUrl}?${queryString}`;
-    console.log('Complete Cal.com URL for estimating services:', fullUrl);
-    console.log('All URL parameters:', Object.fromEntries(params.entries()));
-    
-    return fullUrl;
-  };
-
   const buildProductionCalLink = (formData: z.infer<typeof formSchema>) => {
     const baseUrl = "admin/production-management-services";
     const params = new URLSearchParams();
@@ -376,6 +377,19 @@ const ScheduleService = () => {
     console.log('Regular form submitted with values:', values);
     console.log('Service field value (from dropdown):', values.service);
     
+    // Handle estimating services with popup modal
+    if (isEstimatingService) {
+      console.log('Estimating service detected, opening booking modal');
+      setEstimatingFormData(values);
+      setIsBookingModalOpen(true);
+      
+      toast({
+        title: "Opening Estimating Services Booking",
+        description: "Your booking form is opening with your information pre-filled.",
+      });
+      return;
+    }
+    
     try {
       const cal = await getCalApi({
         "namespace": "cbrs-direct-booking"
@@ -383,10 +397,7 @@ const ScheduleService = () => {
       
       // Build the Cal.com link with prefilled data based on service type
       let calLink;
-      if (isEstimatingService) {
-        calLink = buildEstimatingCalLink(values);
-        console.log('Opening Cal.com estimating services modal with link:', calLink);
-      } else if (isProductionManagementService) {
+      if (isProductionManagementService) {
         calLink = buildProductionCalLink(values);
         console.log('Opening Cal.com production management services modal with link:', calLink);
       } else {
@@ -401,7 +412,7 @@ const ScheduleService = () => {
       
       toast({
         title: "Opening Booking Calendar",
-        description: `Your information has been pre-filled in the ${isEstimatingService ? 'estimating services' : isProductionManagementService ? 'production management services' : ''} booking form.`,
+        description: `Your information has been pre-filled in the ${isProductionManagementService ? 'production management services' : ''} booking form.`,
       });
       
       console.log('Cal.com booking modal opened successfully');
@@ -437,6 +448,24 @@ const ScheduleService = () => {
       title: "Opening Packout Services Booking",
       description: "Your booking form is opening with your information pre-filled.",
     });
+  };
+
+  // Get the appropriate booking URL based on the service type
+  const getBookingUrl = () => {
+    if (packoutFormData) {
+      return buildPackoutBookingUrl(packoutFormData);
+    }
+    if (estimatingFormData) {
+      return buildEstimatingBookingUrl(estimatingFormData);
+    }
+    return "https://booking.cbrsgroup.com/support-cbrsgroup.com/packout-services";
+  };
+
+  // Reset form data when modal closes
+  const handleModalClose = () => {
+    setIsBookingModalOpen(false);
+    setPackoutFormData(null);
+    setEstimatingFormData(null);
   };
 
   // Add global styles for Cal.com z-index
@@ -545,11 +574,11 @@ const ScheduleService = () => {
         </div>
       </div>
       
-      {/* Booking Modal for Packout Services */}
+      {/* Booking Modal for Packout and Estimating Services */}
       <BookingModal
         isOpen={isBookingModalOpen}
-        onClose={() => setIsBookingModalOpen(false)}
-        bookingUrl={packoutFormData ? buildPackoutBookingUrl(packoutFormData) : "https://booking.cbrsgroup.com/support-cbrsgroup.com/packout-services"}
+        onClose={handleModalClose}
+        bookingUrl={getBookingUrl()}
       />
       
       <Chatbot />
