@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -29,6 +28,7 @@ const ScheduleService = () => {
   const serviceId = searchParams.get('service');
   const [selectedService, setSelectedService] = useState<string>("");
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
+  const [packoutFormData, setPackoutFormData] = useState<z.infer<typeof packoutFormSchema> | null>(null);
 
   const defaultService = serviceId 
     ? services.find(service => service.id === serviceId)?.title 
@@ -122,6 +122,76 @@ const ScheduleService = () => {
     initializeCal();
   }, []);
 
+  const buildPackoutBookingUrl = (formData: z.infer<typeof packoutFormSchema>) => {
+    const baseUrl = "https://booking.cbrsgroup.com/support-cbrsgroup.com/packout-services";
+    const params = new URLSearchParams();
+    
+    // Map form fields to Cal.com field names exactly as they appear in the booking form
+    if (formData.contractorName?.trim()) {
+      params.append('name', formData.contractorName.trim());
+      console.log('Setting Contractor Full Name to:', formData.contractorName.trim());
+    }
+    
+    if (formData.contractorEmail?.trim()) {
+      params.append('email', formData.contractorEmail.trim());
+      console.log('Setting Contractor Email Address to:', formData.contractorEmail.trim());
+    }
+    
+    if (formData.contractorPhone?.trim()) {
+      params.append('phone', formData.contractorPhone.trim());
+      console.log('Setting Contractor Phone Number to:', formData.contractorPhone.trim());
+    }
+    
+    if (formData.claimName?.trim()) {
+      params.append('claim_name', formData.claimName.trim());
+      console.log('Setting Claim Full Name to:', formData.claimName.trim());
+    }
+    
+    if (formData.claimPhone?.trim()) {
+      params.append('claim_phone', formData.claimPhone.trim());
+      console.log('Setting Claim Phone Number to:', formData.claimPhone.trim());
+    }
+    
+    if (formData.claimEmail?.trim()) {
+      params.append('claim_email', formData.claimEmail.trim());
+      console.log('Setting Claim Email Address to:', formData.claimEmail.trim());
+    }
+    
+    if (formData.service?.trim()) {
+      params.append('service_type', formData.service.trim());
+      console.log('Setting Service Type to:', formData.service.trim());
+    }
+    
+    if (formData.city?.trim()) {
+      params.append('city', formData.city.trim());
+      console.log('Setting City to:', formData.city.trim());
+    }
+    
+    // Build description with project details and insurance info
+    let description = '';
+    if (formData.message?.trim()) {
+      description = formData.message.trim();
+    } else {
+      description = 'Packout service request from CBRS website';
+    }
+    
+    if (formData.isInsuranceClaim) {
+      description += '\n\nInsurance Claim: Yes';
+    } else {
+      description += '\n\nInsurance Claim: No';
+    }
+    
+    params.append('description', description);
+    console.log('Setting Description to:', description);
+    
+    const queryString = params.toString();
+    const fullUrl = queryString ? `${baseUrl}?${queryString}` : baseUrl;
+    console.log('Complete packout booking URL:', fullUrl);
+    console.log('All URL parameters:', Object.fromEntries(params.entries()));
+    
+    return fullUrl;
+  };
+
   const buildCalLink = (formData: z.infer<typeof formSchema> | z.infer<typeof packoutFormSchema>) => {
     const baseUrl = "admin/cbrs-booking-form";
     const params = new URLSearchParams();
@@ -190,76 +260,6 @@ const ScheduleService = () => {
     console.log('Complete Cal.com URL:', `${baseUrl}?${queryString}`);
     console.log('All URL parameters:', Object.fromEntries(params.entries()));
     return queryString ? `${baseUrl}?${queryString}` : baseUrl;
-  };
-
-  const buildPackoutCalLink = (formData: z.infer<typeof packoutFormSchema>) => {
-    const baseUrl = "admin/packout-services";
-    const params = new URLSearchParams();
-    
-    // Map form fields to the exact Cal.com field names - ensure proper encoding
-    if (formData.contractorName?.trim()) {
-      params.append('name', formData.contractorName.trim());
-      console.log('Setting contractorfullname to:', formData.contractorName.trim());
-    }
-    
-    if (formData.contractorPhone?.trim()) {
-      params.append('contractor_phone', formData.contractorPhone.trim());
-      console.log('Setting contractorphonenumber to:', formData.contractorPhone.trim());
-    }
-    
-    if (formData.contractorEmail?.trim()) {
-      params.append('email', formData.contractorEmail.trim());
-      console.log('Setting contractoremailaddress to:', formData.contractorEmail.trim());
-    }
-    
-    if (formData.claimName?.trim()) {
-      params.append('claim_name', formData.claimName.trim());
-      console.log('Setting claimfullname to:', formData.claimName.trim());
-    }
-    
-    if (formData.claimPhone?.trim()) {
-      params.append('claim_number', formData.claimPhone.trim());
-      console.log('Setting claimphonenumber to:', formData.claimPhone.trim());
-    }
-    
-    if (formData.claimEmail?.trim()) {
-      params.append('claim_email', formData.claimEmail.trim());
-      console.log('Setting claimemailaddress to:', formData.claimEmail.trim());
-    }
-    
-    if (formData.service?.trim()) {
-      params.append('servicetype', formData.service.trim());
-      console.log('Setting servicetype parameter to:', formData.service.trim());
-    }
-    
-    if (formData.city?.trim()) {
-      params.append('city', formData.city.trim());
-      console.log('Setting city to:', formData.city.trim());
-    }
-    
-    // Project Description with proper formatting
-    let projectDescription = '';
-    if (formData.message?.trim()) {
-      projectDescription = formData.message.trim();
-    } else {
-      projectDescription = 'Packout service request from CBRS website';
-    }
-    
-    if (formData.isInsuranceClaim) {
-      projectDescription += '\n\nInsurance Claim: Yes';
-    } else {
-      projectDescription += '\n\nInsurance Claim: No';
-    }
-    
-    params.append('description', projectDescription);
-    console.log('Setting projectdescription parameter to:', projectDescription);
-    
-    const queryString = params.toString();
-    const fullUrl = `${baseUrl}?${queryString}`;
-    console.log('Complete Cal.com URL for packout services:', fullUrl);
-    console.log('All URL parameters:', Object.fromEntries(params.entries()));
-    
-    return fullUrl;
   };
 
   const buildEstimatingCalLink = (formData: z.infer<typeof formSchema>) => {
@@ -429,12 +429,13 @@ const ScheduleService = () => {
     console.log('- message:', values.message);
     console.log('- isInsuranceClaim:', values.isInsuranceClaim);
     
-    // For packout services, open the new booking URL in modal
+    // Store the packout form data and open the booking modal
+    setPackoutFormData(values);
     setIsBookingModalOpen(true);
     
     toast({
       title: "Opening Packout Services Booking",
-      description: "Your booking form is opening in a new window.",
+      description: "Your booking form is opening with your information pre-filled.",
     });
   };
 
@@ -548,7 +549,7 @@ const ScheduleService = () => {
       <BookingModal
         isOpen={isBookingModalOpen}
         onClose={() => setIsBookingModalOpen(false)}
-        bookingUrl="https://booking.cbrsgroup.com/support-cbrsgroup.com/packout-services?overlayCalendar=true"
+        bookingUrl={packoutFormData ? buildPackoutBookingUrl(packoutFormData) : "https://booking.cbrsgroup.com/support-cbrsgroup.com/packout-services"}
       />
       
       <Chatbot />
