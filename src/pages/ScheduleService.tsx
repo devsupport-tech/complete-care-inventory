@@ -30,6 +30,7 @@ const ScheduleService = () => {
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [packoutFormData, setPackoutFormData] = useState<z.infer<typeof packoutFormSchema> | null>(null);
   const [estimatingFormData, setEstimatingFormData] = useState<z.infer<typeof formSchema> | null>(null);
+  const [productionFormData, setProductionFormData] = useState<z.infer<typeof formSchema> | null>(null);
 
   const defaultService = serviceId 
     ? services.find(service => service.id === serviceId)?.title 
@@ -248,6 +249,61 @@ const ScheduleService = () => {
     return fullUrl;
   };
 
+  const buildProductionBookingUrl = (formData: z.infer<typeof formSchema>) => {
+    const baseUrl = "https://booking.cbrsgroup.com/support-cbrsgroup.com/production-services";
+    const params = new URLSearchParams();
+    
+    // Map form fields to Cal.com field names exactly as they appear in the booking form
+    if (formData.name?.trim()) {
+      params.append('name', formData.name.trim());
+      console.log('Setting name to:', formData.name.trim());
+    }
+    
+    if (formData.email?.trim()) {
+      params.append('email', formData.email.trim());
+      console.log('Setting email to:', formData.email.trim());
+    }
+    
+    if (formData.phone?.trim()) {
+      params.append('phone', formData.phone.trim());
+      console.log('Setting phone to:', formData.phone.trim());
+    }
+    
+    if (formData.service?.trim()) {
+      params.append('servicetype', formData.service.trim());
+      console.log('Setting servicetype parameter to:', formData.service.trim());
+    }
+    
+    if (formData.city?.trim()) {
+      params.append('city', formData.city.trim());
+      console.log('Setting city to:', formData.city.trim());
+    }
+    
+    // Project Description with proper formatting
+    let projectDescription = '';
+    if (formData.message?.trim()) {
+      projectDescription = formData.message.trim();
+    } else {
+      projectDescription = 'Production Management service request from CBRS website';
+    }
+    
+    if (formData.isInsuranceClaim) {
+      projectDescription += '\n\nInsurance Claim: Yes';
+    } else {
+      projectDescription += '\n\nInsurance Claim: No';
+    }
+    
+    params.append('description', projectDescription);
+    console.log('Setting description parameter to:', projectDescription);
+    
+    const queryString = params.toString();
+    const fullUrl = `${baseUrl}?${queryString}`;
+    console.log('Complete production services booking URL:', fullUrl);
+    console.log('All URL parameters:', Object.fromEntries(params.entries()));
+    
+    return fullUrl;
+  };
+
   const buildCalLink = (formData: z.infer<typeof formSchema> | z.infer<typeof packoutFormSchema>) => {
     const baseUrl = "admin/cbrs-booking-form";
     const params = new URLSearchParams();
@@ -390,6 +446,19 @@ const ScheduleService = () => {
       return;
     }
     
+    // Handle production management services with popup modal
+    if (isProductionManagementService) {
+      console.log('Production management service detected, opening booking modal');
+      setProductionFormData(values);
+      setIsBookingModalOpen(true);
+      
+      toast({
+        title: "Opening Production Management Services Booking",
+        description: "Your booking form is opening with your information pre-filled.",
+      });
+      return;
+    }
+    
     try {
       const cal = await getCalApi({
         "namespace": "cbrs-direct-booking"
@@ -458,6 +527,9 @@ const ScheduleService = () => {
     if (estimatingFormData) {
       return buildEstimatingBookingUrl(estimatingFormData);
     }
+    if (productionFormData) {
+      return buildProductionBookingUrl(productionFormData);
+    }
     return "https://booking.cbrsgroup.com/support-cbrsgroup.com/packout-services";
   };
 
@@ -466,6 +538,7 @@ const ScheduleService = () => {
     setIsBookingModalOpen(false);
     setPackoutFormData(null);
     setEstimatingFormData(null);
+    setProductionFormData(null);
   };
 
   // Add global styles for Cal.com z-index
