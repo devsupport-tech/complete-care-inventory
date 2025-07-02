@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -547,7 +548,7 @@ const ScheduleService = () => {
       <BookingModal
         isOpen={isBookingModalOpen}
         onClose={() => setIsBookingModalOpen(false)}
-        bookingUrl="https://booking.cbrsgroup.com/support-cbrsgroup.com/production-services?overlayCalendar=true"
+        bookingUrl="https://booking.cbrsgroup.com/support-cbrsgroup.com/packout-services?overlayCalendar=true"
       />
       
       <Chatbot />
