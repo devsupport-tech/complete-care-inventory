@@ -263,7 +263,7 @@ const ScheduleService = () => {
   };
 
   const buildEstimatingCalLink = (formData: z.infer<typeof formSchema>) => {
-    const baseUrl = "admin/estimating-services";
+    const baseUrl = "https://booking.cbrsgroup.com/support-cbrsgroup.com/estimating-services";
     const params = new URLSearchParams();
     
     // Map form fields to the exact Cal.com field names - ensure proper encoding
