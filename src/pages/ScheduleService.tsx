@@ -193,7 +193,7 @@ const ScheduleService = () => {
   };
 
   const buildPackoutCalLink = (formData: z.infer<typeof packoutFormSchema>) => {
-    const baseUrl = "support-cbrsgroup.com/packout-services";
+    const baseUrl = "admin/packout-services";
     const params = new URLSearchParams();
     
     // Map form fields to the exact Cal.com field names - ensure proper encoding
