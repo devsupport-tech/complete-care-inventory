@@ -138,7 +138,7 @@ const ScheduleService = () => {
     }
     
     if (formData.contractorPhone?.trim()) {
-      params.append('phone', formData.contractorPhone.trim());
+      params.append('contractor_phone', formData.contractorPhone.trim());
       console.log('Setting Contractor Phone Number to:', formData.contractorPhone.trim());
     }
     
@@ -148,7 +148,7 @@ const ScheduleService = () => {
     }
     
     if (formData.claimPhone?.trim()) {
-      params.append('claim_phone', formData.claimPhone.trim());
+      params.append('claim_number', formData.claimPhone.trim());
       console.log('Setting Claim Phone Number to:', formData.claimPhone.trim());
     }
     
@@ -158,7 +158,7 @@ const ScheduleService = () => {
     }
     
     if (formData.service?.trim()) {
-      params.append('service_type', formData.service.trim());
+      params.append('servicetype', formData.service.trim());
       console.log('Setting Service Type to:', formData.service.trim());
     }
     
