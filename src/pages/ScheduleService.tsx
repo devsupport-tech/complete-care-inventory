@@ -21,6 +21,7 @@ import ClaimInformation from "@/components/schedule/ClaimInformation";
 import Chatbot from "@/components/Chatbot";
 import BookingModal from "@/components/BookingModal";
 import { getCalApi } from "@calcom/embed-react";
+import { supabase } from "@/integrations/supabase/client";
 
 const ScheduleService = () => {
   const { toast } = useToast();
@@ -429,33 +430,143 @@ const ScheduleService = () => {
     return fullUrl;
   };
 
+  // Function to save packout service data to Supabase
+  const savePackoutService = async (formData: z.infer<typeof packoutFormSchema>) => {
+    try {
+      const { data, error } = await supabase
+        .from('packout_services')
+        .insert({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          service: formData.service,
+          city: formData.city,
+          message: formData.message,
+          is_insurance_claim: formData.isInsuranceClaim,
+          contractor_name: formData.contractorName,
+          contractor_phone: formData.contractorPhone,
+          contractor_email: formData.contractorEmail,
+          claim_name: formData.claimName,
+          claim_phone: formData.claimPhone,
+          claim_email: formData.claimEmail,
+        });
+
+      if (error) {
+        console.error('Error saving packout service:', error);
+        throw error;
+      }
+
+      console.log('Packout service saved successfully:', data);
+      return data;
+    } catch (error) {
+      console.error('Failed to save packout service:', error);
+      throw error;
+    }
+  };
+
+  // Function to save estimating service data to Supabase
+  const saveEstimatingService = async (formData: z.infer<typeof formSchema>) => {
+    try {
+      const { data, error } = await supabase
+        .from('estimating_services')
+        .insert({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          service: formData.service,
+          city: formData.city,
+          message: formData.message,
+          is_insurance_claim: formData.isInsuranceClaim,
+        });
+
+      if (error) {
+        console.error('Error saving estimating service:', error);
+        throw error;
+      }
+
+      console.log('Estimating service saved successfully:', data);
+      return data;
+    } catch (error) {
+      console.error('Failed to save estimating service:', error);
+      throw error;
+    }
+  };
+
+  // Function to save production service data to Supabase
+  const saveProductionService = async (formData: z.infer<typeof formSchema>) => {
+    try {
+      const { data, error } = await supabase
+        .from('production_services')
+        .insert({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          service: formData.service,
+          city: formData.city,
+          message: formData.message,
+          is_insurance_claim: formData.isInsuranceClaim,
+        });
+
+      if (error) {
+        console.error('Error saving production service:', error);
+        throw error;
+      }
+
+      console.log('Production service saved successfully:', data);
+      return data;
+    } catch (error) {
+      console.error('Failed to save production service:', error);
+      throw error;
+    }
+  };
+
   const onSubmitRegular = async (values: z.infer<typeof formSchema>) => {
     console.log('Regular form submitted with values:', values);
     console.log('Service field value (from dropdown):', values.service);
     
     // Handle estimating services with popup modal
     if (isEstimatingService) {
-      console.log('Estimating service detected, opening booking modal');
-      setEstimatingFormData(values);
-      setIsBookingModalOpen(true);
+      console.log('Estimating service detected, saving to database and opening booking modal');
       
-      toast({
-        title: "Opening Estimating Services Booking",
-        description: "Your booking form is opening with your information pre-filled.",
-      });
+      try {
+        await saveEstimatingService(values);
+        setEstimatingFormData(values);
+        setIsBookingModalOpen(true);
+        
+        toast({
+          title: "Opening Estimating Services Booking",
+          description: "Your information has been saved and booking form is opening.",
+        });
+      } catch (error) {
+        toast({
+          title: "Error",
+          description: "Failed to save service data. Please try again.",
+          variant: "destructive"
+        });
+      }
       return;
     }
     
     // Handle production management services with popup modal
     if (isProductionManagementService) {
-      console.log('Production management service detected, opening booking modal');
-      setProductionFormData(values);
-      setIsBookingModalOpen(true);
+      console.log('Production management service detected, saving to database and opening booking modal');
       
-      toast({
-        title: "Opening Production Management Services Booking",
-        description: "Your booking form is opening with your information pre-filled.",
-      });
+      try {
+        await saveProductionService(values);
+        setProductionFormData(values);
+        setIsBookingModalOpen(true);
+        
+        toast({
+          title: "Opening Production Management Services Booking",
+          description: "Your information has been saved and booking form is opening.",
+        });
+      } catch (error) {
+        toast({
+          title: "Error",
+          description: "Failed to save service data. Please try again.",
+          variant: "destructive"
+        });
+      }
       return;
     }
     
@@ -509,14 +620,22 @@ const ScheduleService = () => {
     console.log('- message:', values.message);
     console.log('- isInsuranceClaim:', values.isInsuranceClaim);
     
-    // Store the packout form data and open the booking modal
-    setPackoutFormData(values);
-    setIsBookingModalOpen(true);
-    
-    toast({
-      title: "Opening Packout Services Booking",
-      description: "Your booking form is opening with your information pre-filled.",
-    });
+    try {
+      await savePackoutService(values);
+      setPackoutFormData(values);
+      setIsBookingModalOpen(true);
+      
+      toast({
+        title: "Opening Packout Services Booking",
+        description: "Your information has been saved and booking form is opening.",
+      });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to save service data. Please try again.",
+        variant: "destructive"
+      });
+    }
   };
 
   // Get the appropriate booking URL based on the service type

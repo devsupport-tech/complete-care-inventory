@@ -266,6 +266,51 @@ export type Database = {
           },
         ]
       }
+      estimating_services: {
+        Row: {
+          city: string | null
+          created_at: string
+          email: string | null
+          id: string
+          is_insurance_claim: boolean | null
+          message: string | null
+          name: string | null
+          phone: string | null
+          service: string | null
+          status: string | null
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          city?: string | null
+          created_at?: string
+          email?: string | null
+          id?: string
+          is_insurance_claim?: boolean | null
+          message?: string | null
+          name?: string | null
+          phone?: string | null
+          service?: string | null
+          status?: string | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          city?: string | null
+          created_at?: string
+          email?: string | null
+          id?: string
+          is_insurance_claim?: boolean | null
+          message?: string | null
+          name?: string | null
+          phone?: string | null
+          service?: string | null
+          status?: string | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       macro_tags: {
         Row: {
           created_at: string
@@ -318,6 +363,114 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      packout_services: {
+        Row: {
+          city: string | null
+          claim_email: string | null
+          claim_name: string | null
+          claim_phone: string | null
+          contractor_email: string | null
+          contractor_name: string | null
+          contractor_phone: string | null
+          created_at: string
+          email: string | null
+          id: string
+          is_insurance_claim: boolean | null
+          message: string | null
+          name: string | null
+          phone: string | null
+          service: string | null
+          status: string | null
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          city?: string | null
+          claim_email?: string | null
+          claim_name?: string | null
+          claim_phone?: string | null
+          contractor_email?: string | null
+          contractor_name?: string | null
+          contractor_phone?: string | null
+          created_at?: string
+          email?: string | null
+          id?: string
+          is_insurance_claim?: boolean | null
+          message?: string | null
+          name?: string | null
+          phone?: string | null
+          service?: string | null
+          status?: string | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          city?: string | null
+          claim_email?: string | null
+          claim_name?: string | null
+          claim_phone?: string | null
+          contractor_email?: string | null
+          contractor_name?: string | null
+          contractor_phone?: string | null
+          created_at?: string
+          email?: string | null
+          id?: string
+          is_insurance_claim?: boolean | null
+          message?: string | null
+          name?: string | null
+          phone?: string | null
+          service?: string | null
+          status?: string | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      production_services: {
+        Row: {
+          city: string | null
+          created_at: string
+          email: string | null
+          id: string
+          is_insurance_claim: boolean | null
+          message: string | null
+          name: string | null
+          phone: string | null
+          service: string | null
+          status: string | null
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          city?: string | null
+          created_at?: string
+          email?: string | null
+          id?: string
+          is_insurance_claim?: boolean | null
+          message?: string | null
+          name?: string | null
+          phone?: string | null
+          service?: string | null
+          status?: string | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          city?: string | null
+          created_at?: string
+          email?: string | null
+          id?: string
+          is_insurance_claim?: boolean | null
+          message?: string | null
+          name?: string | null
+          phone?: string | null
+          service?: string | null
+          status?: string | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
       }
       projects: {
         Row: {
