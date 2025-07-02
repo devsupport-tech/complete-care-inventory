@@ -193,7 +193,7 @@ const ScheduleService = () => {
   };
 
   const buildCalLink = (formData: z.infer<typeof formSchema> | z.infer<typeof packoutFormSchema>) => {
-    const baseUrl = "admin/cbrs-booking-form";
+    const baseUrl = "https://booking.cbrsgroup.com/support-cbrsgroup.com/estimating-services;
     const params = new URLSearchParams();
     
     // Add prefill parameters with exact field names Cal.com expects
@@ -211,9 +211,9 @@ const ScheduleService = () => {
     }
     
     if (formData.phone) {
-      params.append('contractor_phone', formData.phone);
+      params.append('phone', formData.phone);
     } else if ('contractorPhone' in formData && formData.contractorPhone) {
-      params.append('contractor_phone', formData.contractorPhone);
+      params.append('phone', formData.contractorPhone);
     }
     
     if (formData.city) params.append('city', formData.city);
