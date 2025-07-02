@@ -19,6 +19,7 @@ import PackoutInsuranceInformation from "@/components/schedule/PackoutInsuranceI
 import ContractorInformation from "@/components/schedule/ContractorInformation";
 import ClaimInformation from "@/components/schedule/ClaimInformation";
 import Chatbot from "@/components/Chatbot";
+import BookingModal from "@/components/BookingModal";
 import { getCalApi } from "@calcom/embed-react";
 
 const ScheduleService = () => {
@@ -26,6 +27,7 @@ const ScheduleService = () => {
   const [searchParams] = useSearchParams();
   const serviceId = searchParams.get('service');
   const [selectedService, setSelectedService] = useState<string>("");
+  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
 
   const defaultService = serviceId 
     ? services.find(service => service.id === serviceId)?.title 
@@ -426,36 +428,13 @@ const ScheduleService = () => {
     console.log('- message:', values.message);
     console.log('- isInsuranceClaim:', values.isInsuranceClaim);
     
-    try {
-      const cal = await getCalApi({
-        "namespace": "cbrs-direct-booking"
-      });
-      
-      // Build the Cal.com link with prefilled data for packout services
-      const calLink = buildPackoutCalLink(values);
-      console.log('Opening Cal.com packout services modal with link:', calLink);
-      
-      // Use a small delay to ensure Cal.com is ready
-      setTimeout(() => {
-        cal("modal", {
-          calLink: calLink
-        });
-      }, 100);
-      
-      toast({
-        title: "Opening Packout Services Calendar",
-        description: "Your information has been pre-filled in the booking form.",
-      });
-      
-      console.log('Cal.com packout services booking modal opened successfully');
-    } catch (error) {
-      console.error('Error opening Cal.com modal:', error);
-      toast({
-        title: "Error",
-        description: "Failed to open booking calendar. Please try again.",
-        variant: "destructive"
-      });
-    }
+    // For packout services, open the new booking URL in modal
+    setIsBookingModalOpen(true);
+    
+    toast({
+      title: "Opening Packout Services Booking",
+      description: "Your booking form is opening in a new window.",
+    });
   };
 
   // Add global styles for Cal.com z-index
@@ -563,6 +542,13 @@ const ScheduleService = () => {
           )}
         </div>
       </div>
+      
+      {/* Booking Modal for Packout Services */}
+      <BookingModal
+        isOpen={isBookingModalOpen}
+        onClose={() => setIsBookingModalOpen(false)}
+        bookingUrl="https://booking.cbrsgroup.com/support-cbrsgroup.com/production-services?overlayCalendar=true"
+      />
       
       <Chatbot />
     </>
