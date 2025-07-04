@@ -366,6 +366,7 @@ export type Database = {
       }
       packout_services: {
         Row: {
+          booking_date: string | null
           city: string | null
           claim_email: string | null
           claim_name: string | null
@@ -382,6 +383,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          booking_date?: string | null
           city?: string | null
           claim_email?: string | null
           claim_name?: string | null
@@ -398,6 +400,7 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          booking_date?: string | null
           city?: string | null
           claim_email?: string | null
           claim_name?: string | null
