@@ -34,10 +34,10 @@ const ServiceSidebar = ({ serviceId, title }: ServiceSidebarProps) => {
             Our team is available to answer any questions about our services and how they can help you.
           </p>
           <a 
-            href="tel:+34662986933" 
+            href="tel:+18326327225" 
             className="inline-flex items-center text-cbrs-blue hover:text-blue-700 font-medium"
           >
-            Call (346) 298-6933
+            Call (832) 632-7225
           </a>
         </div>
         

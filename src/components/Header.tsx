@@ -86,11 +86,11 @@ const Header = () => {
             Contact
           </Link>
           <a
-            href="tel:+3462986933"
+            href="tel:+18326327225"
             className="text-cbrs-blue font-medium text-sm tracking-wide transition-all hover:text-cbrs-orange hover:scale-105 inline-flex items-center border-r pr-6"
           >
             <Phone className="w-4 h-4 mr-2" />
-            (346) 298-6933
+            (832) 632-7225
           </a>
           <Link to="/schedule">
             <Button variant="orange" size="default" className="flex items-center">
@@ -103,7 +103,7 @@ const Header = () => {
         {/* Mobile Menu Button */}
         <div className="md:hidden flex items-center space-x-4">
           <a
-            href="tel:+3462986933"
+            href="tel:+18326327225"
             className="text-cbrs-blue inline-flex items-center"
           >
             <Phone className="w-5 h-5" />
@@ -156,12 +156,12 @@ const Header = () => {
                 Contact
               </Link>
               <a
-                href="tel:+3462986933"
+                href="tel:+18326327225"
                 className="text-cbrs-blue font-medium py-2 transition-colors hover:text-cbrs-orange flex items-center"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <Phone className="w-4 h-4 mr-2" />
-                (346) 298-6933
+                (832) 632-7225
               </a>
               <Link
                 to="/schedule"

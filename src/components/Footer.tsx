@@ -106,8 +106,8 @@ const Footer = () => {
             <address className="not-italic text-gray-300 space-y-3">
               <p>Houston and Surrounding Areas</p>
               <p>
-                <a href="tel:+13462986933" className="hover:text-cbrs-orange transition-colors">
-                  (346) 298-6933
+                <a href="tel:+18326327225" className="hover:text-cbrs-orange transition-colors">
+                  (832) 632-7225
                 </a>
               </p>
               <p>

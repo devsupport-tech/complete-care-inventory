@@ -57,7 +57,7 @@ const ServiceFaq = ({ service }: ServiceFaqProps) => {
               </Link>
             </Button>
             <a 
-              href="tel:+18005551234" 
+              href="tel:+18326327225" 
               className="inline-flex items-center border border-[#1e3046] text-[#1e3046] hover:bg-[#1e3046]/5 font-medium px-6 py-3 rounded-md transition-all"
             >
               <Phone className="w-4 h-4 mr-2" />

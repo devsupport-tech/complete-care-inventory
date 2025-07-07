@@ -106,7 +106,7 @@ const Chatbot = () => {
                             size="sm"
                             variant="outline"
                             className="text-xs h-8 justify-start"
-                            onClick={() => window.open('tel:+1234567890', '_self')}
+                            onClick={() => window.open('tel:+18326327225', '_self')}
                           >
                             <Phone className="h-3 w-3 mr-1" />
                             Call Us
