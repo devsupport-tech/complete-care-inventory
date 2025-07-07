@@ -67,11 +67,11 @@ const ServiceHero = ({ title, description, galleryImages }: ServiceHeroProps) =>
               </Link>
             </Button>
             <a 
-              href="tel:+13462986933" 
+              href="tel:+18326327225" 
               className="inline-flex items-center border border-white text-white hover:bg-white/10 font-medium px-6 py-3 rounded-md transition-all"
             >
               <Phone className="w-4 h-4 mr-2" />
-              (346) 298-6933
+              (832) 632-7225
             </a>
             */}
           </div>

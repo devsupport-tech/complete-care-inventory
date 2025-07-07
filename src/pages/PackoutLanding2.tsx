@@ -54,7 +54,7 @@ const PackoutLanding2 = () => {
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
-              <a href="tel:+13462986933">
+              <a href="tel:+18326327225">
                 <Button size="xl" variant="outline" className="border-white text-white hover:bg-white hover:text-cbrs-orange w-full sm:w-auto">
                   <Phone className="mr-2 h-5 w-5" />
                   Call Now
