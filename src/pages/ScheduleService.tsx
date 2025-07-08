@@ -444,7 +444,6 @@ const ScheduleService = () => {
           city: formData.city,
           message: formData.message,
           is_insurance_claim: formData.isInsuranceClaim,
-          user_id: null, // No authentication required
         });
 
       if (error) {
