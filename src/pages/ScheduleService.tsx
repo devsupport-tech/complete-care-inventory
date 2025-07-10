@@ -616,6 +616,10 @@ const ScheduleService = () => {
     setPackoutFormData(null);
     setEstimatingFormData(null);
     setProductionFormData(null);
+    
+    // Reset all form fields to default values
+    packoutForm.reset();
+    regularForm.reset();
   };
 
   // Add global styles for Cal.com z-index
