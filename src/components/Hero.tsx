@@ -30,7 +30,7 @@ const Hero = () => {
       ></div>
 
       {/* Content */}
-      <div className="container mx-auto px-4 md:px-6 relative z-20 pt-32 pb-16">
+      <div className="container mx-auto px-4 md:px-6 relative z-20 pt-36 pb-16">
         <div className={`max-w-3xl mx-auto mb-16 text-center transition-all duration-1000 delay-300 ${isLoaded ? 'opacity-100' : 'opacity-0 translate-y-12'}`}>
           <div className="bg-[#1e3046] text-white inline-block px-3 py-1 rounded-full text-xs font-medium mb-6 transform transition-all duration-500 hover:scale-105">
             Professional Contractor Support Services
