@@ -23,6 +23,12 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
+    const postmarkApiKey = Deno.env.get('POSTMARK_API_KEY');
+    if (!postmarkApiKey) {
+      console.error('POSTMARK_API_KEY is not set');
+      throw new Error('POSTMARK_API_KEY is not configured');
+    }
+
     const { name, email, service, city, message }: ProductionEmailRequest = await req.json();
     
     console.log('Sending production confirmation email to:', email);
@@ -43,7 +49,7 @@ const handler = async (req: Request): Promise<Response> => {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'X-Postmark-Server-Token': Deno.env.get('POSTMARK_API_KEY'),
+        'X-Postmark-Server-Token': postmarkApiKey,
       },
       body: JSON.stringify({
         From: 'noreply@cbrsgroup.com',
