@@ -1,6 +1,7 @@
 
 import { PackageCheck, Calculator, UserCog } from "lucide-react";
 import React from "react";
+import productionManagementImage from "../assets/production-management.jpg";
 
 export interface Service {
   id: string;
@@ -138,6 +139,6 @@ export const services: Service[] = [
         answer: "We conduct regular on-site inspections, create detailed progress reports with photos, and hold subcontractors accountable to established quality standards. Our documentation process creates accountability at every project stage."
       }
     ],
-    imageUrl: "https://images.unsplash.com/photo-1574358329850-383cf65469c8?auto=format&fit=crop&q=80&w=2970"
+    imageUrl: productionManagementImage
   }
 ];
