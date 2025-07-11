@@ -64,7 +64,9 @@ const handler = async (req: Request): Promise<Response> => {
     if (!postmarkResponse.ok) {
       const errorData = await postmarkResponse.text();
       console.error('Postmark API error:', errorData);
-      throw new Error(`Postmark API error: ${postmarkResponse.status} ${errorData}`);
+      console.error('Response status:', postmarkResponse.status);
+      console.error('Response headers:', Object.fromEntries(postmarkResponse.headers.entries()));
+      throw new Error(`Postmark API error: ${postmarkResponse.status} - ${errorData}`);
     }
 
     const result = await postmarkResponse.json();
