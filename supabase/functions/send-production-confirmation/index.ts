@@ -52,7 +52,7 @@ const handler = async (req: Request): Promise<Response> => {
         'X-Postmark-Server-Token': postmarkApiKey,
       },
       body: JSON.stringify({
-        From: 'noreply@cbrsgroup.com',
+        From: 'support@cbrsgroup.com',
         To: email,
         Subject: 'Production Management Service Request Received - CBRS Group',
         HtmlBody: emailHtml,
