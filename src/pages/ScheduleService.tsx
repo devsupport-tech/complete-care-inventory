@@ -514,17 +514,46 @@ const ScheduleService = () => {
       return;
     }
     
-    // Handle production management services - save to database and show success message
+    // Handle production management services - save to database and send confirmation email
     if (isProductionManagementService) {
-      console.log('Production management service detected, saving to database');
+      console.log('Production management service detected, saving to database and sending confirmation email');
       
       try {
         await saveProductionService(values);
         
-        toast({
-          title: "Production Management Service Request Submitted",
-          description: "Your service request has been submitted successfully. Our team will contact you soon.",
-        });
+        // Send confirmation email
+        try {
+          const { data: emailResult, error: emailError } = await supabase.functions.invoke('send-production-confirmation', {
+            body: {
+              name: values.name,
+              email: values.email,
+              service: values.service,
+              city: values.city,
+              message: values.message
+            }
+          });
+
+          if (emailError) {
+            console.error('Email sending error:', emailError);
+            // Still show success since the data was saved, just mention email issue
+            toast({
+              title: "Production Management Service Request Submitted",
+              description: "Your service request has been submitted successfully. Our team will contact you soon. (Note: Confirmation email may be delayed)",
+            });
+          } else {
+            console.log('Confirmation email sent successfully:', emailResult);
+            toast({
+              title: "Production Management Service Request Submitted",
+              description: "Your service request has been submitted successfully and a confirmation email has been sent. Our team will reach out shortly.",
+            });
+          }
+        } catch (emailError) {
+          console.error('Email function error:', emailError);
+          toast({
+            title: "Production Management Service Request Submitted",
+            description: "Your service request has been submitted successfully. Our team will contact you soon.",
+          });
+        }
 
         // Reset the form after successful submission
         regularForm.reset({
