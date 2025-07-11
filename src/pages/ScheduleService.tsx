@@ -514,18 +514,27 @@ const ScheduleService = () => {
       return;
     }
     
-    // Handle production management services with popup modal
+    // Handle production management services - save to database and show success message
     if (isProductionManagementService) {
-      console.log('Production management service detected, saving to database and opening booking modal');
+      console.log('Production management service detected, saving to database');
       
       try {
         await saveProductionService(values);
-        setProductionFormData(values);
-        setIsBookingModalOpen(true);
         
         toast({
-          title: "Opening Production Management Services Booking",
-          description: "Your information has been saved and booking form is opening.",
+          title: "Production Management Service Request Submitted",
+          description: "Your service request has been submitted successfully. Our team will contact you soon.",
+        });
+
+        // Reset the form after successful submission
+        regularForm.reset({
+          name: "",
+          email: "",
+          phone: "",
+          service: "",
+          city: "",
+          message: "",
+          isInsuranceClaim: false,
         });
       } catch (error) {
         toast({
