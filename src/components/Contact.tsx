@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Phone, Mail, MapPin, Clock, Send } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -17,14 +18,27 @@ const Contact = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
   
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission
-    setTimeout(() => {
-      console.log("Form submitted:", formData);
-      setIsSubmitting(false);
+    try {
+      console.log("Sending contact message:", formData);
+      
+      const { data, error } = await supabase.functions.invoke('send-contact-message', {
+        body: {
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          message: formData.message
+        }
+      });
+      
+      if (error) {
+        throw error;
+      }
+      
+      console.log("Contact message sent successfully:", data);
       setIsSubmitted(true);
       
       // Reset form after submission
@@ -39,7 +53,13 @@ const Contact = () => {
       setTimeout(() => {
         setIsSubmitted(false);
       }, 5000);
-    }, 1500);
+      
+    } catch (error) {
+      console.error("Error sending contact message:", error);
+      alert("There was an error sending your message. Please try again or contact us directly.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
