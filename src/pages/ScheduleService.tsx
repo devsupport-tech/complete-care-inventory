@@ -18,6 +18,7 @@ import PackoutServiceDetails from "@/components/schedule/PackoutServiceDetails";
 import PackoutInsuranceInformation from "@/components/schedule/PackoutInsuranceInformation";
 import ContractorInformation from "@/components/schedule/ContractorInformation";
 import ClaimInformation from "@/components/schedule/ClaimInformation";
+import Chatbot from "@/components/Chatbot";
 import BookingModal from "@/components/BookingModal";
 import { getCalApi } from "@calcom/embed-react";
 import { supabase } from "@/integrations/supabase/client";
@@ -771,6 +772,8 @@ const ScheduleService = () => {
         onClose={handleModalClose}
         bookingUrl={getBookingUrl()}
       />
+      
+      <Chatbot />
     </>
   );
 };
