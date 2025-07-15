@@ -23,7 +23,28 @@ serve(async (req) => {
       body: JSON.stringify({ message }),
     })
 
-    const data = await response.json()
+    console.log('Webhook response status:', response.status)
+    console.log('Webhook response headers:', Object.fromEntries(response.headers.entries()))
+    
+    const responseText = await response.text()
+    console.log('Webhook raw response:', responseText)
+
+    let data
+    try {
+      data = JSON.parse(responseText)
+    } catch (parseError) {
+      console.error('Failed to parse webhook response as JSON:', parseError)
+      console.log('Response was:', responseText.substring(0, 500))
+      
+      return new Response(
+        JSON.stringify({ 
+          response: 'Sorry, there was an error processing your request. The webhook returned an invalid response.' 
+        }),
+        {
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        },
+      )
+    }
 
     return new Response(
       JSON.stringify(data),
