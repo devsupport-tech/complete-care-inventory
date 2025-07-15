@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { MessageCircle, X, Send } from 'lucide-react';
-import { Button } from '../ui/button';
-import { Input } from '../ui/input';
+import { Button } from '../ui/button.tsx';
+import { Input } from '../ui/input.tsx';
 
 const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
