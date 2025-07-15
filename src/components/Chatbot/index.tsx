@@ -18,7 +18,7 @@ const Chatbot = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch('https://n8n2.team-workspace.us/webhook/CBRS', {
+      const response = await fetch('/functions/v1/chatbot-proxy', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
