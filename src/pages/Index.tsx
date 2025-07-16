@@ -85,7 +85,7 @@ const Index = () => {
       <Services />
       <Testimonials />
       <Footer />
-      <Chatbot />
+      
     </div>
   );
 };
