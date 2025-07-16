@@ -5,7 +5,6 @@ WORKDIR /app
 
 # Copy package files
 COPY package*.json ./
-COPY bun.lockb ./  # Keep this if you're using Bun; otherwise remove it
 
 # ✅ Install all dependencies (NOT --only=production)
 RUN npm install --silent
