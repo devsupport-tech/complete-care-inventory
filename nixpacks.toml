@@ -1,0 +1,12 @@
+[phases.build]
+cmds = ['npm ci --only=production', 'npm run build']
+
+[phases.start]
+cmd = 'npm run preview'
+
+[variables]
+NODE_ENV = 'production'
+PORT = '8080'
+
+[build]
+buildCommand = 'npm run build'
