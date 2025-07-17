@@ -520,11 +520,6 @@ const ScheduleService = () => {
       
       try {
         await saveProductionService(values);
-        
-        toast({
-          title: "Production Management Service Request Submitted",
-          description: "Your service request has been submitted successfully. Our team will contact you soon.",
-        });
 
         // Reset the form after successful submission
         regularForm.reset({
