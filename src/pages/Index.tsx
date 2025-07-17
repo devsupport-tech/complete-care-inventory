@@ -84,6 +84,7 @@ const Index = () => {
       <Hero />
       <Services />
       <Testimonials />
+      <Chatbot />
       <Footer />
       
     </div>
