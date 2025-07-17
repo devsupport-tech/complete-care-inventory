@@ -53,6 +53,9 @@ enable_confirmations = false
 [functions.send-production-confirmation]
 verify_jwt = false
 
+[functions.chatbot-proxy]
+verify_jwt = false
+
 [edge_runtime]
 enabled = true
 ip_version = "ipv6"

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { MessageCircle, X, Send } from 'lucide-react';
 import { Button } from '../ui/button.tsx';
 import { Input } from '../ui/input.tsx';
+import { supabase } from '@/integrations/supabase/client';
 
 const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,17 +19,16 @@ const Chatbot = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch('/functions/v1/chatbot-proxy', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ message: userMessage }),
+      const { data, error } = await supabase.functions.invoke('chatbot-proxy', {
+        body: { message: userMessage }
       });
 
-      const data = await response.json();
-      const botResponse = data.response || data.message || 'Sorry, I could not process your request.';
-      
+      if (error) {
+        console.error('Supabase function error:', error);
+        throw error;
+      }
+
+      const botResponse = data?.response || data?.message || 'Sorry, I could not process your request.';
       setMessages(prev => [...prev, { text: botResponse, sender: 'bot' }]);
     } catch (error) {
       console.error('Error sending message:', error);
