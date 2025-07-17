@@ -19,7 +19,7 @@ serve(async (req) => {
     webhookUrl.searchParams.set('message', message)
     
     const response = await fetch(webhookUrl.toString(), {
-      method: 'GET',
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
