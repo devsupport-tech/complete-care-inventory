@@ -13,14 +13,18 @@ serve(async (req) => {
 
   try {
     const { message } = await req.json()
+    console.log('Received message:', message)
 
-    // Forward the request to your webhook using GET with query parameter
+    const payload = { message }
+    console.log('Sending payload to webhook:', JSON.stringify(payload))
+
+    // Forward the request to your webhook using POST
     const response = await fetch('https://n8n2.team-workspace.us/webhook/CBRS-chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ message }),
+        body: JSON.stringify(payload),
       })
 
 
