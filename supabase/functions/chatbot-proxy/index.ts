@@ -30,6 +30,19 @@ serve(async (req) => {
     const responseText = await response.text()
     console.log('Webhook raw response:', responseText)
 
+    // Handle empty response from n8n webhook
+    if (!responseText || responseText.trim() === '') {
+      console.log('Webhook returned empty response, sending default message')
+      return new Response(
+        JSON.stringify({ 
+          response: 'Hello! How can I help you today?' 
+        }),
+        {
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        },
+      )
+    }
+
     let data
     try {
       data = JSON.parse(responseText)
@@ -37,9 +50,10 @@ serve(async (req) => {
       console.error('Failed to parse webhook response as JSON:', parseError)
       console.log('Response was:', responseText.substring(0, 500))
       
+      // If it's not JSON, treat the text as the response
       return new Response(
         JSON.stringify({ 
-          response: 'Sorry, there was an error processing your request. The webhook returned an invalid response.' 
+          response: responseText.trim() || 'Hello! How can I help you today?' 
         }),
         {
           headers: { ...corsHeaders, 'Content-Type': 'application/json' },
