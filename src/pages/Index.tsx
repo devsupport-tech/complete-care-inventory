@@ -66,18 +66,18 @@ const Index = () => {
   return (
     <div className="min-h-screen w-full overflow-x-hidden bg-white scroll-smooth">
       <Helmet>
-        <title>CBRS Group | Storm & Weather Damage Restoration</title>
-        <meta name="description" content="Rapid, reliable, and professional storm and weather damage restoration services. 24/7 emergency response. Licensed and insured professionals." />
-        <meta name="keywords" content="storm damage restoration, weather damage repair, emergency restoration, commercial restoration, water damage, wind damage, hail damage" />
-        <meta property="og:title" content="CBRS Group | Storm & Weather Damage Restoration" />
-        <meta property="og:description" content="Rapid, reliable, and professional storm and weather damage restoration services. 24/7 emergency response." />
+        <title>CBRS Group | Professional Contractor Support Services</title>
+        <meta name="description" content="CBRS Group provides essential support services for restoration contractors, including packout management, estimating, and production management." />
+        <meta name="keywords" content="contractor support, packout services, estimating, insurance supplementing, production management, restoration services" />
+        <meta property="og:title" content="CBRS Group | Professional Contractor Support Services" />
+        <meta property="og:description" content="Professional support services for restoration contractors including packout management, estimating, and production management." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://cbrsgroup.com" />
         <meta property="og:image" content="/lovable-uploads/21eff05e-d58e-4076-99c1-9d0ac0ffe1fc.png" />
         <meta name="twitter:card" content="summary_large_image" />
         <link rel="canonical" href="https://cbrsgroup.com" />
-        <meta name="theme-color" content="#dc2626" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="#dc2626" />
+        <meta name="theme-color" content="#1A2A3A" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="#1A2A3A" />
       </Helmet>
       
       <Header />

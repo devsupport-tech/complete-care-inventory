@@ -22,20 +22,12 @@ const Header = () => {
   return (
     <header 
       className={cn(
-        "fixed top-0 w-full z-50 transition-all duration-300 backdrop-blur-md",
+        "fixed top-0 w-full z-50 transition-all duration-300 backdrop-blur-md py-4",
         isScrolled
-          ? "bg-white/95 shadow-sm py-2" 
-          : "bg-white py-4"
+          ? "bg-white/80 shadow-sm" 
+          : "bg-transparent"
       )}
     >
-      {/* Emergency Services Bar */}
-      <div className="bg-red-600 text-white py-1 px-4">
-        <div className="container mx-auto flex justify-between items-center text-sm">
-          <span className="font-medium">Emergency Services 24/7</span>
-          <span className="font-bold text-lg">281-336-1888</span>
-        </div>
-      </div>
-
       <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
         <div className="flex items-center">
           <Link 
@@ -45,35 +37,29 @@ const Header = () => {
             <img 
               src="/lovable-uploads/21eff05e-d58e-4076-99c1-9d0ac0ffe1fc.png" 
               alt="CBRS Group Logo" 
-              className="h-[80px] md:h-[90px] mr-2" 
+              className="h-[98.28px] md:h-[112.32px] mr-2" 
             />
           </Link>
         </div>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-8">
+        <nav className="hidden md:flex items-center space-x-6">
           <Link
             to="/"
             className="text-cbrs-blue font-medium text-sm tracking-wide transition-all hover:text-cbrs-orange hover:scale-105"
           >
             Home
           </Link>
-          <Link
-            to="/about"
-            className="text-cbrs-blue font-medium text-sm tracking-wide transition-all hover:text-cbrs-orange hover:scale-105"
-          >
-            About Us
-          </Link>
           <div className="relative group">
             <span className="text-cbrs-blue font-medium text-sm tracking-wide transition-all hover:text-cbrs-orange cursor-pointer flex items-center">
-              Residential Restoration
+              Services
               <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
               </svg>
             </span>
             <div className="absolute left-0 mt-2 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
               <div className="bg-white border border-gray-100 rounded-md shadow-lg overflow-hidden py-1">
-                {services.slice(0, 3).map((service, index) => (
+                {services.map((service, index) => (
                   <Link
                     key={index}
                     to={service.detailUrl}
@@ -85,63 +71,39 @@ const Header = () => {
               </div>
             </div>
           </div>
-          <div className="relative group">
-            <span className="text-cbrs-blue font-medium text-sm tracking-wide transition-all hover:text-cbrs-orange cursor-pointer flex items-center">
-              Commercial Restoration
-              <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
-              </svg>
-            </span>
-            <div className="absolute left-0 mt-2 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
-              <div className="bg-white border border-gray-100 rounded-md shadow-lg overflow-hidden py-1">
-                {services.slice(3).map((service, index) => (
-                  <Link
-                    key={index}
-                    to={service.detailUrl}
-                    className="block px-4 py-2 text-sm text-cbrs-blue hover:bg-gray-50 hover:text-cbrs-orange"
-                  >
-                    {service.title}
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </div>
-          <Link
-            to="/renovations"
+          {/*
+          <a
+            href="/#testimonials"
             className="text-cbrs-blue font-medium text-sm tracking-wide transition-all hover:text-cbrs-orange hover:scale-105"
           >
-            Renovations
-          </Link>
-          <Link
-            to="/areas"
-            className="text-cbrs-blue font-medium text-sm tracking-wide transition-all hover:text-cbrs-orange hover:scale-105"
-          >
-            Areas We Serve
-          </Link>
-          <Link
-            to="/work"
-            className="text-cbrs-blue font-medium text-sm tracking-wide transition-all hover:text-cbrs-orange hover:scale-105"
-          >
-            Our Work
-          </Link>
-          <Link
-            to="/reviews"
-            className="text-cbrs-blue font-medium text-sm tracking-wide transition-all hover:text-cbrs-orange hover:scale-105"
-          >
-            Reviews
-          </Link>
+            Testimonials
+          </a>
+          */}
           <Link
             to="/contact"
             className="text-cbrs-blue font-medium text-sm tracking-wide transition-all hover:text-cbrs-orange hover:scale-105"
           >
-            Contact Us
+            Contact
+          </Link>
+          <a
+            href="tel:+18326327225"
+            className="text-cbrs-blue font-medium text-sm tracking-wide transition-all hover:text-cbrs-orange hover:scale-105 inline-flex items-center border-r pr-6"
+          >
+            <Phone className="w-4 h-4 mr-2" />
+            (832) 632-7225
+          </a>
+          <Link to="/schedule">
+            <Button variant="orange" size="default" className="flex items-center">
+              <Calendar className="w-4 h-4 mr-2" />
+              Schedule Service
+            </Button>
           </Link>
         </nav>
 
         {/* Mobile Menu Button */}
         <div className="md:hidden flex items-center space-x-4">
           <a
-            href="tel:+12813361888"
+            href="tel:+18326327225"
             className="text-cbrs-blue inline-flex items-center"
           >
             <Phone className="w-5 h-5" />
@@ -166,13 +128,6 @@ const Header = () => {
               >
                 Home
               </Link>
-              <Link
-                to="/about"
-                className="text-cbrs-blue font-medium py-2 transition-colors hover:text-cbrs-orange"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                About Us
-              </Link>
               <div className="border-t border-gray-100 pt-2">
                 <p className="text-xs uppercase text-cbrs-muted font-medium mb-2">Services</p>
                 {services.map((service, index) => (
@@ -186,21 +141,37 @@ const Header = () => {
                   </Link>
                 ))}
               </div>
+              <a
+                href="/#testimonials"
+                className="text-cbrs-blue font-medium py-2 transition-colors hover:text-cbrs-orange"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Testimonials
+              </a>
               <Link
                 to="/contact"
                 className="text-cbrs-blue font-medium py-2 transition-colors hover:text-cbrs-orange"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                Contact Us
+                Contact
               </Link>
               <a
-                href="tel:+12813361888"
+                href="tel:+18326327225"
                 className="text-cbrs-blue font-medium py-2 transition-colors hover:text-cbrs-orange flex items-center"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <Phone className="w-4 h-4 mr-2" />
-                281-336-1888
+                (832) 632-7225
               </a>
+              <Link
+                to="/schedule"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <Button variant="orange" className="w-full flex items-center justify-center">
+                  <Calendar className="w-4 h-4 mr-2" />
+                  Schedule Service
+                </Button>
+              </Link>
             </nav>
           </div>
         )}
