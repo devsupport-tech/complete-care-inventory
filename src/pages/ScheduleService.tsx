@@ -579,31 +579,41 @@ const ScheduleService = () => {
 
   // Function to save packout service data to Supabase
   const savePackoutService = async (formData: z.infer<typeof packoutFormSchema>) => {
+    console.log('🔵 SAVING PACKOUT SERVICE - START');
+    console.log('🔵 contractor_email from form:', formData.contractorEmail);
+    console.log('🔵 Full form data:', JSON.stringify(formData, null, 2));
+    
     try {
+      const insertData = {
+        service: formData.service,
+        city: formData.city,
+        message: formData.message,
+        is_insurance_claim: formData.isInsuranceClaim,
+        contractor_name: formData.contractorName,
+        contractor_phone: formData.contractorPhone,
+        contractor_email: formData.contractorEmail, // Use actual contractor email from form
+        claim_name: formData.claimName,
+        claim_phone: formData.claimPhone,
+        claim_email: formData.claimEmail,
+      };
+      
+      console.log('🔵 Data being inserted:', JSON.stringify(insertData, null, 2));
+      
       const { data, error } = await supabase
         .from('packout_services')
-        .insert({
-          service: formData.service,
-          city: formData.city,
-          message: formData.message,
-          is_insurance_claim: formData.isInsuranceClaim,
-          contractor_name: formData.contractorName,
-          contractor_phone: formData.contractorPhone,
-          contractor_email: formData.contractorEmail, // Use actual contractor email from form
-          claim_name: formData.claimName,
-          claim_phone: formData.claimPhone,
-          claim_email: formData.claimEmail,
-        });
+        .insert(insertData);
 
       if (error) {
-        console.error('Error saving packout service:', error);
+        console.error('🔴 Error saving packout service:', error);
         throw error;
       }
 
-      console.log('Packout service saved successfully:', data);
+      console.log('🟢 Packout service saved successfully:', data);
+      console.log('🔵 SAVING PACKOUT SERVICE - END');
       return data;
     } catch (error) {
-      console.error('Failed to save packout service:', error);
+      console.error('🔴 Failed to save packout service:', error);
+      console.log('🔵 SAVING PACKOUT SERVICE - ERROR END');
       throw error;
     }
   };
