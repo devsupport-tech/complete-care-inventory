@@ -92,7 +92,7 @@ const handler = async (req: Request): Promise<Response> => {
             'X-Postmark-Server-Token': postmarkApiKey,
           },
           body: JSON.stringify({
-            From: 'support@cbrsgroup.com',
+            From: 'CBRS Group <onboarding@resend.dev>',
             To: recipientEmail,
             Subject: 'Reminder: Your Packout Service is Tomorrow - CBRS Group',
             HtmlBody: `
