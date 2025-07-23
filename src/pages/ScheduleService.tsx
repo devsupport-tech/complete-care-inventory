@@ -136,7 +136,7 @@ const ScheduleService = () => {
     }
     
     if (formData.contractorEmail?.trim()) {
-      params.append('email', formData.contractorEmail.trim());
+      params.append('contractor_email', formData.contractorEmail.trim());
       console.log('Setting Contractor Email Address to:', formData.contractorEmail.trim());
     }
     
