@@ -577,7 +577,38 @@ const ScheduleService = () => {
     }
   };
 
-  const onSubmitPackout = (values: z.infer<typeof packoutFormSchema>) => {
+  // Function to save packout service data to Supabase
+  const savePackoutService = async (formData: z.infer<typeof packoutFormSchema>) => {
+    try {
+      const { data, error } = await supabase
+        .from('packout_services')
+        .insert({
+          service: formData.service,
+          city: formData.city,
+          message: formData.message,
+          is_insurance_claim: formData.isInsuranceClaim,
+          contractor_name: formData.contractorName,
+          contractor_phone: formData.contractorPhone,
+          contractor_email: formData.contractorEmail, // Use actual contractor email from form
+          claim_name: formData.claimName,
+          claim_phone: formData.claimPhone,
+          claim_email: formData.claimEmail,
+        });
+
+      if (error) {
+        console.error('Error saving packout service:', error);
+        throw error;
+      }
+
+      console.log('Packout service saved successfully:', data);
+      return data;
+    } catch (error) {
+      console.error('Failed to save packout service:', error);
+      throw error;
+    }
+  };
+
+  const onSubmitPackout = async (values: z.infer<typeof packoutFormSchema>) => {
     console.log('Packout form submitted with values:', values);
     console.log('All form field values:');
     console.log('- contractorName:', values.contractorName);
@@ -591,13 +622,26 @@ const ScheduleService = () => {
     console.log('- message:', values.message);
     console.log('- isInsuranceClaim:', values.isInsuranceClaim);
     
-    setPackoutFormData(values);
-    setIsBookingModalOpen(true);
-    
-    toast({
-      title: "Opening Packout Services Booking",
-      description: "Your information has been prepared and booking form is opening.",
-    });
+    try {
+      // Save the packout service data to database with actual contractor email
+      await savePackoutService(values);
+      console.log('Packout service data saved to database with contractor_email:', values.contractorEmail);
+      
+      setPackoutFormData(values);
+      setIsBookingModalOpen(true);
+      
+      toast({
+        title: "Opening Packout Services Booking",
+        description: "Your information has been saved and booking form is opening.",
+      });
+    } catch (error) {
+      console.error('Error saving packout service data:', error);
+      toast({
+        title: "Error",
+        description: "Failed to save service data. Please try again.",
+        variant: "destructive"
+      });
+    }
   };
 
   // Get the appropriate booking URL based on the service type
