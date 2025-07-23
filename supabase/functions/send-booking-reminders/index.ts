@@ -71,15 +71,20 @@ const handler = async (req: Request): Promise<Response> => {
 
     // Send reminder emails for each booking
     for (const booking of bookings) {
-      // Determine which email to use (contractor_email or claim_email)
-      const recipientEmail = booking.contractor_email || booking.claim_email;
+      // Determine which email to use (prioritize claim_email for customer notifications)
+      const recipientEmail = booking.claim_email || booking.contractor_email;
+      
+      console.log(`Processing booking ${booking.id}:`);
+      console.log(`- contractor_email: ${booking.contractor_email}`);
+      console.log(`- claim_email: ${booking.claim_email}`);
+      console.log(`- chosen recipient: ${recipientEmail}`);
       
       if (!recipientEmail) {
         console.log(`No email found for booking ${booking.id}`);
         continue;
       }
 
-      const recipientName = booking.contractor_name || booking.claim_name || 'Customer';
+      const recipientName = booking.claim_name || booking.contractor_name || 'Customer';
       const bookingDate = new Date(booking.booking_date);
       
       try {
