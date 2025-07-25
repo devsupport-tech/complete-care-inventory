@@ -141,7 +141,7 @@ const ScheduleService = () => {
     }
     
     if (formData.contractorPhone?.trim()) {
-      params.append('phone', formData.contractorPhone.trim());
+      params.append('contractor_phone', formData.contractorPhone.trim());
       console.log('Setting Contractor Phone Number to:', formData.contractorPhone.trim());
     }
     
