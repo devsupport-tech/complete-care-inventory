@@ -305,7 +305,62 @@ const ScheduleService = () => {
     return fullUrl;
   };
 
-  
+  const buildCalLink = (formData: z.infer<typeof formSchema>) => {
+    const baseUrl = "admin/cbrs-booking-form";
+    const params = new URLSearchParams();
+    
+    // Map form fields to Cal.com field names exactly as they appear in the booking form
+    if (formData.name?.trim()) {
+      params.append('name', formData.name.trim());
+      console.log('Setting name to:', formData.name.trim());
+    }
+    
+    if (formData.email?.trim()) {
+      params.append('email', formData.email.trim());
+      console.log('Setting email to:', formData.email.trim());
+    }
+    
+    if (formData.phone?.trim()) {
+      params.append('phone', formData.phone.trim());
+      console.log('Setting phone to:', formData.phone.trim());
+    }
+    
+    if (formData.service?.trim()) {
+      params.append('servicetype', formData.service.trim());
+      console.log('Setting servicetype parameter to:', formData.service.trim());
+    }
+    
+    if (formData.city?.trim()) {
+      params.append('city', formData.city.trim());
+      console.log('Setting city to:', formData.city.trim());
+    }
+    
+    // Build comprehensive project description with message and insurance info
+    let projectDescription = '';
+    if (formData.message?.trim()) {
+      projectDescription = formData.message.trim();
+    } else {
+      projectDescription = 'Service request from CBRS website';
+    }
+    
+    // Add insurance information
+    if (formData.isInsuranceClaim) {
+      projectDescription += '\n\nInsurance Claim: Yes';
+    } else {
+      projectDescription += '\n\nInsurance Claim: No';
+    }
+    
+    // Use the exact field name that Cal.com expects for project description
+    params.append('project-description', projectDescription);
+    console.log('Setting project-description parameter to:', projectDescription);
+    
+    const queryString = params.toString();
+    const fullUrl = queryString ? `${baseUrl}?${queryString}` : baseUrl;
+    console.log('Complete Cal.com URL:', fullUrl);
+    console.log('All URL parameters:', Object.fromEntries(params.entries()));
+    
+    return fullUrl;
+  };
 
   const buildProductionCalLink = (formData: z.infer<typeof formSchema>) => {
     const baseUrl = "admin/production-management-services";
