@@ -306,7 +306,8 @@ const ScheduleService = () => {
   };
 
   const buildCalLink = (formData: z.infer<typeof formSchema>) => {
-    const baseUrl = "admin/cbrs-booking-form";
+    //const baseUrl = "admin/cbrs-booking-form";
+    const baseUrl = "";
     const params = new URLSearchParams();
     
     // Map form fields to Cal.com field names exactly as they appear in the booking form
