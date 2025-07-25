@@ -305,75 +305,7 @@ const ScheduleService = () => {
     return fullUrl;
   };
 
-  const buildCalLink = (formData: z.infer<typeof formSchema> | z.infer<typeof packoutFormSchema>) => {
-    const baseUrl = "admin/cbrs-booking-form";
-    const params = new URLSearchParams();
-    
-    // Add prefill parameters with exact field names Cal.com expects
-    // For packout services, use contractor info as primary contact if no direct contact info
-    if (formData.name) {
-      params.append('name', formData.name);
-    } else if ('contractorName' in formData && formData.contractorName) {
-      params.append('name', formData.contractorName);
-    }
-    
-    if (formData.email) {
-      params.append('email', formData.email);
-    } else if ('contractorEmail' in formData && formData.contractorEmail) {
-      params.append('email', formData.contractorEmail);
-    }
-    
-    if (formData.phone) {
-      params.append('contractor_phone', formData.phone);
-    } else if ('contractorPhone' in formData && formData.contractorPhone) {
-      params.append('contractor_phone', formData.contractorPhone);
-    }
-    
-    if (formData.city) params.append('city', formData.city);
-    
-    // For Service Type - using exact field name from Cal.com
-    if (formData.service) {
-      params.append('servicetype', formData.service);
-      console.log('Setting servicetype parameter to:', formData.service);
-    }
-    
-    // Build comprehensive project description with message and insurance info
-    let projectDescription = '';
-    if (formData.message && formData.message.trim()) {
-      projectDescription = formData.message.trim();
-    } else {
-      projectDescription = 'Service request from CBRS website';
-    }
-    
-    // Add insurance information
-    if (formData.isInsuranceClaim) {
-      projectDescription += '\n\nInsurance Claim: Yes';
-    } else {
-      projectDescription += '\n\nInsurance Claim: No';
-    }
-
-    // Add contractor and claim information for packout services
-    if ('contractorName' in formData) {
-      projectDescription += '\n\nContractor Information:';
-      projectDescription += `\nName: ${formData.contractorName}`;
-      projectDescription += `\nPhone: ${formData.contractorPhone}`;
-      projectDescription += `\nEmail: ${formData.contractorEmail}`;
-      
-      projectDescription += '\n\nClaim Information:';
-      projectDescription += `\nName: ${formData.claimName}`;
-      projectDescription += `\nPhone: ${formData.claimPhone}`;
-      projectDescription += `\nEmail: ${formData.claimEmail}`;
-    }
-    
-    // Use the exact field name that Cal.com expects for project description
-    params.append('description', projectDescription);
-    console.log('Setting project-description parameter to:', projectDescription);
-    
-    const queryString = params.toString();
-    console.log('Complete Cal.com URL:', `${baseUrl}?${queryString}`);
-    console.log('All URL parameters:', Object.fromEntries(params.entries()));
-    return queryString ? `${baseUrl}?${queryString}` : baseUrl;
-  };
+  
 
   const buildProductionCalLink = (formData: z.infer<typeof formSchema>) => {
     const baseUrl = "admin/production-management-services";
