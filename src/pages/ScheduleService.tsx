@@ -611,22 +611,19 @@ const ScheduleService = () => {
     console.log('- isInsuranceClaim:', values.isInsuranceClaim);
     
     try {
-      // Save the packout service data to database with actual contractor email
-      await savePackoutService(values);
-      console.log('Packout service data saved to database with contractor_email:', values.contractorEmail);
-      
+      // Open booking without inserting into database to avoid duplicate rows
       setPackoutFormData(values);
       setIsBookingModalOpen(true);
       
       toast({
         title: "Opening Packout Services Booking",
-        description: "Your information has been saved and booking form is opening.",
+        description: "Your booking form is opening.",
       });
     } catch (error) {
-      console.error('Error saving packout service data:', error);
+      console.error('Error opening packout booking modal:', error);
       toast({
         title: "Error",
-        description: "Failed to save service data. Please try again.",
+        description: "Failed to open booking form. Please try again.",
         variant: "destructive"
       });
     }
