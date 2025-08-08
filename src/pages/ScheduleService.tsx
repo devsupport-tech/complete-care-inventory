@@ -134,7 +134,7 @@ const ScheduleService = () => {
       // Prefill attendee name AND the custom contractor_name field
       const contractorName = formData.contractorName.trim();
       params.append('name', contractorName);
-      params.append('contractor_name', contractorName);
+      params.append('contractor_name2', contractorName);
       console.log('Setting Contractor Full Name to:', contractorName);
     }
     
@@ -142,7 +142,7 @@ const ScheduleService = () => {
       // Prefill attendee email AND the custom contractor_email field
       const contractorEmail = formData.contractorEmail.trim();
       params.append('email', contractorEmail);
-      params.append('contractor_email', contractorEmail);
+      params.append('contractor_email2', contractorEmail);
       console.log('Setting Contractor Email Address to:', contractorEmail);
     }
     
