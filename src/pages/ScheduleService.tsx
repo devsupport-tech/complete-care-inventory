@@ -617,14 +617,13 @@ const ScheduleService = () => {
     console.log('- isInsuranceClaim:', values.isInsuranceClaim);
     
     try {
-      // Save to database, then open booking modal
-      await savePackoutService(values);
+      // Open booking without inserting into database to avoid duplicate rows
       setPackoutFormData(values);
       setIsBookingModalOpen(true);
       
       toast({
         title: "Opening Packout Services Booking",
-        description: "Your information has been saved and booking form is opening.",
+        description: "Your booking form is opening.",
       });
     } catch (error) {
       console.error('Error opening packout booking modal:', error);
