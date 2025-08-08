@@ -377,7 +377,9 @@ export type Database = {
           claim_name: string | null
           claim_phone: string | null
           contractor_email: string | null
+          contractor_email2: string | null
           contractor_name: string | null
+          contractor_name2: string | null
           contractor_phone: string | null
           created_at: string
           id: string
@@ -394,7 +396,9 @@ export type Database = {
           claim_name?: string | null
           claim_phone?: string | null
           contractor_email?: string | null
+          contractor_email2?: string | null
           contractor_name?: string | null
+          contractor_name2?: string | null
           contractor_phone?: string | null
           created_at?: string
           id?: string
@@ -411,7 +415,9 @@ export type Database = {
           claim_name?: string | null
           claim_phone?: string | null
           contractor_email?: string | null
+          contractor_email2?: string | null
           contractor_name?: string | null
+          contractor_name2?: string | null
           contractor_phone?: string | null
           created_at?: string
           id?: string
