@@ -131,13 +131,19 @@ const ScheduleService = () => {
     
     // Map form fields to Cal.com field names exactly as they appear in the booking form
     if (formData.contractorName?.trim()) {
-      params.append('name', formData.contractorName.trim());
-      console.log('Setting Contractor Full Name to:', formData.contractorName.trim());
+      // Prefill attendee name AND the custom contractor_name field
+      const contractorName = formData.contractorName.trim();
+      params.append('name', contractorName);
+      params.append('contractor_name', contractorName);
+      console.log('Setting Contractor Full Name to:', contractorName);
     }
     
     if (formData.contractorEmail?.trim()) {
-      params.append('email', formData.contractorEmail.trim());
-      console.log('Setting Contractor Email Address to:', formData.contractorEmail.trim());
+      // Prefill attendee email AND the custom contractor_email field
+      const contractorEmail = formData.contractorEmail.trim();
+      params.append('email', contractorEmail);
+      params.append('contractor_email', contractorEmail);
+      console.log('Setting Contractor Email Address to:', contractorEmail);
     }
     
     if (formData.contractorPhone?.trim()) {
