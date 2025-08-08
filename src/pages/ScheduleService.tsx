@@ -581,9 +581,9 @@ const ScheduleService = () => {
           city: formData.city,
           message: formData.message,
           is_insurance_claim: formData.isInsuranceClaim,
-          contractor_name: formData.contractorName,
+          contractor_name2: formData.contractorName,
           contractor_phone: formData.contractorPhone,
-          contractor_email: formData.contractorEmail, // Use actual contractor email from form
+          contractor_email2: formData.contractorEmail,
           claim_name: formData.claimName,
           claim_phone: formData.claimPhone,
           claim_email: formData.claimEmail,
@@ -617,13 +617,14 @@ const ScheduleService = () => {
     console.log('- isInsuranceClaim:', values.isInsuranceClaim);
     
     try {
-      // Open booking without inserting into database to avoid duplicate rows
+      // Save to database, then open booking modal
+      await savePackoutService(values);
       setPackoutFormData(values);
       setIsBookingModalOpen(true);
       
       toast({
         title: "Opening Packout Services Booking",
-        description: "Your booking form is opening.",
+        description: "Your information has been saved and booking form is opening.",
       });
     } catch (error) {
       console.error('Error opening packout booking modal:', error);
