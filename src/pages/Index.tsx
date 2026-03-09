@@ -3,11 +3,9 @@ import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import Header from "@/components/Header";
-import Hero from "@/components/Hero";
-import Services from "@/components/Services";
-import Testimonials from "@/components/Testimonials";
 import Footer from "@/components/Footer";
 import Chatbot from "@/components/Chatbot";
+import NewHomepage from "@/components/NewHomepage";
 
 const Index = () => {
   const location = useLocation();
@@ -66,11 +64,11 @@ const Index = () => {
   return (
     <div className="min-h-screen w-full overflow-x-hidden bg-white scroll-smooth">
       <Helmet>
-        <title>CBRS Group | Professional Contractor Support Services</title>
-        <meta name="description" content="CBRS Group provides essential support services for restoration contractors, including packout management, estimating, and production management." />
-        <meta name="keywords" content="contractor support, packout services, estimating, insurance supplementing, production management, restoration services" />
-        <meta property="og:title" content="CBRS Group | Professional Contractor Support Services" />
-        <meta property="og:description" content="Professional support services for restoration contractors including packout management, estimating, and production management." />
+        <title>CBRS Group | Operations Support for Restoration Companies</title>
+        <meta name="description" content="CBRS Group helps restoration companies build better operational systems. Operations consulting, production workflow, packout systems, estimating, subcontractor coordination, and interior consulting." />
+        <meta name="keywords" content="restoration operations consulting, restoration production management, packout systems restoration, restoration estimating support, restoration subcontractor coordination, restoration workflow consulting" />
+        <meta property="og:title" content="CBRS Group | Operations Support for Restoration Companies" />
+        <meta property="og:description" content="Helping restoration companies streamline workflow, improve production efficiency, coordinate subcontractors, and manage packout and estimating systems." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://cbrsgroup.com" />
         <meta property="og:image" content="/lovable-uploads/21eff05e-d58e-4076-99c1-9d0ac0ffe1fc.png" />
@@ -79,14 +77,12 @@ const Index = () => {
         <meta name="theme-color" content="#1A2A3A" />
         <meta name="apple-mobile-web-app-status-bar-style" content="#1A2A3A" />
       </Helmet>
-      
+
       <Header />
-      <Hero />
-      <Services />
-      <Testimonials />
+      <NewHomepage />
       <Chatbot />
       <Footer />
-      
+
     </div>
   );
 };

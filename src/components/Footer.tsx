@@ -35,7 +35,7 @@ const Footer = () => {
               />
             </div>
             <p className="text-gray-300 mb-6">
-              Complete Building and Restoration Services provides professional packout and inventory solutions.
+              Operations support for restoration companies. Streamlining workflow, improving efficiency, and building better operational systems.
             </p>
             <div className="flex space-x-4">
               <a 
@@ -73,31 +73,62 @@ const Footer = () => {
           <div>
             <h4 className="text-lg font-semibold mb-4">Services</h4>
             <ul className="space-y-3">
-              {["Packout Services", "Inventory Management", "Restoration Solutions", "Storage Options", "Insurance Coordination"].map((service) => (
-                <li key={service}>
-                  <a href="#services" className="text-gray-300 hover:text-cbrs-orange transition-colors">
-                    {service}
-                  </a>
-                </li>
-              ))}
+              <li>
+                <Link to="/operations-consulting" className="text-gray-300 hover:text-cbrs-orange transition-colors">
+                  Operations Consulting
+                </Link>
+              </li>
+              <li>
+                <Link to="/production-workflow" className="text-gray-300 hover:text-cbrs-orange transition-colors">
+                  Production Workflow
+                </Link>
+              </li>
+              <li>
+                <Link to="/packout-systems" className="text-gray-300 hover:text-cbrs-orange transition-colors">
+                  Packout Systems
+                </Link>
+              </li>
+              <li>
+                <Link to="/estimating-workflow" className="text-gray-300 hover:text-cbrs-orange transition-colors">
+                  Estimating Workflow
+                </Link>
+              </li>
+              <li>
+                <Link to="/subcontractor-network" className="text-gray-300 hover:text-cbrs-orange transition-colors">
+                  Subcontractor Network
+                </Link>
+              </li>
+              <li>
+                <Link to="/interior-materials" className="text-gray-300 hover:text-cbrs-orange transition-colors">
+                  Interior & Materials
+                </Link>
+              </li>
             </ul>
           </div>
           
           <div>
             <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-3">
-              {[
-                { name: "Home", link: "#home" },
-                // { name: "About Us", link: "#about" },
-                { name: "Services", link: "#services" },
-                { name: "Contact", link: "#contact" }
-              ].map((item) => (
-                <li key={item.name}>
-                  <a href={item.link} className="text-gray-300 hover:text-cbrs-orange transition-colors">
-                    {item.name}
-                  </a>
-                </li>
-              ))}
+              <li>
+                <Link to="/" className="text-gray-300 hover:text-cbrs-orange transition-colors">
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link to="/operations-consulting" className="text-gray-300 hover:text-cbrs-orange transition-colors">
+                  Operations Consulting
+                </Link>
+              </li>
+              <li>
+                <Link to="/consultation" className="text-gray-300 hover:text-cbrs-orange transition-colors">
+                  Schedule Consultation
+                </Link>
+              </li>
+              <li>
+                <Link to="/contact" className="text-gray-300 hover:text-cbrs-orange transition-colors">
+                  Contact Us
+                </Link>
+              </li>
             </ul>
           </div>
           

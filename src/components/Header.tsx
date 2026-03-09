@@ -3,8 +3,16 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { Menu, X, Calendar, Phone } from "lucide-react";
-import { services } from "./Services";
 import { Button } from "./ui/button";
+
+const newServices = [
+  { title: "Operations Consulting", path: "/operations-consulting" },
+  { title: "Production Workflow", path: "/production-workflow" },
+  { title: "Packout Systems", path: "/packout-systems" },
+  { title: "Estimating Workflow", path: "/estimating-workflow" },
+  { title: "Subcontractor Network", path: "/subcontractor-network" },
+  { title: "Interior & Materials", path: "/interior-materials" }
+];
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -46,23 +54,29 @@ const Header = () => {
         <nav className="hidden md:flex items-center space-x-6">
           <Link
             to="/"
-            className="text-cbrs-blue font-medium text-sm tracking-wide transition-all hover:text-cbrs-orange hover:scale-105"
+            className={cn(
+              "font-medium text-sm tracking-wide transition-all hover:text-cbrs-orange hover:scale-105",
+              isScrolled ? "text-cbrs-blue" : "text-white"
+            )}
           >
             Home
           </Link>
           <div className="relative group">
-            <span className="text-cbrs-blue font-medium text-sm tracking-wide transition-all hover:text-cbrs-orange cursor-pointer flex items-center">
+            <span className={cn(
+              "font-medium text-sm tracking-wide transition-all hover:text-cbrs-orange cursor-pointer flex items-center",
+              isScrolled ? "text-cbrs-blue" : "text-white"
+            )}>
               Services
               <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
               </svg>
             </span>
-            <div className="absolute left-0 mt-2 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+            <div className="absolute left-0 mt-2 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
               <div className="bg-white border border-gray-100 rounded-md shadow-lg overflow-hidden py-1">
-                {services.map((service, index) => (
+                {newServices.map((service, index) => (
                   <Link
                     key={index}
-                    to={service.detailUrl}
+                    to={service.path}
                     className="block px-4 py-2 text-sm text-cbrs-blue hover:bg-gray-50 hover:text-cbrs-orange"
                   >
                     {service.title}
@@ -74,28 +88,37 @@ const Header = () => {
           {/*
           <a
             href="/#testimonials"
-            className="text-cbrs-blue font-medium text-sm tracking-wide transition-all hover:text-cbrs-orange hover:scale-105"
+            className={cn(
+              "font-medium text-sm tracking-wide transition-all hover:text-cbrs-orange hover:scale-105",
+              isScrolled ? "text-cbrs-blue" : "text-white"
+            )}
           >
             Testimonials
           </a>
           */}
           <Link
             to="/contact"
-            className="text-cbrs-blue font-medium text-sm tracking-wide transition-all hover:text-cbrs-orange hover:scale-105"
+            className={cn(
+              "font-medium text-sm tracking-wide transition-all hover:text-cbrs-orange hover:scale-105",
+              isScrolled ? "text-cbrs-blue" : "text-white"
+            )}
           >
             Contact
           </Link>
           <a
             href="tel:+18326327225"
-            className="text-cbrs-blue font-medium text-sm tracking-wide transition-all hover:text-cbrs-orange hover:scale-105 inline-flex items-center border-r pr-6"
+            className={cn(
+              "font-medium text-sm tracking-wide transition-all hover:text-cbrs-orange hover:scale-105 inline-flex items-center border-r pr-6",
+              isScrolled ? "text-cbrs-blue border-gray-300" : "text-white border-white/30"
+            )}
           >
             <Phone className="w-4 h-4 mr-2" />
             (832) 632-7225
           </a>
-          <Link to="/schedule">
+          <Link to="/consultation">
             <Button variant="orange" size="default" className="flex items-center">
               <Calendar className="w-4 h-4 mr-2" />
-              Schedule Service
+              Schedule Consultation
             </Button>
           </Link>
         </nav>
@@ -104,12 +127,18 @@ const Header = () => {
         <div className="md:hidden flex items-center space-x-4">
           <a
             href="tel:+18326327225"
-            className="text-cbrs-blue inline-flex items-center"
+            className={cn(
+              "inline-flex items-center",
+              isScrolled ? "text-cbrs-blue" : "text-white"
+            )}
           >
             <Phone className="w-5 h-5" />
           </a>
-          <button 
-            className="text-cbrs-blue" 
+          <button
+            className={cn(
+              "transition-colors",
+              isScrolled ? "text-cbrs-blue" : "text-white"
+            )}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label={mobileMenuOpen ? "Close Menu" : "Open Menu"}
           >
@@ -130,10 +159,10 @@ const Header = () => {
               </Link>
               <div className="border-t border-gray-100 pt-2">
                 <p className="text-xs uppercase text-cbrs-muted font-medium mb-2">Services</p>
-                {services.map((service, index) => (
+                {newServices.map((service, index) => (
                   <Link
                     key={index}
-                    to={service.detailUrl}
+                    to={service.path}
                     className="block py-2 text-sm text-cbrs-blue hover:text-cbrs-orange pl-2 border-l-2 border-gray-100"
                     onClick={() => setMobileMenuOpen(false)}
                   >
@@ -164,12 +193,12 @@ const Header = () => {
                 (832) 632-7225
               </a>
               <Link
-                to="/schedule"
+                to="/consultation"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <Button variant="orange" className="w-full flex items-center justify-center">
                   <Calendar className="w-4 h-4 mr-2" />
-                  Schedule Service
+                  Schedule Consultation
                 </Button>
               </Link>
             </nav>

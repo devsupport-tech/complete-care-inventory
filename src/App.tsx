@@ -17,6 +17,14 @@ import PackoutLanding1 from "./pages/PackoutLanding1";
 import PackoutLanding2 from "./pages/PackoutLanding2";
 import PackoutLanding3 from "./pages/PackoutLanding3";
 import PackoutLanding4 from "./pages/PackoutLanding4";
+import HomepageDemo from "./pages/HomepageDemo";
+import OperationsConsulting from "./pages/OperationsConsulting";
+import ProductionWorkflow from "./pages/ProductionWorkflow";
+import PackoutSystems from "./pages/PackoutSystems";
+import EstimatingWorkflow from "./pages/EstimatingWorkflow";
+import SubcontractorNetwork from "./pages/SubcontractorNetwork";
+import InteriorMaterials from "./pages/InteriorMaterials";
+import Consultation from "./pages/Consultation";
 
 const queryClient = new QueryClient();
 
@@ -39,6 +47,14 @@ const App = () => (
           <Route path="/packout-landing-2" element={<PackoutLanding2 />} />
           <Route path="/packout-landing-3" element={<PackoutLanding3 />} />
           <Route path="/packout-landing-4" element={<PackoutLanding4 />} />
+          <Route path="/homepage-demo" element={<HomepageDemo />} />
+          <Route path="/operations-consulting" element={<OperationsConsulting />} />
+          <Route path="/production-workflow" element={<ProductionWorkflow />} />
+          <Route path="/packout-systems" element={<PackoutSystems />} />
+          <Route path="/estimating-workflow" element={<EstimatingWorkflow />} />
+          <Route path="/subcontractor-network" element={<SubcontractorNetwork />} />
+          <Route path="/interior-materials" element={<InteriorMaterials />} />
+          <Route path="/consultation" element={<Consultation />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
