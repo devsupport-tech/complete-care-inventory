@@ -1,12 +1,15 @@
-[phases.build]
-cmds = ['npm ci --only=production', 'npm run build']
+[phases.setup]
+nixPkgs = ['nodejs_18', 'npm-9_x']
 
-[phases.start]
-cmd = 'npm run preview'
+[phases.install]
+cmds = ['npm ci']
+
+[phases.build]
+cmds = ['npm run build']
+
+[start]
+cmd = 'npx serve -s dist -l 8080'
 
 [variables]
 NODE_ENV = 'production'
 PORT = '8080'
-
-[build]
-buildCommand = 'npm run build'
