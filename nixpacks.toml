@@ -10,7 +10,7 @@ cmds = ['npm ci']
 cmds = ['npm run build']
 
 [start]
-cmd = 'npx serve -s dist -l 8080'
+cmd = 'npx serve -s dist -l 8080 --config serve.json'
 
 [variables]
 NODE_ENV = 'production'
