@@ -161,9 +161,9 @@ const OperationsConsulting: React.FC = () => {
                 Schedule Consultation
                 <ArrowRight className="w-5 h-5" />
               </Link>
-              <a href="tel:+18326327225" className="px-10 py-5 bg-white/10 backdrop-blur-sm text-white rounded-lg font-bold text-lg hover:bg-white/20 transition-all border-2 border-white/30 inline-flex items-center justify-center gap-2">
+              <a href="tel:+18326080535" className="px-10 py-5 bg-white/10 backdrop-blur-sm text-white rounded-lg font-bold text-lg hover:bg-white/20 transition-all border-2 border-white/30 inline-flex items-center justify-center gap-2">
                 <Calendar className="w-5 h-5" />
-                (832) 632-7225
+                (832) 608-0535
               </a>
             </div>
 
@@ -392,8 +392,8 @@ const OperationsConsulting: React.FC = () => {
             <Link to="/consultation" className="px-12 py-6 bg-[#E86C24] text-white rounded-lg font-black text-xl hover:bg-[#d65d1a] transition-all shadow-2xl hover:scale-105">
               Schedule Consultation
             </Link>
-            <a href="tel:+18326327225" className="px-12 py-6 bg-white/10 backdrop-blur-sm text-white rounded-lg font-black text-xl border-2 border-white hover:bg-white hover:text-[#1e3046] transition-all">
-              Call (832) 632-7225
+            <a href="tel:+18326080535" className="px-12 py-6 bg-white/10 backdrop-blur-sm text-white rounded-lg font-black text-xl border-2 border-white hover:bg-white hover:text-[#1e3046] transition-all">
+              Call (832) 608-0535
             </a>
           </div>
         </div>

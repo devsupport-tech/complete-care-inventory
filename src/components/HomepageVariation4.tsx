@@ -107,7 +107,7 @@ const HomepageVariation4: React.FC = () => {
     <div className="min-h-screen bg-white">
       {/* Floating Contact Buttons */}
       <div className="fixed right-6 bottom-6 z-50 flex flex-col gap-3">
-        <a href="tel:+18326327225" className="w-14 h-14 bg-[#E86C24] text-white rounded-full shadow-lg hover:scale-110 transition-transform flex items-center justify-center group">
+        <a href="tel:+18326080535" className="w-14 h-14 bg-[#E86C24] text-white rounded-full shadow-lg hover:scale-110 transition-transform flex items-center justify-center group">
           <Phone className="w-6 h-6" />
           <span className="absolute right-16 bg-[#1e3046] text-white px-4 py-2 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap text-sm font-semibold">
             Call Us Now

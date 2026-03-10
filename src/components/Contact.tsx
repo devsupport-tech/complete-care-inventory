@@ -203,7 +203,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <p className="font-medium text-cbrs-dark">Phone</p>
-                    <a href="tel:+18326327225" className="text-cbrs-blue hover:underline">(832) 632-7225</a>
+                    <a href="tel:+18326080535" className="text-cbrs-blue hover:underline">(832) 608-0535</a>
                     <p className="text-sm text-cbrs-muted mt-1">Urgent services available 24/7</p>
                   </div>
                 </div>

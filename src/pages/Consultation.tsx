@@ -284,9 +284,9 @@ const Consultation: React.FC = () => {
             Prefer to Talk Now?
           </h3>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="tel:+18326327225" className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#1e3046] text-white rounded-lg font-bold hover:bg-[#2a4560] transition-all">
+            <a href="tel:+18326080535" className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#1e3046] text-white rounded-lg font-bold hover:bg-[#2a4560] transition-all">
               <Phone className="w-5 h-5" />
-              (832) 632-7225
+              (832) 608-0535
             </a>
             <a href="mailto:info@cbrsgroup.com" className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-[#1e3046] border-2 border-[#1e3046] rounded-lg font-bold hover:bg-[#1e3046] hover:text-white transition-all">
               <Mail className="w-5 h-5" />

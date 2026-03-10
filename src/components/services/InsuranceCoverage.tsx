@@ -38,11 +38,11 @@ const InsuranceCoverage = () => {
               <ArrowRight className="w-4 h-4 ml-2" />
             </Link>
             <a 
-              href="tel:+18326327225" 
+              href="tel:+18326080535" 
               className="border border-[#1e3046] text-[#1e3046] hover:bg-[#1e3046]/5 font-medium px-6 py-3 rounded-md transition-all inline-flex items-center"
             >
               <Phone className="w-4 h-4 mr-2" />
-              Call (832) 632-7225
+              Call (832) 608-0535
             </a>
           </div>
         </div>

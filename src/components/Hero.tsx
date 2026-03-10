@@ -49,9 +49,9 @@ const Hero = () => {
               Schedule a Service
               <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
-            <a href="tel:+18326327225" className="bg-white hover:bg-gray-100 text-[#1e3046] font-medium px-8 py-4 rounded-md shadow-lg transition-all hover:shadow-xl hover:translate-y-[-2px] inline-flex items-center justify-center">
+            <a href="tel:+18326080535" className="bg-white hover:bg-gray-100 text-[#1e3046] font-medium px-8 py-4 rounded-md shadow-lg transition-all hover:shadow-xl hover:translate-y-[-2px] inline-flex items-center justify-center">
               <Phone className="mr-2 h-5 w-5" />
-              (832) 632-7225
+              (832) 608-0535
             </a>
           </div>
         </div>
