@@ -11,7 +11,8 @@ const newServices = [
   { title: "Packout Systems", path: "/packout-systems" },
   { title: "Estimating Workflow", path: "/estimating-workflow" },
   { title: "Subcontractor Network", path: "/subcontractor-network" },
-  { title: "Interior & Materials", path: "/interior-materials" }
+  { title: "Interior & Materials", path: "/interior-materials" },
+  { title: "Interior Design", path: "/interior-design" }
 ];
 
 const Header = () => {

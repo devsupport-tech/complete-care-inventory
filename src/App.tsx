@@ -24,6 +24,7 @@ import PackoutSystems from "./pages/PackoutSystems";
 import EstimatingWorkflow from "./pages/EstimatingWorkflow";
 import SubcontractorNetwork from "./pages/SubcontractorNetwork";
 import InteriorMaterials from "./pages/InteriorMaterials";
+import InteriorDesign from "./pages/InteriorDesign";
 import Consultation from "./pages/Consultation";
 
 const queryClient = new QueryClient();
@@ -54,6 +55,7 @@ const App = () => (
           <Route path="/estimating-workflow" element={<EstimatingWorkflow />} />
           <Route path="/subcontractor-network" element={<SubcontractorNetwork />} />
           <Route path="/interior-materials" element={<InteriorMaterials />} />
+          <Route path="/interior-design" element={<InteriorDesign />} />
           <Route path="/consultation" element={<Consultation />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
