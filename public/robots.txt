@@ -1,0 +1,9 @@
+# robots.txt for complete-care-inventory.com
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://complete-care-inventory.com/sitemap.xml
+
+# Disallow admin/private paths (if any)
+Disallow: /api/
