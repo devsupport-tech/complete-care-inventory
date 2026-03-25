@@ -45,7 +45,7 @@ const Header = () => {
           >
             <img 
               src="/lovable-uploads/21eff05e-d58e-4076-99c1-9d0ac0ffe1fc.png" 
-              alt="CBRS Group Logo" 
+              alt="CBRS Group Logo" width="112" height="112" 
               className="h-[98.28px] md:h-[112.32px] mr-2" 
             />
           </Link>
@@ -108,6 +108,7 @@ const Header = () => {
           </Link>
           <a
             href="tel:+18326080535"
+            aria-label="Call us at (832) 608-0535"
             className={cn(
               "font-medium text-sm tracking-wide transition-all hover:text-cbrs-orange hover:scale-105 inline-flex items-center border-r pr-6",
               isScrolled ? "text-cbrs-blue border-gray-300" : "text-white border-white/30"
@@ -128,6 +129,7 @@ const Header = () => {
         <div className="md:hidden flex items-center space-x-4">
           <a
             href="tel:+18326080535"
+            aria-label="Call us at (832) 608-0535"
             className={cn(
               "inline-flex items-center",
               isScrolled ? "text-cbrs-blue" : "text-white"
@@ -187,6 +189,7 @@ const Header = () => {
               </Link>
               <a
                 href="tel:+18326080535"
+            aria-label="Call us at (832) 608-0535"
                 className="text-cbrs-blue font-medium py-2 transition-colors hover:text-cbrs-orange flex items-center"
                 onClick={() => setMobileMenuOpen(false)}
               >

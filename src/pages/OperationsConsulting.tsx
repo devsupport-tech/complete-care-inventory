@@ -192,7 +192,7 @@ const OperationsConsulting: React.FC = () => {
             <h2 className="text-4xl sm:text-5xl font-bold text-[#1e3046] mb-4">
               What's Included in the Program
             </h2>
-            <p className="text-xl text-[#94A3B8] max-w-3xl mx-auto">
+            <p className="text-xl text-[#64748B] max-w-3xl mx-auto">
               A comprehensive approach to transforming your restoration operations
             </p>
           </div>
@@ -280,7 +280,7 @@ const OperationsConsulting: React.FC = () => {
             <h2 className="text-4xl sm:text-5xl font-bold text-[#1e3046] mb-4">
               How the Program Works
             </h2>
-            <p className="text-xl text-[#94A3B8] max-w-3xl mx-auto">
+            <p className="text-xl text-[#64748B] max-w-3xl mx-auto">
               A structured 4-phase approach to operational transformation
             </p>
           </div>
@@ -296,7 +296,7 @@ const OperationsConsulting: React.FC = () => {
                       </div>
                       <div>
                         <h3 className="text-2xl font-bold text-[#1e3046]">{phase.title}</h3>
-                        <div className="text-[#94A3B8] font-medium">{phase.duration}</div>
+                        <div className="text-[#64748B] font-medium">{phase.duration}</div>
                       </div>
                     </div>
                   </div>
@@ -324,7 +324,7 @@ const OperationsConsulting: React.FC = () => {
             <h2 className="text-4xl sm:text-5xl font-bold text-[#1e3046] mb-4">
               Investment Options
             </h2>
-            <p className="text-xl text-[#94A3B8] max-w-3xl mx-auto">
+            <p className="text-xl text-[#64748B] max-w-3xl mx-auto">
               Choose the level of support that matches your operational needs
             </p>
           </div>
@@ -347,7 +347,7 @@ const OperationsConsulting: React.FC = () => {
                 <div className={`text-5xl font-black mb-4 ${tier.featured ? 'text-white' : 'text-[#E86C24]'}`}>
                   {tier.price}
                 </div>
-                <p className={`mb-6 ${tier.featured ? 'text-white/90' : 'text-[#94A3B8]'}`}>
+                <p className={`mb-6 ${tier.featured ? 'text-white/90' : 'text-[#64748B]'}`}>
                   {tier.description}
                 </p>
                 <div className="space-y-3 mb-8">
@@ -360,7 +360,7 @@ const OperationsConsulting: React.FC = () => {
                     </div>
                   ))}
                 </div>
-                <div className={`text-sm font-semibold mb-6 ${tier.featured ? 'text-white/90' : 'text-[#94A3B8]'}`}>
+                <div className={`text-sm font-semibold mb-6 ${tier.featured ? 'text-white/90' : 'text-[#64748B]'}`}>
                   Best for: {tier.bestFor}
                 </div>
                 <Link

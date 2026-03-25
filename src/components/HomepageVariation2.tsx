@@ -26,7 +26,7 @@ const HomepageVariation2: React.FC = () => {
 
               {/* Subheadline */}
               <div className="max-w-2xl">
-                <p className="text-2xl sm:text-3xl text-[#94A3B8] font-light mb-12 leading-relaxed">
+                <p className="text-2xl sm:text-3xl text-[#64748B] font-light mb-12 leading-relaxed">
                   So you can focus on what matters most—restoring properties and delighting customers.
                 </p>
 
@@ -39,8 +39,8 @@ const HomepageVariation2: React.FC = () => {
 
               {/* Scroll Prompt */}
               <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2">
-                <span className="text-[#94A3B8] text-sm font-medium">Scroll to explore</span>
-                <ArrowDown className="w-5 h-5 text-[#94A3B8] animate-bounce" />
+                <span className="text-[#64748B] text-sm font-medium">Scroll to explore</span>
+                <ArrowDown className="w-5 h-5 text-[#64748B] animate-bounce" />
               </div>
             </div>
           </div>
@@ -95,7 +95,7 @@ const HomepageVariation2: React.FC = () => {
             <div className="text-center">
               <div className="text-9xl font-black text-[#E86C24] mb-4">500+</div>
               <div className="text-2xl font-bold text-[#1e3046] mb-2">Packout Projects</div>
-              <div className="text-lg text-[#94A3B8]">Completed This Year</div>
+              <div className="text-lg text-[#64748B]">Completed This Year</div>
             </div>
           </div>
         </div>
@@ -127,7 +127,7 @@ const HomepageVariation2: React.FC = () => {
                 ESTIMATING &<br />SUPPLEMENTING
               </h2>
 
-              <p className="text-xl text-[#94A3B8] mb-8 leading-relaxed">
+              <p className="text-xl text-[#64748B] mb-8 leading-relaxed">
                 Maximize project profitability with our expert Xactimate estimators and supplement specialists.
               </p>
 
@@ -217,7 +217,7 @@ const HomepageVariation2: React.FC = () => {
               LET'S WORK<br />
               <span className="text-[#E86C24]">TOGETHER</span>
             </h2>
-            <p className="text-2xl text-[#94A3B8] mb-12 max-w-3xl mx-auto">
+            <p className="text-2xl text-[#64748B] mb-12 max-w-3xl mx-auto">
               Partner with CBRS Group and experience the difference professional support makes.
             </p>
             <Link to="/contact" className="inline-block px-12 py-6 bg-[#E86C24] text-white rounded-full font-black text-xl hover:bg-[#d65d1a] transition-all shadow-xl hover:shadow-2xl hover:scale-105">

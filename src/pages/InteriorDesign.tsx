@@ -94,7 +94,7 @@ const InteriorDesign: React.FC = () => {
             <h2 className="text-4xl font-bold text-[#1e3046] mb-4">
               Why Outsource Interior Design?
             </h2>
-            <p className="text-xl text-[#94A3B8] max-w-2xl mx-auto">
+            <p className="text-xl text-[#64748B] max-w-2xl mx-auto">
               Your expertise is restoration—not helping clients choose between 50 shades of gray. Let us handle the design decisions.
             </p>
           </div>
@@ -105,7 +105,7 @@ const InteriorDesign: React.FC = () => {
                   <item.icon className="w-8 h-8 text-[#E86C24]" />
                 </div>
                 <h3 className="text-xl font-bold text-[#1e3046] mb-3">{item.title}</h3>
-                <p className="text-[#94A3B8]">{item.description}</p>
+                <p className="text-[#64748B]">{item.description}</p>
               </div>
             ))}
           </div>
@@ -119,7 +119,7 @@ const InteriorDesign: React.FC = () => {
             <h2 className="text-4xl font-bold text-[#1e3046] mb-4">
               What We Handle
             </h2>
-            <p className="text-xl text-[#94A3B8] max-w-2xl mx-auto">
+            <p className="text-xl text-[#64748B] max-w-2xl mx-auto">
               Comprehensive design support from material selection to project organization
             </p>
           </div>
@@ -130,7 +130,7 @@ const InteriorDesign: React.FC = () => {
                   <service.icon className="w-8 h-8 text-[#E86C24]" />
                 </div>
                 <h3 className="text-2xl font-bold text-[#1e3046] mb-4">{service.title}</h3>
-                <p className="text-[#94A3B8] text-lg">{service.description}</p>
+                <p className="text-[#64748B] text-lg">{service.description}</p>
               </div>
             ))}
           </div>
@@ -152,7 +152,7 @@ const InteriorDesign: React.FC = () => {
                   </div>
                   <div>
                     <h3 className="text-xl font-bold text-[#1e3046] mb-2">You Refer Your Client</h3>
-                    <p className="text-[#94A3B8]">When a project reaches the design phase, introduce us to your client as your design partner.</p>
+                    <p className="text-[#64748B]">When a project reaches the design phase, introduce us to your client as your design partner.</p>
                   </div>
                 </div>
                 <div className="flex gap-4">
@@ -161,7 +161,7 @@ const InteriorDesign: React.FC = () => {
                   </div>
                   <div>
                     <h3 className="text-xl font-bold text-[#1e3046] mb-2">We Guide the Design Process</h3>
-                    <p className="text-[#94A3B8]">Our team works with your client on material selections, design decisions, and sourcing.</p>
+                    <p className="text-[#64748B]">Our team works with your client on material selections, design decisions, and sourcing.</p>
                   </div>
                 </div>
                 <div className="flex gap-4">
@@ -170,7 +170,7 @@ const InteriorDesign: React.FC = () => {
                   </div>
                   <div>
                     <h3 className="text-xl font-bold text-[#1e3046] mb-2">You Build with Confidence</h3>
-                    <p className="text-[#94A3B8]">Receive organized selections and timelines so your team can execute the build efficiently.</p>
+                    <p className="text-[#64748B]">Receive organized selections and timelines so your team can execute the build efficiently.</p>
                   </div>
                 </div>
               </div>

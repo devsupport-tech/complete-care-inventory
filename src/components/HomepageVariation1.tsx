@@ -72,7 +72,7 @@ const HomepageVariation1: React.FC = () => {
             <h2 className="text-4xl sm:text-5xl font-bold text-[#1e3046] mb-4">
               Our Services
             </h2>
-            <p className="text-xl text-[#94A3B8] max-w-2xl mx-auto">
+            <p className="text-xl text-[#64748B] max-w-2xl mx-auto">
               Comprehensive support services designed to streamline your restoration projects
             </p>
           </div>
@@ -86,7 +86,7 @@ const HomepageVariation1: React.FC = () => {
               <h3 className="text-2xl font-bold text-[#1e3046] mb-4">
                 Packout Management & Storage
               </h3>
-              <p className="text-[#94A3B8] mb-6 leading-relaxed">
+              <p className="text-[#64748B] mb-6 leading-relaxed">
                 Professional inventory management, secure storage, and seamless logistics for your restoration projects.
               </p>
               <ul className="space-y-3 mb-6">
@@ -117,7 +117,7 @@ const HomepageVariation1: React.FC = () => {
               <h3 className="text-2xl font-bold text-[#1e3046] mb-4">
                 Estimating & Supplementing
               </h3>
-              <p className="text-[#94A3B8] mb-6 leading-relaxed">
+              <p className="text-[#64748B] mb-6 leading-relaxed">
                 Accurate estimates and thorough supplement support to maximize your project outcomes.
               </p>
               <ul className="space-y-3 mb-6">
@@ -148,7 +148,7 @@ const HomepageVariation1: React.FC = () => {
               <h3 className="text-2xl font-bold text-[#1e3046] mb-4">
                 Production Management
               </h3>
-              <p className="text-[#94A3B8] mb-6 leading-relaxed">
+              <p className="text-[#64748B] mb-6 leading-relaxed">
                 Expert oversight ensuring projects stay on schedule, on budget, and meet quality standards.
               </p>
               <ul className="space-y-3 mb-6">
@@ -181,7 +181,7 @@ const HomepageVariation1: React.FC = () => {
             <h2 className="text-4xl sm:text-5xl font-bold text-[#1e3046] mb-4">
               How We Work
             </h2>
-            <p className="text-xl text-[#94A3B8] max-w-2xl mx-auto">
+            <p className="text-xl text-[#64748B] max-w-2xl mx-auto">
               A streamlined process designed for efficiency and results
             </p>
           </div>
@@ -200,7 +200,7 @@ const HomepageVariation1: React.FC = () => {
                   </div>
                   <div className="text-5xl font-bold text-[#E86C24]/20 mb-2">{item.step}</div>
                   <h3 className="text-xl font-bold text-[#1e3046] mb-2">{item.title}</h3>
-                  <p className="text-[#94A3B8] text-sm">{item.desc}</p>
+                  <p className="text-[#64748B] text-sm">{item.desc}</p>
                 </div>
                 {index < 3 && (
                   <div className="hidden md:block absolute top-10 left-[60%] w-[80%] h-0.5 bg-gradient-to-r from-[#E86C24] to-transparent"></div>

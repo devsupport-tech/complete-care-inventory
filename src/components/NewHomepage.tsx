@@ -143,13 +143,13 @@ const NewHomepage: React.FC = () => {
     <div className="min-h-screen bg-white">
       {/* Floating Contact Buttons */}
       <div className="fixed right-6 bottom-6 z-50 flex flex-col gap-3">
-        <a href="tel:+18326080535" className="w-14 h-14 bg-[#E86C24] text-white rounded-full shadow-lg hover:scale-110 transition-transform flex items-center justify-center group">
+        <a href="tel:+18326080535" aria-label="Call us at (832) 608-0535" className="w-14 h-14 bg-[#E86C24] text-white rounded-full shadow-lg hover:scale-110 transition-transform flex items-center justify-center group">
           <Phone className="w-6 h-6" />
           <span className="absolute right-16 bg-[#1e3046] text-white px-4 py-2 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap text-sm font-semibold">
             (832) 608-0535
           </span>
         </a>
-        <Link to="/consultation" className="w-14 h-14 bg-[#1e3046] text-white rounded-full shadow-lg hover:scale-110 transition-transform flex items-center justify-center group">
+        <Link to="/consultation" aria-label="Schedule a consultation" className="w-14 h-14 bg-[#1e3046] text-white rounded-full shadow-lg hover:scale-110 transition-transform flex items-center justify-center group">
           <Mail className="w-6 h-6" />
           <span className="absolute right-16 bg-[#1e3046] text-white px-4 py-2 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap text-sm font-semibold">
             Get Consultation
@@ -225,16 +225,16 @@ const NewHomepage: React.FC = () => {
                   <img
                     src={testimonials[currentTestimonial].image}
                     alt={testimonials[currentTestimonial].name}
-                    className="w-16 h-16 rounded-full object-cover"
+                    width="64" height="64" className="w-16 h-16 rounded-full object-cover"
                   />
                   <div className="flex-1">
                     <div className="font-bold text-[#1e3046] text-lg">
                       {testimonials[currentTestimonial].name}
                     </div>
-                    <div className="text-[#94A3B8] text-sm">
+                    <div className="text-[#64748B] text-sm">
                       {testimonials[currentTestimonial].role}
                     </div>
-                    <div className="text-[#94A3B8] text-sm">
+                    <div className="text-[#64748B] text-sm">
                       {testimonials[currentTestimonial].company}
                     </div>
                   </div>
@@ -256,6 +256,7 @@ const NewHomepage: React.FC = () => {
                       <button
                         key={index}
                         onClick={() => setCurrentTestimonial(index)}
+                        aria-label={`Go to testimonial ${index + 1}`}
                         className={`w-2 h-2 rounded-full transition-all ${
                           index === currentTestimonial ? 'w-8 bg-[#E86C24]' : 'bg-gray-300'
                         }`}
@@ -266,12 +267,14 @@ const NewHomepage: React.FC = () => {
                   <div className="flex gap-2">
                     <button
                       onClick={prevTestimonial}
+                      aria-label="Previous testimonial"
                       className="w-10 h-10 bg-[#F8FAFC] rounded-lg flex items-center justify-center hover:bg-[#E86C24] hover:text-white transition-colors"
                     >
                       <ChevronLeft className="w-5 h-5" />
                     </button>
                     <button
                       onClick={nextTestimonial}
+                      aria-label="Next testimonial"
                       className="w-10 h-10 bg-[#F8FAFC] rounded-lg flex items-center justify-center hover:bg-[#E86C24] hover:text-white transition-colors"
                     >
                       <ChevronRight className="w-5 h-5" />
@@ -299,7 +302,7 @@ const NewHomepage: React.FC = () => {
             <h2 className="text-4xl sm:text-5xl font-bold text-[#1e3046] mb-6">
               Restoration Companies Often Struggle With<br />Operational Bottlenecks
             </h2>
-            <p className="text-xl text-[#94A3B8] max-w-3xl mx-auto">
+            <p className="text-xl text-[#64748B] max-w-3xl mx-auto">
               CBRS Group helps restoration companies build operational systems that improve efficiency and project coordination.
             </p>
           </div>
@@ -331,7 +334,7 @@ const NewHomepage: React.FC = () => {
             <h2 className="text-4xl sm:text-5xl font-bold text-[#1e3046] mb-4">
               Operational Pillars
             </h2>
-            <p className="text-xl text-[#94A3B8] max-w-2xl mx-auto">
+            <p className="text-xl text-[#64748B] max-w-2xl mx-auto">
               Comprehensive solutions to streamline every aspect of your restoration business
             </p>
           </div>
@@ -349,11 +352,11 @@ const NewHomepage: React.FC = () => {
                 }`}
               >
                 <service.icon className={`w-10 h-10 mb-3 ${
-                  selectedService === index ? 'text-[#E86C24]' : 'text-[#94A3B8]'
+                  selectedService === index ? 'text-[#E86C24]' : 'text-[#64748B]'
                 }`} />
                 <h3 className="text-lg font-bold mb-2">{service.title}</h3>
                 <p className={`text-sm ${
-                  selectedService === index ? 'text-gray-300' : 'text-[#94A3B8]'
+                  selectedService === index ? 'text-gray-300' : 'text-[#64748B]'
                 }`}>
                   {service.description}
                 </p>
@@ -374,7 +377,7 @@ const NewHomepage: React.FC = () => {
                 <h3 className="text-3xl font-bold text-[#1e3046] mb-4">
                   {services[selectedService].title}
                 </h3>
-                <p className="text-lg text-[#94A3B8] mb-6">
+                <p className="text-lg text-[#64748B] mb-6">
                   {services[selectedService].description}
                 </p>
                 <Link to={services[selectedService].link} className="inline-flex items-center gap-2 px-8 py-4 bg-[#E86C24] text-white rounded-lg font-bold hover:bg-[#d65d1a] transition-all shadow-lg">
@@ -489,7 +492,7 @@ const NewHomepage: React.FC = () => {
           <h2 className="text-5xl sm:text-6xl font-black text-[#1e3046] mb-6">
             Ready to Build Better Operations?
           </h2>
-          <p className="text-2xl text-[#94A3B8] mb-12">
+          <p className="text-2xl text-[#64748B] mb-12">
             If your restoration company is looking to improve operational workflow and project coordination, CBRS Group can help.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

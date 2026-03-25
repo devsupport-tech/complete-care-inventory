@@ -81,7 +81,7 @@ const EstimatingWorkflow: React.FC = () => {
             {stats.map((stat, index) => (
               <div key={index} className="text-center">
                 <div className="text-5xl font-black text-[#E86C24] mb-2">{stat.number}</div>
-                <div className="text-[#94A3B8] font-semibold">{stat.label}</div>
+                <div className="text-[#64748B] font-semibold">{stat.label}</div>
               </div>
             ))}
           </div>
@@ -95,7 +95,7 @@ const EstimatingWorkflow: React.FC = () => {
             <h2 className="text-4xl font-bold text-[#1e3046] mb-4">
               Complete Estimating Support
             </h2>
-            <p className="text-xl text-[#94A3B8] max-w-2xl mx-auto">
+            <p className="text-xl text-[#64748B] max-w-2xl mx-auto">
               From initial estimates to supplement approval, we handle the entire process
             </p>
           </div>
@@ -106,7 +106,7 @@ const EstimatingWorkflow: React.FC = () => {
                   <service.icon className="w-8 h-8 text-[#E86C24]" />
                 </div>
                 <h3 className="text-xl font-bold text-[#1e3046] mb-3">{service.title}</h3>
-                <p className="text-[#94A3B8]">{service.description}</p>
+                <p className="text-[#64748B]">{service.description}</p>
               </div>
             ))}
           </div>

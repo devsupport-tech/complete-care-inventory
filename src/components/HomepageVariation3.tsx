@@ -95,7 +95,7 @@ const HomepageVariation3: React.FC = () => {
             <h2 className="text-3xl sm:text-4xl font-bold text-[#1e3046] mb-4">
               Our Core Services
             </h2>
-            <p className="text-lg text-[#94A3B8] max-w-2xl mx-auto">
+            <p className="text-lg text-[#64748B] max-w-2xl mx-auto">
               Comprehensive solutions tailored to restoration contractors
             </p>
           </div>
@@ -109,7 +109,7 @@ const HomepageVariation3: React.FC = () => {
               <h3 className="text-2xl font-bold text-[#1e3046] mb-4">
                 Packout Management
               </h3>
-              <p className="text-[#94A3B8] mb-6">
+              <p className="text-[#64748B] mb-6">
                 Complete inventory, storage, and pack-in services with detailed documentation.
               </p>
               <div className="space-y-3 mb-6 border-t border-gray-200 pt-6">
@@ -148,7 +148,7 @@ const HomepageVariation3: React.FC = () => {
               <h3 className="text-2xl font-bold text-[#1e3046] mb-4">
                 Estimating & Supplementing
               </h3>
-              <p className="text-[#94A3B8] mb-6">
+              <p className="text-[#64748B] mb-6">
                 Expert Xactimate estimates and supplement support to maximize project value.
               </p>
               <div className="space-y-3 mb-6 border-t border-gray-200 pt-6">
@@ -182,7 +182,7 @@ const HomepageVariation3: React.FC = () => {
               <h3 className="text-2xl font-bold text-[#1e3046] mb-4">
                 Production Management
               </h3>
-              <p className="text-[#94A3B8] mb-6">
+              <p className="text-[#64748B] mb-6">
                 Dedicated managers ensuring projects stay on schedule and meet quality standards.
               </p>
               <div className="space-y-3 mb-6 border-t border-gray-200 pt-6">
@@ -234,7 +234,7 @@ const HomepageVariation3: React.FC = () => {
               <div key={index} className="bg-[#F8FAFC] rounded-lg p-6 text-center hover:bg-white hover:shadow-md transition-all">
                 <benefit.icon className="w-10 h-10 text-[#E86C24] mx-auto mb-3" />
                 <h3 className="font-bold text-[#1e3046] mb-1">{benefit.title}</h3>
-                <p className="text-sm text-[#94A3B8]">{benefit.desc}</p>
+                <p className="text-sm text-[#64748B]">{benefit.desc}</p>
               </div>
             ))}
           </div>
@@ -278,7 +278,7 @@ const HomepageVariation3: React.FC = () => {
             <h2 className="text-3xl sm:text-4xl font-bold text-[#1e3046] mb-4">
               Frequently Asked Questions
             </h2>
-            <p className="text-lg text-[#94A3B8]">Get answers to common questions about our services</p>
+            <p className="text-lg text-[#64748B]">Get answers to common questions about our services</p>
           </div>
 
           <div className="space-y-4">
@@ -292,7 +292,7 @@ const HomepageVariation3: React.FC = () => {
                   <ChevronDown className={`w-5 h-5 text-[#E86C24] flex-shrink-0 transition-transform ${openFaq === index ? 'rotate-180' : ''}`} />
                 </button>
                 {openFaq === index && (
-                  <div className="px-6 pb-5 text-[#94A3B8] leading-relaxed">
+                  <div className="px-6 pb-5 text-[#64748B] leading-relaxed">
                     {faq.answer}
                   </div>
                 )}

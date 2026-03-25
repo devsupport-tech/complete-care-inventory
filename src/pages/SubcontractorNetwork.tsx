@@ -60,7 +60,7 @@ const SubcontractorNetwork: React.FC = () => {
               <h2 className="text-4xl font-bold text-[#1e3046] mb-6">
                 The Subcontractor Challenge
               </h2>
-              <div className="space-y-4 text-lg text-[#94A3B8]">
+              <div className="space-y-4 text-lg text-[#64748B]">
                 <p>Restoration companies often struggle with:</p>
                 <ul className="space-y-2 list-disc list-inside">
                   <li>Finding reliable trades who show up on time</li>
@@ -99,7 +99,7 @@ const SubcontractorNetwork: React.FC = () => {
             <h2 className="text-4xl font-bold text-[#1e3046] mb-4">
               Trades in Our Network
             </h2>
-            <p className="text-xl text-[#94A3B8] max-w-2xl mx-auto">
+            <p className="text-xl text-[#64748B] max-w-2xl mx-auto">
               Vetted professionals across all specialty trades needed for restoration projects
             </p>
           </div>
@@ -110,7 +110,7 @@ const SubcontractorNetwork: React.FC = () => {
                   <trade.icon className="w-8 h-8 text-[#E86C24]" />
                 </div>
                 <h3 className="text-xl font-bold text-[#1e3046] mb-3">{trade.name}</h3>
-                <p className="text-[#94A3B8]">{trade.description}</p>
+                <p className="text-[#64748B]">{trade.description}</p>
               </div>
             ))}
           </div>

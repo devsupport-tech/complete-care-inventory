@@ -84,7 +84,7 @@ const InteriorMaterials: React.FC = () => {
               <h2 className="text-4xl font-bold text-[#1e3046] mb-6">
                 The Design Decision Challenge
               </h2>
-              <p className="text-lg text-[#94A3B8] mb-6">
+              <p className="text-lg text-[#64748B] mb-6">
                 Most restoration companies are excellent at reconstruction but struggle to guide homeowners through interior design decisions.
               </p>
               <div className="space-y-3 text-[#1e3046]">
@@ -129,7 +129,7 @@ const InteriorMaterials: React.FC = () => {
             <h2 className="text-4xl font-bold text-[#1e3046] mb-4">
               What We Cover
             </h2>
-            <p className="text-xl text-[#94A3B8] max-w-2xl mx-auto">
+            <p className="text-xl text-[#64748B] max-w-2xl mx-auto">
               Comprehensive design consulting for all interior finishes and materials
             </p>
           </div>
@@ -140,7 +140,7 @@ const InteriorMaterials: React.FC = () => {
                   <service.icon className="w-8 h-8 text-[#E86C24]" />
                 </div>
                 <h3 className="text-xl font-bold text-[#1e3046] mb-3">{service.title}</h3>
-                <p className="text-[#94A3B8]">{service.description}</p>
+                <p className="text-[#64748B]">{service.description}</p>
               </div>
             ))}
           </div>

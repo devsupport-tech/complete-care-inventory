@@ -78,7 +78,7 @@ const HomepageDemo: React.FC = () => {
               <h2 className="text-2xl font-bold text-[#1e3046] mb-2">
                 Homepage Design Variations Demo
               </h2>
-              <p className="text-sm text-[#94A3B8]">
+              <p className="text-sm text-[#64748B]">
                 Click on a variation below to preview different homepage designs
               </p>
             </div>
@@ -99,7 +99,7 @@ const HomepageDemo: React.FC = () => {
                     <span className="font-bold text-lg">{variation.name}</span>
                   </div>
                   <p className={`text-xs ${
-                    selectedVariation === variation.id ? 'text-white/90' : 'text-[#94A3B8]'
+                    selectedVariation === variation.id ? 'text-white/90' : 'text-[#64748B]'
                   }`}>
                     {variation.description}
                   </p>

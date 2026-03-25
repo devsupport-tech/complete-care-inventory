@@ -30,7 +30,7 @@ const Footer = () => {
             <div className="mb-4">
               <img 
                 src="/lovable-uploads/21eff05e-d58e-4076-99c1-9d0ac0ffe1fc.png" 
-                alt="CBRS Group Logo" 
+                alt="CBRS Group Logo" width="48" height="48" 
                 className="h-12 mb-4"
               />
             </div>

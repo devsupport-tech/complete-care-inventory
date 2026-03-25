@@ -80,21 +80,21 @@ const Consultation: React.FC = () => {
                 <Clock className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl font-bold text-[#1e3046] mb-2">30-45 Minutes</h3>
-              <p className="text-[#94A3B8]">Focused conversation about your specific operational needs</p>
+              <p className="text-[#64748B]">Focused conversation about your specific operational needs</p>
             </div>
             <div className="text-center">
               <div className="w-16 h-16 bg-[#E86C24] rounded-full flex items-center justify-center mx-auto mb-4">
                 <CheckCircle className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl font-bold text-[#1e3046] mb-2">No Obligations</h3>
-              <p className="text-[#94A3B8]">Free consultation with no pressure to commit</p>
+              <p className="text-[#64748B]">Free consultation with no pressure to commit</p>
             </div>
             <div className="text-center">
               <div className="w-16 h-16 bg-[#E86C24] rounded-full flex items-center justify-center mx-auto mb-4">
                 <ArrowRight className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl font-bold text-[#1e3046] mb-2">Clear Next Steps</h3>
-              <p className="text-[#94A3B8]">Walk away with actionable recommendations</p>
+              <p className="text-[#64748B]">Walk away with actionable recommendations</p>
             </div>
           </div>
         </div>
@@ -268,7 +268,7 @@ const Consultation: React.FC = () => {
                 >
                   Schedule My Consultation
                 </button>
-                <p className="text-sm text-[#94A3B8] mt-4">
+                <p className="text-sm text-[#64748B] mt-4">
                   We'll reach out within 24 hours to schedule your consultation
                 </p>
               </div>

@@ -109,7 +109,7 @@ const ProductionWorkflow: React.FC = () => {
             <h2 className="text-4xl font-bold text-[#1e3046] mb-4">
               How We Help
             </h2>
-            <p className="text-xl text-[#94A3B8] max-w-2xl mx-auto">
+            <p className="text-xl text-[#64748B] max-w-2xl mx-auto">
               Comprehensive production management support for restoration contractors
             </p>
           </div>
@@ -120,7 +120,7 @@ const ProductionWorkflow: React.FC = () => {
                   <service.icon className="w-8 h-8 text-[#E86C24]" />
                 </div>
                 <h3 className="text-xl font-bold text-[#1e3046] mb-3">{service.title}</h3>
-                <p className="text-[#94A3B8]">{service.description}</p>
+                <p className="text-[#64748B]">{service.description}</p>
               </div>
             ))}
           </div>
@@ -140,7 +140,7 @@ const ProductionWorkflow: React.FC = () => {
               <div key={index} className="text-center">
                 <div className="text-6xl font-black text-[#E86C24] mb-4">{benefit.stat}</div>
                 <h3 className="text-xl font-bold text-[#1e3046] mb-2">{benefit.title}</h3>
-                <p className="text-[#94A3B8]">{benefit.description}</p>
+                <p className="text-[#64748B]">{benefit.description}</p>
               </div>
             ))}
           </div>
