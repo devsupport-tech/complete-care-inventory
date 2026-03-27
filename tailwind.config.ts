@@ -27,10 +27,10 @@ export default {
 				cbrs: {
 					blue: '#1A2A3A',
 					dark: '#1A2A3A',
-					orange: '#E86C24',
+					orange: '#D4611C',
 					green: '#6B7F35',
 					light: '#F8FAFC',
-					accent: '#E86C24',
+					accent: '#D4611C',
 					muted: '#94A3B8',
 					skyblue: '#1e3046',
 					oceanblue: '#1e3046',

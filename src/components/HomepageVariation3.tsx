@@ -58,7 +58,7 @@ const HomepageVariation3: React.FC = () => {
               From packout to production management, we provide the expertise and support your restoration business needs to thrive.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/schedule" className="px-8 py-4 bg-[#E86C24] text-white rounded-lg font-semibold hover:bg-[#d65d1a] transition-all shadow-lg">
+              <Link to="/schedule" className="px-8 py-4 bg-[#D4611C] text-white rounded-lg font-semibold hover:bg-[#d65d1a] transition-all shadow-lg">
                 Request a Quote
               </Link>
               <Link to="/contact" className="px-8 py-4 bg-white/10 backdrop-blur-sm text-white rounded-lg font-semibold hover:bg-white/20 transition-all border border-white/30">
@@ -70,17 +70,17 @@ const HomepageVariation3: React.FC = () => {
           {/* Value Prop Cards */}
           <div className="grid md:grid-cols-3 gap-6 mt-16">
             <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
-              <Clock className="w-10 h-10 text-[#E86C24] mb-4" />
+              <Clock className="w-10 h-10 text-[#D4611C] mb-4" />
               <h3 className="text-xl font-bold text-white mb-2">24/7 Availability</h3>
               <p className="text-gray-300">Round-the-clock support when emergencies strike</p>
             </div>
             <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
-              <Shield className="w-10 h-10 text-[#E86C24] mb-4" />
+              <Shield className="w-10 h-10 text-[#D4611C] mb-4" />
               <h3 className="text-xl font-bold text-white mb-2">Certified Experts</h3>
               <p className="text-gray-300">Industry-certified professionals on every project</p>
             </div>
             <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
-              <TrendingUp className="w-10 h-10 text-[#E86C24] mb-4" />
+              <TrendingUp className="w-10 h-10 text-[#D4611C] mb-4" />
               <h3 className="text-xl font-bold text-white mb-2">Proven Results</h3>
               <p className="text-gray-300">98% client satisfaction and growing</p>
             </div>
@@ -103,8 +103,8 @@ const HomepageVariation3: React.FC = () => {
           <div className="grid md:grid-cols-3 gap-8">
             {/* Service 1 */}
             <div className="bg-white rounded-xl p-8 shadow-sm hover:shadow-lg transition-shadow">
-              <div className="w-14 h-14 bg-[#E86C24]/10 rounded-lg flex items-center justify-center mb-6">
-                <Package className="w-7 h-7 text-[#E86C24]" />
+              <div className="w-14 h-14 bg-[#D4611C]/10 rounded-lg flex items-center justify-center mb-6">
+                <Package className="w-7 h-7 text-[#D4611C]" />
               </div>
               <h3 className="text-2xl font-bold text-[#1e3046] mb-4">
                 Packout Management
@@ -130,18 +130,18 @@ const HomepageVariation3: React.FC = () => {
                   <span className="text-[#1e3046]">Pack-in coordination</span>
                 </div>
               </div>
-              <Link to="/schedule?service=packout-management" className="w-full block py-3 bg-[#F8FAFC] text-[#1e3046] rounded-lg font-semibold hover:bg-[#E86C24] hover:text-white transition-colors text-center">
+              <Link to="/schedule?service=packout-management" className="w-full block py-3 bg-[#F8FAFC] text-[#1e3046] rounded-lg font-semibold hover:bg-[#D4611C] hover:text-white transition-colors text-center">
                 Learn More
               </Link>
             </div>
 
             {/* Service 2 */}
-            <div className="bg-white rounded-xl p-8 shadow-sm hover:shadow-lg transition-shadow border-2 border-[#E86C24]">
+            <div className="bg-white rounded-xl p-8 shadow-sm hover:shadow-lg transition-shadow border-2 border-[#D4611C]">
               <div className="flex justify-between items-start mb-6">
-                <div className="w-14 h-14 bg-[#E86C24] rounded-lg flex items-center justify-center">
+                <div className="w-14 h-14 bg-[#D4611C] rounded-lg flex items-center justify-center">
                   <Calculator className="w-7 h-7 text-white" />
                 </div>
-                <span className="px-3 py-1 bg-[#E86C24] text-white text-xs font-bold rounded-full">
+                <span className="px-3 py-1 bg-[#D4611C] text-white text-xs font-bold rounded-full">
                   POPULAR
                 </span>
               </div>
@@ -169,7 +169,7 @@ const HomepageVariation3: React.FC = () => {
                   <span className="text-[#1e3046]">Desktop estimate reviews</span>
                 </div>
               </div>
-              <Link to="/schedule?service=estimating-supplementing" className="w-full block py-3 bg-[#E86C24] text-white rounded-lg font-semibold hover:bg-[#d65d1a] transition-colors text-center">
+              <Link to="/schedule?service=estimating-supplementing" className="w-full block py-3 bg-[#D4611C] text-white rounded-lg font-semibold hover:bg-[#d65d1a] transition-colors text-center">
                 Learn More
               </Link>
             </div>
@@ -232,7 +232,7 @@ const HomepageVariation3: React.FC = () => {
               { icon: Star, title: 'Top Rated', desc: '5-star client reviews' }
             ].map((benefit, index) => (
               <div key={index} className="bg-[#F8FAFC] rounded-lg p-6 text-center hover:bg-white hover:shadow-md transition-all">
-                <benefit.icon className="w-10 h-10 text-[#E86C24] mx-auto mb-3" />
+                <benefit.icon className="w-10 h-10 text-[#D4611C] mx-auto mb-3" />
                 <h3 className="font-bold text-[#1e3046] mb-1">{benefit.title}</h3>
                 <p className="text-sm text-[#64748B]">{benefit.desc}</p>
               </div>
@@ -254,10 +254,10 @@ const HomepageVariation3: React.FC = () => {
           <div className="grid md:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => (
               <div key={index} className="bg-white/10 backdrop-blur-sm rounded-xl p-8 border border-white/20">
-                <Quote className="w-10 h-10 text-[#E86C24] mb-4" />
+                <Quote className="w-10 h-10 text-[#D4611C] mb-4" />
                 <div className="flex gap-1 mb-4">
                   {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 fill-[#E86C24] text-[#E86C24]" />
+                    <Star key={i} className="w-5 h-5 fill-[#D4611C] text-[#D4611C]" />
                   ))}
                 </div>
                 <p className="text-white mb-6 leading-relaxed">"{testimonial.text}"</p>
@@ -289,7 +289,7 @@ const HomepageVariation3: React.FC = () => {
                   className="w-full px-6 py-5 flex justify-between items-center text-left hover:bg-gray-50 transition-colors"
                 >
                   <span className="font-semibold text-[#1e3046] pr-4">{faq.question}</span>
-                  <ChevronDown className={`w-5 h-5 text-[#E86C24] flex-shrink-0 transition-transform ${openFaq === index ? 'rotate-180' : ''}`} />
+                  <ChevronDown className={`w-5 h-5 text-[#D4611C] flex-shrink-0 transition-transform ${openFaq === index ? 'rotate-180' : ''}`} />
                 </button>
                 {openFaq === index && (
                   <div className="px-6 pb-5 text-[#64748B] leading-relaxed">
@@ -303,7 +303,7 @@ const HomepageVariation3: React.FC = () => {
       </section>
 
       {/* Final CTA */}
-      <section className="py-20 bg-gradient-to-br from-[#E86C24] to-[#d65d1a]">
+      <section className="py-20 bg-gradient-to-br from-[#D4611C] to-[#d65d1a]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6">
             Ready to Elevate Your Restoration Business?
@@ -312,10 +312,10 @@ const HomepageVariation3: React.FC = () => {
             Join hundreds of contractors who trust CBRS Group with their support services
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/schedule" className="px-10 py-5 bg-white text-[#E86C24] rounded-lg font-bold text-lg hover:bg-gray-100 transition-all shadow-xl">
+            <Link to="/schedule" className="px-10 py-5 bg-white text-[#D4611C] rounded-lg font-bold text-lg hover:bg-gray-100 transition-all shadow-xl">
               Schedule Consultation
             </Link>
-            <Link to="/contact" className="px-10 py-5 bg-transparent text-white rounded-lg font-bold text-lg border-2 border-white hover:bg-white hover:text-[#E86C24] transition-all">
+            <Link to="/contact" className="px-10 py-5 bg-transparent text-white rounded-lg font-bold text-lg border-2 border-white hover:bg-white hover:text-[#D4611C] transition-all">
               Download Our Guide
             </Link>
           </div>

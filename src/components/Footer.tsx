@@ -71,7 +71,7 @@ const Footer = () => {
           </div>
           
           <div>
-            <h4 className="text-lg font-semibold mb-4">Services</h4>
+            <h3 className="text-lg font-semibold mb-4">Services</h3>
             <ul className="space-y-3">
               <li>
                 <Link to="/operations-consulting" className="text-gray-300 hover:text-cbrs-orange transition-colors">
@@ -112,7 +112,7 @@ const Footer = () => {
           </div>
           
           <div>
-            <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
+            <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-3">
               <li>
                 <Link to="/" className="text-gray-300 hover:text-cbrs-orange transition-colors">
@@ -138,7 +138,7 @@ const Footer = () => {
           </div>
           
           <div>
-            <h4 className="text-lg font-semibold mb-4">Contact</h4>
+            <h3 className="text-lg font-semibold mb-4">Contact</h3>
             <address className="not-italic text-gray-300 space-y-3">
               <p>Houston and Surrounding Areas</p>
               <p>

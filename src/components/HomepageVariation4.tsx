@@ -40,7 +40,7 @@ const HomepageVariation4: React.FC = () => {
       icon: Package,
       description: "Comprehensive inventory, storage, and pack-in services",
       features: ["Photo documentation", "Climate-controlled storage", "Contents cleaning", "Pack-in coordination"],
-      color: "#E86C24"
+      color: "#D4611C"
     },
     {
       title: "Estimating & Supplementing",
@@ -107,7 +107,7 @@ const HomepageVariation4: React.FC = () => {
     <div className="min-h-screen bg-white">
       {/* Floating Contact Buttons */}
       <div className="fixed right-6 bottom-6 z-50 flex flex-col gap-3">
-        <a href="tel:+18326080535" aria-label="Call us at (832) 608-0535" className="w-14 h-14 bg-[#E86C24] text-white rounded-full shadow-lg hover:scale-110 transition-transform flex items-center justify-center group">
+        <a href="tel:+18326080535" aria-label="Call us at (832) 608-0535" className="w-14 h-14 bg-[#D4611C] text-white rounded-full shadow-lg hover:scale-110 transition-transform flex items-center justify-center group">
           <Phone className="w-6 h-6" />
           <span className="absolute right-16 bg-[#1e3046] text-white px-4 py-2 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap text-sm font-semibold">
             Call Us Now
@@ -135,8 +135,8 @@ const HomepageVariation4: React.FC = () => {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left - Content */}
             <div className="animate-fade-in-up">
-              <div className="inline-block px-4 py-2 bg-[#E86C24]/20 rounded-full mb-6">
-                <span className="text-[#E86C24] font-bold text-sm">Trusted by 200+ Restoration Contractors</span>
+              <div className="inline-block px-4 py-2 bg-[#D4611C]/20 rounded-full mb-6">
+                <span className="text-[#D4611C] font-bold text-sm">Trusted by 200+ Restoration Contractors</span>
               </div>
 
               <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-white mb-6 leading-tight">
@@ -151,19 +151,19 @@ const HomepageVariation4: React.FC = () => {
               {/* Animated Stats */}
               <div className="grid grid-cols-3 gap-6 mb-8">
                 <div>
-                  <div className="text-4xl font-black text-[#E86C24] mb-1">
+                  <div className="text-4xl font-black text-[#D4611C] mb-1">
                     {counters.projects}+
                   </div>
                   <div className="text-sm text-gray-400">Projects</div>
                 </div>
                 <div>
-                  <div className="text-4xl font-black text-[#E86C24] mb-1">
+                  <div className="text-4xl font-black text-[#D4611C] mb-1">
                     {counters.satisfaction}%
                   </div>
                   <div className="text-sm text-gray-400">Satisfaction</div>
                 </div>
                 <div>
-                  <div className="text-4xl font-black text-[#E86C24] mb-1">
+                  <div className="text-4xl font-black text-[#D4611C] mb-1">
                     {counters.response}/7
                   </div>
                   <div className="text-sm text-gray-400">Support</div>
@@ -171,7 +171,7 @@ const HomepageVariation4: React.FC = () => {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4">
-                <Link to="/schedule" className="group px-8 py-4 bg-[#E86C24] text-white rounded-lg font-bold hover:bg-[#d65d1a] transition-all shadow-xl hover:shadow-2xl flex items-center justify-center gap-2">
+                <Link to="/schedule" className="group px-8 py-4 bg-[#D4611C] text-white rounded-lg font-bold hover:bg-[#d65d1a] transition-all shadow-xl hover:shadow-2xl flex items-center justify-center gap-2">
                   Get Started Today
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </Link>
@@ -204,7 +204,7 @@ const HomepageVariation4: React.FC = () => {
                   </div>
                   <div className="flex gap-1">
                     {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => (
-                      <Star key={i} className="w-5 h-5 fill-[#E86C24] text-[#E86C24]" />
+                      <Star key={i} className="w-5 h-5 fill-[#D4611C] text-[#D4611C]" />
                     ))}
                   </div>
                 </div>
@@ -222,7 +222,7 @@ const HomepageVariation4: React.FC = () => {
                         onClick={() => setCurrentTestimonial(index)}
                         aria-label={`Go to testimonial ${index + 1}`}
                         className={`w-2 h-2 rounded-full transition-all ${
-                          index === currentTestimonial ? 'w-8 bg-[#E86C24]' : 'bg-gray-300'
+                          index === currentTestimonial ? 'w-8 bg-[#D4611C]' : 'bg-gray-300'
                         }`}
                       />
                     ))}
@@ -232,14 +232,14 @@ const HomepageVariation4: React.FC = () => {
                     <button
                       onClick={prevTestimonial}
                       aria-label="Previous testimonial"
-                      className="w-10 h-10 bg-[#F8FAFC] rounded-lg flex items-center justify-center hover:bg-[#E86C24] hover:text-white transition-colors"
+                      className="w-10 h-10 bg-[#F8FAFC] rounded-lg flex items-center justify-center hover:bg-[#D4611C] hover:text-white transition-colors"
                     >
                       <ChevronLeft className="w-5 h-5" />
                     </button>
                     <button
                       onClick={nextTestimonial}
                       aria-label="Next testimonial"
-                      className="w-10 h-10 bg-[#F8FAFC] rounded-lg flex items-center justify-center hover:bg-[#E86C24] hover:text-white transition-colors"
+                      className="w-10 h-10 bg-[#F8FAFC] rounded-lg flex items-center justify-center hover:bg-[#D4611C] hover:text-white transition-colors"
                     >
                       <ChevronRight className="w-5 h-5" />
                     </button>
@@ -248,7 +248,7 @@ const HomepageVariation4: React.FC = () => {
               </div>
 
               {/* Decorative elements */}
-              <div className="absolute -top-6 -right-6 w-32 h-32 bg-[#E86C24]/20 rounded-full blur-3xl"></div>
+              <div className="absolute -top-6 -right-6 w-32 h-32 bg-[#D4611C]/20 rounded-full blur-3xl"></div>
               <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-[#6B7F35]/20 rounded-full blur-3xl"></div>
             </div>
           </div>
@@ -280,7 +280,7 @@ const HomepageVariation4: React.FC = () => {
                 }`}
               >
                 <service.icon className={`w-10 h-10 mb-3 ${
-                  selectedService === index ? 'text-[#E86C24]' : 'text-[#64748B]'
+                  selectedService === index ? 'text-[#D4611C]' : 'text-[#64748B]'
                 }`} />
                 <h3 className="text-xl font-bold mb-2">{service.title}</h3>
                 <p className={`text-sm ${
@@ -308,7 +308,7 @@ const HomepageVariation4: React.FC = () => {
                 <p className="text-lg text-[#64748B] mb-6">
                   {services[selectedService].description}
                 </p>
-                <Link to="/schedule" className="px-8 py-4 bg-[#E86C24] text-white rounded-lg font-bold hover:bg-[#d65d1a] transition-all inline-flex items-center gap-2 shadow-lg">
+                <Link to="/schedule" className="px-8 py-4 bg-[#D4611C] text-white rounded-lg font-bold hover:bg-[#d65d1a] transition-all inline-flex items-center gap-2 shadow-lg">
                   Request This Service
                   <ArrowRight className="w-5 h-5" />
                 </Link>
@@ -336,7 +336,7 @@ const HomepageVariation4: React.FC = () => {
       <section className="py-20 bg-[#1e3046] relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0" style={{
-            backgroundImage: 'linear-gradient(45deg, #E86C24 25%, transparent 25%, transparent 75%, #E86C24 75%, #E86C24), linear-gradient(45deg, #E86C24 25%, transparent 25%, transparent 75%, #E86C24 75%, #E86C24)',
+            backgroundImage: 'linear-gradient(45deg, #D4611C 25%, transparent 25%, transparent 75%, #D4611C 75%, #D4611C), linear-gradient(45deg, #D4611C 25%, transparent 25%, transparent 75%, #D4611C 75%, #D4611C)',
             backgroundSize: '60px 60px',
             backgroundPosition: '0 0, 30px 30px'
           }}></div>
@@ -345,19 +345,19 @@ const HomepageVariation4: React.FC = () => {
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-4 gap-8 text-center">
             <div>
-              <div className="text-6xl font-black text-[#E86C24] mb-2">99.8%</div>
+              <div className="text-6xl font-black text-[#D4611C] mb-2">99.8%</div>
               <div className="text-white font-semibold">Inventory Accuracy</div>
             </div>
             <div>
-              <div className="text-6xl font-black text-[#E86C24] mb-2">2-4hr</div>
+              <div className="text-6xl font-black text-[#D4611C] mb-2">2-4hr</div>
               <div className="text-white font-semibold">Response Time</div>
             </div>
             <div>
-              <div className="text-6xl font-black text-[#E86C24] mb-2">$50M+</div>
+              <div className="text-6xl font-black text-[#D4611C] mb-2">$50M+</div>
               <div className="text-white font-semibold">Claims Managed</div>
             </div>
             <div>
-              <div className="text-6xl font-black text-[#E86C24] mb-2">200+</div>
+              <div className="text-6xl font-black text-[#D4611C] mb-2">200+</div>
               <div className="text-white font-semibold">Active Clients</div>
             </div>
           </div>
@@ -365,7 +365,7 @@ const HomepageVariation4: React.FC = () => {
       </section>
 
       {/* Final CTA with Animation */}
-      <section className="py-24 bg-gradient-to-br from-[#E86C24] via-[#d65d1a] to-[#E86C24] relative overflow-hidden">
+      <section className="py-24 bg-gradient-to-br from-[#D4611C] via-[#d65d1a] to-[#D4611C] relative overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute top-0 left-1/4 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-pulse"></div>
           <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
@@ -379,10 +379,10 @@ const HomepageVariation4: React.FC = () => {
             Join the growing network of restoration contractors who trust CBRS Group
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/schedule" className="px-12 py-5 bg-white text-[#E86C24] rounded-lg font-black text-xl hover:bg-gray-100 transition-all shadow-2xl hover:scale-105">
+            <Link to="/schedule" className="px-12 py-5 bg-white text-[#D4611C] rounded-lg font-black text-xl hover:bg-gray-100 transition-all shadow-2xl hover:scale-105">
               Get Started Now
             </Link>
-            <Link to="/contact" className="px-12 py-5 bg-transparent text-white rounded-lg font-black text-xl border-2 border-white hover:bg-white hover:text-[#E86C24] transition-all">
+            <Link to="/contact" className="px-12 py-5 bg-transparent text-white rounded-lg font-black text-xl border-2 border-white hover:bg-white hover:text-[#D4611C] transition-all">
               Schedule a Call
             </Link>
           </div>

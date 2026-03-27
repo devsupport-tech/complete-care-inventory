@@ -55,7 +55,7 @@ const Consultation: React.FC = () => {
       <section className="relative pt-32 pb-12 bg-gradient-to-br from-[#1e3046] to-[#2a4560]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto">
-            <Calendar className="w-20 h-20 text-[#E86C24] mx-auto mb-6" />
+            <Calendar className="w-20 h-20 text-[#D4611C] mx-auto mb-6" />
             <h1 className="text-5xl sm:text-6xl font-black text-white mb-6">
               Schedule Operations<br />Consultation
             </h1>
@@ -76,21 +76,21 @@ const Consultation: React.FC = () => {
           </div>
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             <div className="text-center">
-              <div className="w-16 h-16 bg-[#E86C24] rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="w-16 h-16 bg-[#D4611C] rounded-full flex items-center justify-center mx-auto mb-4">
                 <Clock className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl font-bold text-[#1e3046] mb-2">30-45 Minutes</h3>
               <p className="text-[#64748B]">Focused conversation about your specific operational needs</p>
             </div>
             <div className="text-center">
-              <div className="w-16 h-16 bg-[#E86C24] rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="w-16 h-16 bg-[#D4611C] rounded-full flex items-center justify-center mx-auto mb-4">
                 <CheckCircle className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl font-bold text-[#1e3046] mb-2">No Obligations</h3>
               <p className="text-[#64748B]">Free consultation with no pressure to commit</p>
             </div>
             <div className="text-center">
-              <div className="w-16 h-16 bg-[#E86C24] rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="w-16 h-16 bg-[#D4611C] rounded-full flex items-center justify-center mx-auto mb-4">
                 <ArrowRight className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl font-bold text-[#1e3046] mb-2">Clear Next Steps</h3>
@@ -120,7 +120,7 @@ const Consultation: React.FC = () => {
                     required
                     value={formData.name}
                     onChange={(e) => setFormData({...formData, name: e.target.value})}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#E86C24] focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#D4611C] focus:border-transparent"
                   />
                 </div>
                 <div>
@@ -132,7 +132,7 @@ const Consultation: React.FC = () => {
                     required
                     value={formData.company}
                     onChange={(e) => setFormData({...formData, company: e.target.value})}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#E86C24] focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#D4611C] focus:border-transparent"
                   />
                 </div>
               </div>
@@ -147,7 +147,7 @@ const Consultation: React.FC = () => {
                     required
                     value={formData.email}
                     onChange={(e) => setFormData({...formData, email: e.target.value})}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#E86C24] focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#D4611C] focus:border-transparent"
                   />
                 </div>
                 <div>
@@ -159,7 +159,7 @@ const Consultation: React.FC = () => {
                     required
                     value={formData.phone}
                     onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#E86C24] focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#D4611C] focus:border-transparent"
                   />
                 </div>
               </div>
@@ -174,7 +174,7 @@ const Consultation: React.FC = () => {
                     required
                     value={formData.revenue}
                     onChange={(e) => setFormData({...formData, revenue: e.target.value})}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#E86C24] focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#D4611C] focus:border-transparent"
                   >
                     <option value="">Select...</option>
                     <option value="<500k">Under $500K</option>
@@ -192,7 +192,7 @@ const Consultation: React.FC = () => {
                     required
                     value={formData.teamSize}
                     onChange={(e) => setFormData({...formData, teamSize: e.target.value})}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#E86C24] focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#D4611C] focus:border-transparent"
                   >
                     <option value="">Select...</option>
                     <option value="1-5">1-5 employees</option>
@@ -213,7 +213,7 @@ const Consultation: React.FC = () => {
                   required
                   value={formData.biggestChallenge}
                   onChange={(e) => setFormData({...formData, biggestChallenge: e.target.value})}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#E86C24] focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#D4611C] focus:border-transparent"
                 >
                   <option value="">Select...</option>
                   <option value="production-delays">Production delays and workflow bottlenecks</option>
@@ -238,7 +238,7 @@ const Consultation: React.FC = () => {
                         type="checkbox"
                         checked={formData.services.includes(service)}
                         onChange={() => handleServiceToggle(service)}
-                        className="w-5 h-5 text-[#E86C24] border-gray-300 rounded focus:ring-[#E86C24]"
+                        className="w-5 h-5 text-[#D4611C] border-gray-300 rounded focus:ring-[#D4611C]"
                       />
                       <span className="text-[#1e3046]">{service}</span>
                     </label>
@@ -256,7 +256,7 @@ const Consultation: React.FC = () => {
                   value={formData.message}
                   onChange={(e) => setFormData({...formData, message: e.target.value})}
                   placeholder="Tell us more about your specific challenges or goals..."
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#E86C24] focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#D4611C] focus:border-transparent"
                 />
               </div>
 
@@ -264,7 +264,7 @@ const Consultation: React.FC = () => {
               <div className="text-center">
                 <button
                   type="submit"
-                  className="px-12 py-4 bg-[#E86C24] text-white rounded-lg font-bold text-lg hover:bg-[#d65d1a] transition-all shadow-lg hover:shadow-xl"
+                  className="px-12 py-4 bg-[#D4611C] text-white rounded-lg font-bold text-lg hover:bg-[#d65d1a] transition-all shadow-lg hover:shadow-xl"
                 >
                   Schedule My Consultation
                 </button>

@@ -142,14 +142,14 @@ const OperationsConsulting: React.FC = () => {
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-4xl mx-auto">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#E86C24]/20 rounded-full mb-6">
-              <Settings className="w-5 h-5 text-[#E86C24]" />
-              <span className="text-[#E86C24] font-bold text-sm">Flagship Consulting Program</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#D4611C]/20 rounded-full mb-6">
+              <Settings className="w-5 h-5 text-[#D4611C]" />
+              <span className="text-[#D4611C] font-bold text-sm">Flagship Consulting Program</span>
             </div>
 
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-white mb-6 leading-tight">
               Restoration Operations<br />
-              <span className="text-[#E86C24]">Optimization Program</span>
+              <span className="text-[#D4611C]">Optimization Program</span>
             </h1>
 
             <p className="text-xl sm:text-2xl text-gray-300 mb-12 leading-relaxed">
@@ -157,7 +157,7 @@ const OperationsConsulting: React.FC = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-              <Link to="/consultation" className="px-10 py-5 bg-[#E86C24] text-white rounded-lg font-bold text-lg hover:bg-[#d65d1a] transition-all shadow-xl hover:shadow-2xl inline-flex items-center justify-center gap-2">
+              <Link to="/consultation" className="px-10 py-5 bg-[#D4611C] text-white rounded-lg font-bold text-lg hover:bg-[#d65d1a] transition-all shadow-xl hover:shadow-2xl inline-flex items-center justify-center gap-2">
                 Schedule Consultation
                 <ArrowRight className="w-5 h-5" />
               </Link>
@@ -169,15 +169,15 @@ const OperationsConsulting: React.FC = () => {
 
             <div className="grid grid-cols-3 gap-8 max-w-3xl mx-auto">
               <div className="text-center">
-                <div className="text-5xl font-black text-[#E86C24] mb-2">$5K-$25K</div>
+                <div className="text-5xl font-black text-[#D4611C] mb-2">$5K-$25K</div>
                 <div className="text-sm text-gray-300">Investment Range</div>
               </div>
               <div className="text-center">
-                <div className="text-5xl font-black text-[#E86C24] mb-2">8-12</div>
+                <div className="text-5xl font-black text-[#D4611C] mb-2">8-12</div>
                 <div className="text-sm text-gray-300">Week Duration</div>
               </div>
               <div className="text-center">
-                <div className="text-5xl font-black text-[#E86C24] mb-2">40%+</div>
+                <div className="text-5xl font-black text-[#D4611C] mb-2">40%+</div>
                 <div className="text-sm text-gray-300">Avg Efficiency Gain</div>
               </div>
             </div>
@@ -198,7 +198,7 @@ const OperationsConsulting: React.FC = () => {
           </div>
 
           <div className="grid lg:grid-cols-3 gap-8 mb-16">
-            <div className="bg-gradient-to-br from-[#E86C24] to-[#d65d1a] rounded-2xl p-8 text-white">
+            <div className="bg-gradient-to-br from-[#D4611C] to-[#d65d1a] rounded-2xl p-8 text-white">
               <div className="w-16 h-16 bg-white/20 rounded-xl flex items-center justify-center mb-6">
                 <Target className="w-10 h-10 text-white" />
               </div>
@@ -230,7 +230,7 @@ const OperationsConsulting: React.FC = () => {
               <div className="space-y-3">
                 {systemsImplemented.map((system, index) => (
                   <div key={index} className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-[#E86C24] flex-shrink-0 mt-0.5" />
+                    <CheckCircle className="w-5 h-5 text-[#D4611C] flex-shrink-0 mt-0.5" />
                     <div className="text-sm">{system}</div>
                   </div>
                 ))}
@@ -291,7 +291,7 @@ const OperationsConsulting: React.FC = () => {
                 <div className="flex flex-col lg:flex-row gap-8">
                   <div className="lg:w-1/3">
                     <div className="flex items-center gap-4 mb-4">
-                      <div className="w-16 h-16 bg-[#E86C24] rounded-xl flex items-center justify-center">
+                      <div className="w-16 h-16 bg-[#D4611C] rounded-xl flex items-center justify-center">
                         <span className="text-3xl font-black text-white">{phase.phase}</span>
                       </div>
                       <div>
@@ -333,7 +333,7 @@ const OperationsConsulting: React.FC = () => {
             {investmentTiers.map((tier, index) => (
               <div key={index} className={`rounded-2xl p-8 ${
                 tier.featured
-                  ? 'bg-gradient-to-br from-[#E86C24] to-[#d65d1a] text-white shadow-2xl scale-105'
+                  ? 'bg-gradient-to-br from-[#D4611C] to-[#d65d1a] text-white shadow-2xl scale-105'
                   : 'bg-white border-2 border-gray-200'
               }`}>
                 {tier.featured && (
@@ -344,7 +344,7 @@ const OperationsConsulting: React.FC = () => {
                 <h3 className={`text-2xl font-bold mb-2 ${tier.featured ? 'text-white' : 'text-[#1e3046]'}`}>
                   {tier.name}
                 </h3>
-                <div className={`text-5xl font-black mb-4 ${tier.featured ? 'text-white' : 'text-[#E86C24]'}`}>
+                <div className={`text-5xl font-black mb-4 ${tier.featured ? 'text-white' : 'text-[#D4611C]'}`}>
                   {tier.price}
                 </div>
                 <p className={`mb-6 ${tier.featured ? 'text-white/90' : 'text-[#64748B]'}`}>
@@ -367,8 +367,8 @@ const OperationsConsulting: React.FC = () => {
                   to="/consultation"
                   className={`w-full block py-4 rounded-lg font-bold text-center transition-all ${
                     tier.featured
-                      ? 'bg-white text-[#E86C24] hover:bg-gray-100'
-                      : 'bg-[#E86C24] text-white hover:bg-[#d65d1a]'
+                      ? 'bg-white text-[#D4611C] hover:bg-gray-100'
+                      : 'bg-[#D4611C] text-white hover:bg-[#d65d1a]'
                   }`}
                 >
                   Get Started
@@ -389,7 +389,7 @@ const OperationsConsulting: React.FC = () => {
             Schedule a consultation to discuss your operational challenges and goals
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/consultation" className="px-12 py-6 bg-[#E86C24] text-white rounded-lg font-black text-xl hover:bg-[#d65d1a] transition-all shadow-2xl hover:scale-105">
+            <Link to="/consultation" className="px-12 py-6 bg-[#D4611C] text-white rounded-lg font-black text-xl hover:bg-[#d65d1a] transition-all shadow-2xl hover:scale-105">
               Schedule Consultation
             </Link>
             <a href="tel:+18326080535" className="px-12 py-6 bg-white/10 backdrop-blur-sm text-white rounded-lg font-black text-xl border-2 border-white hover:bg-white hover:text-[#1e3046] transition-all">

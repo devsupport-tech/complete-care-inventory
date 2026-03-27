@@ -11,8 +11,8 @@ const HomepageVariation2: React.FC = () => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
             <div className="animate-fade-in">
               {/* Eyebrow */}
-              <div className="inline-block px-4 py-2 bg-[#E86C24]/10 rounded-full mb-8">
-                <span className="text-[#E86C24] font-semibold text-sm tracking-wide uppercase">
+              <div className="inline-block px-4 py-2 bg-[#D4611C]/10 rounded-full mb-8">
+                <span className="text-[#D4611C] font-semibold text-sm tracking-wide uppercase">
                   Restoration Support Services
                 </span>
               </div>
@@ -21,7 +21,7 @@ const HomepageVariation2: React.FC = () => {
               <h1 className="text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-black text-[#1e3046] leading-none mb-8">
                 WE HANDLE<br />
                 THE<br />
-                <span className="text-[#E86C24]">DETAILS</span>
+                <span className="text-[#D4611C]">DETAILS</span>
               </h1>
 
               {/* Subheadline */}
@@ -54,10 +54,10 @@ const HomepageVariation2: React.FC = () => {
           <div className="bg-[#1e3046] p-12 lg:p-20 flex items-center min-h-[600px]">
             <div className="max-w-xl">
               <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 bg-[#E86C24] rounded-lg flex items-center justify-center">
+                <div className="w-12 h-12 bg-[#D4611C] rounded-lg flex items-center justify-center">
                   <Package className="w-6 h-6 text-white" />
                 </div>
-                <span className="text-[#E86C24] font-bold text-lg">01</span>
+                <span className="text-[#D4611C] font-bold text-lg">01</span>
               </div>
 
               <h2 className="text-5xl sm:text-6xl font-black text-white mb-6 leading-tight">
@@ -70,15 +70,15 @@ const HomepageVariation2: React.FC = () => {
 
               <div className="space-y-4 mb-8">
                 <div className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-[#E86C24] rounded-full mt-2"></div>
+                  <div className="w-2 h-2 bg-[#D4611C] rounded-full mt-2"></div>
                   <p className="text-gray-300">Complete inventory documentation with photos</p>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-[#E86C24] rounded-full mt-2"></div>
+                  <div className="w-2 h-2 bg-[#D4611C] rounded-full mt-2"></div>
                   <p className="text-gray-300">Secure, climate-controlled storage facilities</p>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-[#E86C24] rounded-full mt-2"></div>
+                  <div className="w-2 h-2 bg-[#D4611C] rounded-full mt-2"></div>
                   <p className="text-gray-300">Seamless pack-in coordination and delivery</p>
                 </div>
               </div>
@@ -93,7 +93,7 @@ const HomepageVariation2: React.FC = () => {
           {/* Right - Visual/Stats */}
           <div className="bg-[#F8FAFC] p-12 lg:p-20 flex items-center justify-center min-h-[600px]">
             <div className="text-center">
-              <div className="text-9xl font-black text-[#E86C24] mb-4">500+</div>
+              <div className="text-9xl font-black text-[#D4611C] mb-4">500+</div>
               <div className="text-2xl font-bold text-[#1e3046] mb-2">Packout Projects</div>
               <div className="text-lg text-[#64748B]">Completed This Year</div>
             </div>
@@ -105,7 +105,7 @@ const HomepageVariation2: React.FC = () => {
       <section className="min-h-screen flex items-center">
         <div className="w-full grid lg:grid-cols-2">
           {/* Left - Visual/Stats */}
-          <div className="bg-[#E86C24] p-12 lg:p-20 flex items-center justify-center order-2 lg:order-1 min-h-[600px]">
+          <div className="bg-[#D4611C] p-12 lg:p-20 flex items-center justify-center order-2 lg:order-1 min-h-[600px]">
             <div className="text-center text-white">
               <div className="text-9xl font-black mb-4">98%</div>
               <div className="text-2xl font-bold mb-2">Approval Rate</div>
@@ -133,20 +133,20 @@ const HomepageVariation2: React.FC = () => {
 
               <div className="space-y-4 mb-8">
                 <div className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-[#E86C24] rounded-full mt-2"></div>
+                  <div className="w-2 h-2 bg-[#D4611C] rounded-full mt-2"></div>
                   <p className="text-[#1e3046]">Xactimate certified professionals</p>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-[#E86C24] rounded-full mt-2"></div>
+                  <div className="w-2 h-2 bg-[#D4611C] rounded-full mt-2"></div>
                   <p className="text-[#1e3046]">Thorough supplement documentation</p>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-[#E86C24] rounded-full mt-2"></div>
+                  <div className="w-2 h-2 bg-[#D4611C] rounded-full mt-2"></div>
                   <p className="text-[#1e3046]">Expert negotiation with carriers</p>
                 </div>
               </div>
 
-              <Link to="/schedule?service=estimating-supplementing" className="text-[#E86C24] font-bold flex items-center gap-2 group hover:gap-4 transition-all">
+              <Link to="/schedule?service=estimating-supplementing" className="text-[#D4611C] font-bold flex items-center gap-2 group hover:gap-4 transition-all">
                 EXPLORE SERVICE
                 <ArrowRight className="w-5 h-5" />
               </Link>
@@ -215,12 +215,12 @@ const HomepageVariation2: React.FC = () => {
           <div className="text-center">
             <h2 className="text-6xl sm:text-7xl lg:text-8xl font-black text-[#1e3046] mb-8 leading-none">
               LET'S WORK<br />
-              <span className="text-[#E86C24]">TOGETHER</span>
+              <span className="text-[#D4611C]">TOGETHER</span>
             </h2>
             <p className="text-2xl text-[#64748B] mb-12 max-w-3xl mx-auto">
               Partner with CBRS Group and experience the difference professional support makes.
             </p>
-            <Link to="/contact" className="inline-block px-12 py-6 bg-[#E86C24] text-white rounded-full font-black text-xl hover:bg-[#d65d1a] transition-all shadow-xl hover:shadow-2xl hover:scale-105">
+            <Link to="/contact" className="inline-block px-12 py-6 bg-[#D4611C] text-white rounded-full font-black text-xl hover:bg-[#d65d1a] transition-all shadow-xl hover:shadow-2xl hover:scale-105">
               GET IN TOUCH
             </Link>
           </div>

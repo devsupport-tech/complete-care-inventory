@@ -51,6 +51,7 @@ const Chatbot = () => {
         onClick={() => setIsOpen(true)}
         className="fixed bottom-6 right-6 h-14 w-14 rounded-full shadow-lg z-50"
         size="icon"
+        aria-label="Open chat support"
       >
         <MessageCircle className="h-6 w-6" />
       </Button>
@@ -64,7 +65,7 @@ const Chatbot = () => {
             <Button
               variant="ghost"
               size="icon"
-              onClick={() => setIsOpen(false)}
+              onClick={() => setIsOpen(false)} aria-label="Close chat"
             >
               <X className="h-4 w-4" />
             </Button>
@@ -115,6 +116,7 @@ const Chatbot = () => {
               onClick={sendMessage}
               disabled={isLoading || !inputValue.trim()}
               size="icon"
+              aria-label="Send message"
             >
               <Send className="h-4 w-4" />
             </Button>

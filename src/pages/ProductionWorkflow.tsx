@@ -68,14 +68,14 @@ const ProductionWorkflow: React.FC = () => {
       <section className="relative pt-32 pb-20 bg-gradient-to-br from-[#1e3046] to-[#2a4560]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-4xl mx-auto">
-            <TrendingUp className="w-20 h-20 text-[#E86C24] mx-auto mb-6" />
+            <TrendingUp className="w-20 h-20 text-[#D4611C] mx-auto mb-6" />
             <h1 className="text-5xl sm:text-6xl font-black text-white mb-6">
               Production Workflow Management
             </h1>
             <p className="text-xl text-gray-300 mb-8">
               Streamlined production management and project coordination that keeps your restoration projects on schedule and on budget.
             </p>
-            <Link to="/consultation" className="inline-flex items-center gap-2 px-8 py-4 bg-[#E86C24] text-white rounded-lg font-bold hover:bg-[#d65d1a] transition-all shadow-xl">
+            <Link to="/consultation" className="inline-flex items-center gap-2 px-8 py-4 bg-[#D4611C] text-white rounded-lg font-bold hover:bg-[#d65d1a] transition-all shadow-xl">
               Get Started
               <ArrowRight className="w-5 h-5" />
             </Link>
@@ -116,8 +116,8 @@ const ProductionWorkflow: React.FC = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((service, index) => (
               <div key={index} className="bg-white rounded-xl p-8 shadow-sm hover:shadow-lg transition-shadow">
-                <div className="w-16 h-16 bg-[#E86C24]/10 rounded-xl flex items-center justify-center mb-6">
-                  <service.icon className="w-8 h-8 text-[#E86C24]" />
+                <div className="w-16 h-16 bg-[#D4611C]/10 rounded-xl flex items-center justify-center mb-6">
+                  <service.icon className="w-8 h-8 text-[#D4611C]" />
                 </div>
                 <h3 className="text-xl font-bold text-[#1e3046] mb-3">{service.title}</h3>
                 <p className="text-[#64748B]">{service.description}</p>
@@ -138,7 +138,7 @@ const ProductionWorkflow: React.FC = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {benefits.map((benefit, index) => (
               <div key={index} className="text-center">
-                <div className="text-6xl font-black text-[#E86C24] mb-4">{benefit.stat}</div>
+                <div className="text-6xl font-black text-[#D4611C] mb-4">{benefit.stat}</div>
                 <h3 className="text-xl font-bold text-[#1e3046] mb-2">{benefit.title}</h3>
                 <p className="text-[#64748B]">{benefit.description}</p>
               </div>
@@ -148,7 +148,7 @@ const ProductionWorkflow: React.FC = () => {
       </section>
 
       {/* CTA */}
-      <section className="py-24 bg-gradient-to-br from-[#E86C24] to-[#d65d1a]">
+      <section className="py-24 bg-gradient-to-br from-[#D4611C] to-[#d65d1a]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-5xl font-black text-white mb-6">
             Ready to Improve Your Production Workflow?
@@ -156,7 +156,7 @@ const ProductionWorkflow: React.FC = () => {
           <p className="text-xl text-white/90 mb-8">
             Schedule a consultation to discuss your production challenges
           </p>
-          <Link to="/consultation" className="inline-block px-12 py-5 bg-white text-[#E86C24] rounded-lg font-black text-xl hover:bg-gray-100 transition-all shadow-2xl">
+          <Link to="/consultation" className="inline-block px-12 py-5 bg-white text-[#D4611C] rounded-lg font-black text-xl hover:bg-gray-100 transition-all shadow-2xl">
             Get Started
           </Link>
         </div>

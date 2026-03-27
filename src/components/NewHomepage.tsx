@@ -40,7 +40,7 @@ const NewHomepage: React.FC = () => {
       icon: Settings,
       description: "Comprehensive operational assessment and systems implementation",
       features: ["Workflow optimization", "Systems implementation", "Scalability planning", "Process documentation"],
-      color: "#E86C24",
+      color: "#D4611C",
       link: "/operations-consulting"
     },
     {
@@ -64,7 +64,7 @@ const NewHomepage: React.FC = () => {
       icon: Calculator,
       description: "Accurate estimates and supplement support systems",
       features: ["Xactimate expertise", "Supplement strategy", "Carrier negotiation", "Process improvement"],
-      color: "#E86C24",
+      color: "#D4611C",
       link: "/estimating-workflow"
     },
     {
@@ -143,7 +143,7 @@ const NewHomepage: React.FC = () => {
     <div className="min-h-screen bg-white">
       {/* Floating Contact Buttons */}
       <div className="fixed right-6 bottom-6 z-50 flex flex-col gap-3">
-        <a href="tel:+18326080535" aria-label="Call us at (832) 608-0535" className="w-14 h-14 bg-[#E86C24] text-white rounded-full shadow-lg hover:scale-110 transition-transform flex items-center justify-center group">
+        <a href="tel:+18326080535" aria-label="Call us at (832) 608-0535" className="w-14 h-14 bg-[#D4611C] text-white rounded-full shadow-lg hover:scale-110 transition-transform flex items-center justify-center group">
           <Phone className="w-6 h-6" />
           <span className="absolute right-16 bg-[#1e3046] text-white px-4 py-2 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap text-sm font-semibold">
             (832) 608-0535
@@ -171,13 +171,13 @@ const NewHomepage: React.FC = () => {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left - Content */}
             <div className="animate-fade-in-up">
-              <div className="inline-block px-4 py-2 bg-[#E86C24]/20 rounded-full mb-6">
-                <span className="text-[#E86C24] font-bold text-sm">Trusted by {counters.companies}+ Restoration Companies</span>
+              <div className="inline-block px-4 py-2 bg-[#D4611C]/20 rounded-full mb-6">
+                <span className="text-[#D4611C] font-bold text-sm">Trusted by {counters.companies}+ Restoration Companies</span>
               </div>
 
               <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-white mb-6 leading-tight">
                 Operations Support for<br />
-                <span className="text-[#E86C24]">Restoration Companies</span>
+                <span className="text-[#D4611C]">Restoration Companies</span>
               </h1>
 
               <p className="text-xl text-gray-300 mb-8 leading-relaxed">
@@ -187,19 +187,19 @@ const NewHomepage: React.FC = () => {
               {/* Animated Stats */}
               <div className="grid grid-cols-3 gap-6 mb-8">
                 <div>
-                  <div className="text-4xl font-black text-[#E86C24] mb-1">
+                  <div className="text-4xl font-black text-[#D4611C] mb-1">
                     {counters.companies}+
                   </div>
                   <div className="text-sm text-gray-400">Companies Served</div>
                 </div>
                 <div>
-                  <div className="text-4xl font-black text-[#E86C24] mb-1">
+                  <div className="text-4xl font-black text-[#D4611C] mb-1">
                     {counters.efficiency}%
                   </div>
                   <div className="text-sm text-gray-400">Avg Efficiency Gain</div>
                 </div>
                 <div>
-                  <div className="text-4xl font-black text-[#E86C24] mb-1">
+                  <div className="text-4xl font-black text-[#D4611C] mb-1">
                     ${counters.revenue}K
                   </div>
                   <div className="text-sm text-gray-400">Avg Revenue Increase</div>
@@ -207,7 +207,7 @@ const NewHomepage: React.FC = () => {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4">
-                <Link to="/consultation" className="group px-8 py-4 bg-[#E86C24] text-white rounded-lg font-bold hover:bg-[#d65d1a] transition-all shadow-xl hover:shadow-2xl flex items-center justify-center gap-2">
+                <Link to="/consultation" className="group px-8 py-4 bg-[#D4611C] text-white rounded-lg font-bold hover:bg-[#d65d1a] transition-all shadow-xl hover:shadow-2xl flex items-center justify-center gap-2">
                   Schedule Operations Consultation
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </Link>
@@ -240,7 +240,7 @@ const NewHomepage: React.FC = () => {
                   </div>
                   <div className="flex gap-1">
                     {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => (
-                      <Star key={i} className="w-5 h-5 fill-[#E86C24] text-[#E86C24]" />
+                      <Star key={i} className="w-5 h-5 fill-[#D4611C] text-[#D4611C]" />
                     ))}
                   </div>
                 </div>
@@ -258,7 +258,7 @@ const NewHomepage: React.FC = () => {
                         onClick={() => setCurrentTestimonial(index)}
                         aria-label={`Go to testimonial ${index + 1}`}
                         className={`w-2 h-2 rounded-full transition-all ${
-                          index === currentTestimonial ? 'w-8 bg-[#E86C24]' : 'bg-gray-300'
+                          index === currentTestimonial ? 'w-8 bg-[#D4611C]' : 'bg-gray-300'
                         }`}
                       />
                     ))}
@@ -268,14 +268,14 @@ const NewHomepage: React.FC = () => {
                     <button
                       onClick={prevTestimonial}
                       aria-label="Previous testimonial"
-                      className="w-10 h-10 bg-[#F8FAFC] rounded-lg flex items-center justify-center hover:bg-[#E86C24] hover:text-white transition-colors"
+                      className="w-10 h-10 bg-[#F8FAFC] rounded-lg flex items-center justify-center hover:bg-[#D4611C] hover:text-white transition-colors"
                     >
                       <ChevronLeft className="w-5 h-5" />
                     </button>
                     <button
                       onClick={nextTestimonial}
                       aria-label="Next testimonial"
-                      className="w-10 h-10 bg-[#F8FAFC] rounded-lg flex items-center justify-center hover:bg-[#E86C24] hover:text-white transition-colors"
+                      className="w-10 h-10 bg-[#F8FAFC] rounded-lg flex items-center justify-center hover:bg-[#D4611C] hover:text-white transition-colors"
                     >
                       <ChevronRight className="w-5 h-5" />
                     </button>
@@ -284,7 +284,7 @@ const NewHomepage: React.FC = () => {
               </div>
 
               {/* Decorative elements */}
-              <div className="absolute -top-6 -right-6 w-32 h-32 bg-[#E86C24]/20 rounded-full blur-3xl"></div>
+              <div className="absolute -top-6 -right-6 w-32 h-32 bg-[#D4611C]/20 rounded-full blur-3xl"></div>
               <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-[#6B7F35]/20 rounded-full blur-3xl"></div>
             </div>
           </div>
@@ -319,7 +319,7 @@ const NewHomepage: React.FC = () => {
           </div>
 
           <div className="text-center mt-12">
-            <Link to="/operations-consulting" className="inline-flex items-center gap-2 px-8 py-4 bg-[#E86C24] text-white rounded-lg font-bold hover:bg-[#d65d1a] transition-all shadow-lg">
+            <Link to="/operations-consulting" className="inline-flex items-center gap-2 px-8 py-4 bg-[#D4611C] text-white rounded-lg font-bold hover:bg-[#d65d1a] transition-all shadow-lg">
               See How We Solve These Problems
               <ArrowRight className="w-5 h-5" />
             </Link>
@@ -352,7 +352,7 @@ const NewHomepage: React.FC = () => {
                 }`}
               >
                 <service.icon className={`w-10 h-10 mb-3 ${
-                  selectedService === index ? 'text-[#E86C24]' : 'text-[#64748B]'
+                  selectedService === index ? 'text-[#D4611C]' : 'text-[#64748B]'
                 }`} />
                 <h3 className="text-lg font-bold mb-2">{service.title}</h3>
                 <p className={`text-sm ${
@@ -368,7 +368,7 @@ const NewHomepage: React.FC = () => {
           <div className="bg-gradient-to-br from-white to-gray-50 rounded-2xl p-12 shadow-lg border border-gray-200">
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div>
-                <div className="inline-block p-4 bg-white rounded-xl shadow-md mb-6 border-2 border-[#E86C24]">
+                <div className="inline-block p-4 bg-white rounded-xl shadow-md mb-6 border-2 border-[#D4611C]">
                   {React.createElement(services[selectedService].icon, {
                     className: "w-16 h-16",
                     style: { color: services[selectedService].color }
@@ -380,7 +380,7 @@ const NewHomepage: React.FC = () => {
                 <p className="text-lg text-[#64748B] mb-6">
                   {services[selectedService].description}
                 </p>
-                <Link to={services[selectedService].link} className="inline-flex items-center gap-2 px-8 py-4 bg-[#E86C24] text-white rounded-lg font-bold hover:bg-[#d65d1a] transition-all shadow-lg">
+                <Link to={services[selectedService].link} className="inline-flex items-center gap-2 px-8 py-4 bg-[#D4611C] text-white rounded-lg font-bold hover:bg-[#d65d1a] transition-all shadow-lg">
                   Learn More About This Service
                   <ArrowRight className="w-5 h-5" />
                 </Link>
@@ -405,12 +405,12 @@ const NewHomepage: React.FC = () => {
       </section>
 
       {/* Flagship Consulting Program CTA */}
-      <section className="py-24 bg-gradient-to-br from-[#E86C24] to-[#d65d1a]">
+      <section className="py-24 bg-gradient-to-br from-[#D4611C] to-[#d65d1a]">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-12 border border-white/30">
             <div className="flex items-center gap-4 mb-6">
               <div className="w-16 h-16 bg-white rounded-xl flex items-center justify-center">
-                <ClipboardCheck className="w-10 h-10 text-[#E86C24]" />
+                <ClipboardCheck className="w-10 h-10 text-[#D4611C]" />
               </div>
               <div>
                 <div className="text-white/80 font-semibold text-sm uppercase tracking-wide">Flagship Program</div>
@@ -442,7 +442,7 @@ const NewHomepage: React.FC = () => {
                 <div className="text-5xl font-black text-white mb-2">$5K - $25K</div>
                 <div className="text-white/80">Investment Range Based on Scope</div>
               </div>
-              <Link to="/operations-consulting" className="px-10 py-5 bg-white text-[#E86C24] rounded-lg font-black text-xl hover:bg-gray-100 transition-all shadow-2xl hover:scale-105">
+              <Link to="/operations-consulting" className="px-10 py-5 bg-white text-[#D4611C] rounded-lg font-black text-xl hover:bg-gray-100 transition-all shadow-2xl hover:scale-105">
                 Learn More
               </Link>
             </div>
@@ -454,7 +454,7 @@ const NewHomepage: React.FC = () => {
       <section className="py-20 bg-[#1e3046] relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0" style={{
-            backgroundImage: 'linear-gradient(45deg, #E86C24 25%, transparent 25%, transparent 75%, #E86C24 75%, #E86C24), linear-gradient(45deg, #E86C24 25%, transparent 25%, transparent 75%, #E86C24 75%, #E86C24)',
+            backgroundImage: 'linear-gradient(45deg, #D4611C 25%, transparent 25%, transparent 75%, #D4611C 75%, #D4611C), linear-gradient(45deg, #D4611C 25%, transparent 25%, transparent 75%, #D4611C 75%, #D4611C)',
             backgroundSize: '60px 60px',
             backgroundPosition: '0 0, 30px 30px'
           }}></div>
@@ -467,19 +467,19 @@ const NewHomepage: React.FC = () => {
           </div>
           <div className="grid md:grid-cols-4 gap-8 text-center">
             <div>
-              <div className="text-6xl font-black text-[#E86C24] mb-2">200+</div>
+              <div className="text-6xl font-black text-[#D4611C] mb-2">200+</div>
               <div className="text-white font-semibold">Restoration Companies</div>
             </div>
             <div>
-              <div className="text-6xl font-black text-[#E86C24] mb-2">40%</div>
+              <div className="text-6xl font-black text-[#D4611C] mb-2">40%</div>
               <div className="text-white font-semibold">Avg Efficiency Gain</div>
             </div>
             <div>
-              <div className="text-6xl font-black text-[#E86C24] mb-2">$50M+</div>
+              <div className="text-6xl font-black text-[#D4611C] mb-2">$50M+</div>
               <div className="text-white font-semibold">Projects Managed</div>
             </div>
             <div>
-              <div className="text-6xl font-black text-[#E86C24] mb-2">24/7</div>
+              <div className="text-6xl font-black text-[#D4611C] mb-2">24/7</div>
               <div className="text-white font-semibold">Support Available</div>
             </div>
           </div>
@@ -496,7 +496,7 @@ const NewHomepage: React.FC = () => {
             If your restoration company is looking to improve operational workflow and project coordination, CBRS Group can help.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/consultation" className="px-12 py-5 bg-[#E86C24] text-white rounded-lg font-black text-xl hover:bg-[#d65d1a] transition-all shadow-2xl hover:scale-105">
+            <Link to="/consultation" className="px-12 py-5 bg-[#D4611C] text-white rounded-lg font-black text-xl hover:bg-[#d65d1a] transition-all shadow-2xl hover:scale-105">
               Schedule a Consultation
             </Link>
             <Link to="/operations-consulting" className="px-12 py-5 bg-transparent text-[#1e3046] rounded-lg font-black text-xl border-2 border-[#1e3046] hover:bg-[#1e3046] hover:text-white transition-all">

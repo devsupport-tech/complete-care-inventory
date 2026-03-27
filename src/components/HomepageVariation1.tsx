@@ -22,7 +22,7 @@ const HomepageVariation1: React.FC = () => {
           <div className="animate-fade-in-up">
             <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold text-white mb-6 leading-tight">
               Restoration Support,<br />
-              <span className="text-[#E86C24]">Simplified</span>
+              <span className="text-[#D4611C]">Simplified</span>
             </h1>
             <p className="text-xl sm:text-2xl text-gray-200 mb-12 max-w-3xl mx-auto font-light">
               Focus on restoration while we handle your packouts, estimates, and production management.
@@ -30,7 +30,7 @@ const HomepageVariation1: React.FC = () => {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Link to="/schedule" className="group px-8 py-4 bg-[#E86C24] text-white rounded-lg font-semibold text-lg hover:bg-[#d65d1a] transition-all shadow-lg hover:shadow-xl hover:scale-105 flex items-center gap-2">
+              <Link to="/schedule" className="group px-8 py-4 bg-[#D4611C] text-white rounded-lg font-semibold text-lg hover:bg-[#d65d1a] transition-all shadow-lg hover:shadow-xl hover:scale-105 flex items-center gap-2">
                 Get Started
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
@@ -42,15 +42,15 @@ const HomepageVariation1: React.FC = () => {
             {/* Trust Indicators */}
             <div className="mt-16 grid grid-cols-3 gap-8 max-w-3xl mx-auto">
               <div className="text-center">
-                <div className="text-4xl font-bold text-[#E86C24] mb-2">500+</div>
+                <div className="text-4xl font-bold text-[#D4611C] mb-2">500+</div>
                 <div className="text-sm text-gray-300">Projects Completed</div>
               </div>
               <div className="text-center">
-                <div className="text-4xl font-bold text-[#E86C24] mb-2">24/7</div>
+                <div className="text-4xl font-bold text-[#D4611C] mb-2">24/7</div>
                 <div className="text-sm text-gray-300">Support Available</div>
               </div>
               <div className="text-center">
-                <div className="text-4xl font-bold text-[#E86C24] mb-2">98%</div>
+                <div className="text-4xl font-bold text-[#D4611C] mb-2">98%</div>
                 <div className="text-sm text-gray-300">Client Satisfaction</div>
               </div>
             </div>
@@ -80,8 +80,8 @@ const HomepageVariation1: React.FC = () => {
           <div className="grid md:grid-cols-3 gap-8">
             {/* Service Card 1 */}
             <div className="group bg-white rounded-2xl p-8 shadow-sm hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
-              <div className="w-16 h-16 bg-[#E86C24]/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-[#E86C24] transition-colors">
-                <Package className="w-8 h-8 text-[#E86C24] group-hover:text-white transition-colors" />
+              <div className="w-16 h-16 bg-[#D4611C]/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-[#D4611C] transition-colors">
+                <Package className="w-8 h-8 text-[#D4611C] group-hover:text-white transition-colors" />
               </div>
               <h3 className="text-2xl font-bold text-[#1e3046] mb-4">
                 Packout Management & Storage
@@ -103,7 +103,7 @@ const HomepageVariation1: React.FC = () => {
                   <span>Pack-in coordination</span>
                 </li>
               </ul>
-              <Link to="/schedule?service=packout-management" className="text-[#E86C24] font-semibold flex items-center gap-2 group-hover:gap-3 transition-all">
+              <Link to="/schedule?service=packout-management" className="text-[#D4611C] font-semibold flex items-center gap-2 group-hover:gap-3 transition-all">
                 Learn More
                 <ArrowRight className="w-4 h-4" />
               </Link>
@@ -111,8 +111,8 @@ const HomepageVariation1: React.FC = () => {
 
             {/* Service Card 2 */}
             <div className="group bg-white rounded-2xl p-8 shadow-sm hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
-              <div className="w-16 h-16 bg-[#E86C24]/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-[#E86C24] transition-colors">
-                <Calculator className="w-8 h-8 text-[#E86C24] group-hover:text-white transition-colors" />
+              <div className="w-16 h-16 bg-[#D4611C]/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-[#D4611C] transition-colors">
+                <Calculator className="w-8 h-8 text-[#D4611C] group-hover:text-white transition-colors" />
               </div>
               <h3 className="text-2xl font-bold text-[#1e3046] mb-4">
                 Estimating & Supplementing
@@ -134,7 +134,7 @@ const HomepageVariation1: React.FC = () => {
                   <span>Desktop reviews</span>
                 </li>
               </ul>
-              <Link to="/schedule?service=estimating-supplementing" className="text-[#E86C24] font-semibold flex items-center gap-2 group-hover:gap-3 transition-all">
+              <Link to="/schedule?service=estimating-supplementing" className="text-[#D4611C] font-semibold flex items-center gap-2 group-hover:gap-3 transition-all">
                 Learn More
                 <ArrowRight className="w-4 h-4" />
               </Link>
@@ -142,8 +142,8 @@ const HomepageVariation1: React.FC = () => {
 
             {/* Service Card 3 */}
             <div className="group bg-white rounded-2xl p-8 shadow-sm hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
-              <div className="w-16 h-16 bg-[#E86C24]/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-[#E86C24] transition-colors">
-                <ClipboardCheck className="w-8 h-8 text-[#E86C24] group-hover:text-white transition-colors" />
+              <div className="w-16 h-16 bg-[#D4611C]/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-[#D4611C] transition-colors">
+                <ClipboardCheck className="w-8 h-8 text-[#D4611C] group-hover:text-white transition-colors" />
               </div>
               <h3 className="text-2xl font-bold text-[#1e3046] mb-4">
                 Production Management
@@ -165,7 +165,7 @@ const HomepageVariation1: React.FC = () => {
                   <span>Client communication</span>
                 </li>
               </ul>
-              <Link to="/schedule?service=production-management" className="text-[#E86C24] font-semibold flex items-center gap-2 group-hover:gap-3 transition-all">
+              <Link to="/schedule?service=production-management" className="text-[#D4611C] font-semibold flex items-center gap-2 group-hover:gap-3 transition-all">
                 Learn More
                 <ArrowRight className="w-4 h-4" />
               </Link>
@@ -195,15 +195,15 @@ const HomepageVariation1: React.FC = () => {
             ].map((item, index) => (
               <div key={index} className="relative">
                 <div className="text-center">
-                  <div className="w-20 h-20 bg-gradient-to-br from-[#E86C24] to-[#d65d1a] rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                  <div className="w-20 h-20 bg-gradient-to-br from-[#D4611C] to-[#d65d1a] rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
                     <item.icon className="w-10 h-10 text-white" />
                   </div>
-                  <div className="text-5xl font-bold text-[#E86C24]/20 mb-2">{item.step}</div>
+                  <div className="text-5xl font-bold text-[#D4611C]/20 mb-2">{item.step}</div>
                   <h3 className="text-xl font-bold text-[#1e3046] mb-2">{item.title}</h3>
                   <p className="text-[#64748B] text-sm">{item.desc}</p>
                 </div>
                 {index < 3 && (
-                  <div className="hidden md:block absolute top-10 left-[60%] w-[80%] h-0.5 bg-gradient-to-r from-[#E86C24] to-transparent"></div>
+                  <div className="hidden md:block absolute top-10 left-[60%] w-[80%] h-0.5 bg-gradient-to-r from-[#D4611C] to-transparent"></div>
                 )}
               </div>
             ))}
@@ -220,7 +220,7 @@ const HomepageVariation1: React.FC = () => {
           <p className="text-xl text-gray-300 mb-8">
             Let's discuss how CBRS Group can support your restoration business
           </p>
-          <Link to="/schedule" className="inline-block px-10 py-5 bg-[#E86C24] text-white rounded-lg font-semibold text-lg hover:bg-[#d65d1a] transition-all shadow-xl hover:shadow-2xl hover:scale-105">
+          <Link to="/schedule" className="inline-block px-10 py-5 bg-[#D4611C] text-white rounded-lg font-semibold text-lg hover:bg-[#d65d1a] transition-all shadow-xl hover:shadow-2xl hover:scale-105">
             Schedule a Consultation
           </Link>
         </div>
