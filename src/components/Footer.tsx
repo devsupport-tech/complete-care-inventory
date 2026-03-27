@@ -39,28 +39,28 @@ const Footer = () => {
             </p>
             <div className="flex space-x-4">
               <a 
-                href="https://www.facebook.com/people/Complete-Building-and-Restoration-Solutions/61564870028363/"
+                href="https://www.facebook.com/profile.php?id=61564870028363"
                 className="bg-white/10 hover:bg-white/20 rounded-full p-2 transition-all"
                 aria-label="Facebook"
               >
                 <Facebook className="w-5 h-5" />
               </a>
               <a 
-                href="https://www.tiktok.com/@cbrs.group?_t=ZT-8xTmDQaKVf3&_r=1"
+                href="https://www.tiktok.com/@cbrs.group"
                 className="bg-white/10 hover:bg-white/20 rounded-full p-2 transition-all"
                 aria-label="TikTok"
               >
                 <TikTokIcon />
               </a>
               <a 
-                href="https://www.instagram.com/cbrsgroup/"
+                href="https://www.instagram.com/cbrsgroup"
                 className="bg-white/10 hover:bg-white/20 rounded-full p-2 transition-all"
                 aria-label="Instagram"
               >
                 <Instagram className="w-5 h-5" />
               </a>
               <a 
-                href="https://www.youtube.com/@cbrsgroup" // replace with your real YouTube link
+                href="https://youtube.com/@cbrsgroup"
                 className="bg-white/10 hover:bg-white/20 rounded-full p-2 transition-all"
                 aria-label="YouTube"
               >
